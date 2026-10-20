@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trial-specific Procedure Risks and Mitigations · m11-rdf</title>
+<link rel="alternate" type="text/turtle" href="../m11-rdf.ttl">
+<style>
+:root { --bg: #ffffff; --fg: #1d1d1f; --muted: #5f6368; --line: #dadce0; --link: #1a5fb4; --code: #f3f4f6; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --bg: #16181c; --fg: #e8eaed; --muted: #9aa0a6; --line: #3c4043; --link: #8ab4f8; --code: #23262b; }
+}
+:root[data-theme="dark"] { --bg: #16181c; --fg: #e8eaed; --muted: #9aa0a6; --line: #3c4043; --link: #8ab4f8; --code: #23262b; }
+body { background: var(--bg); color: var(--fg); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; margin: 0; }
+main { max-width: 60rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+a { color: var(--link); }
+nav { font-size: 0.9rem; color: var(--muted); margin-bottom: 1rem; }
+h1 { font-size: 1.6rem; margin: 0.2rem 0 0.4rem; }
+h2 { font-size: 1.15rem; margin-top: 2rem; border-bottom: 1px solid var(--line); padding-bottom: 0.2rem; }
+.iri, code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.88rem; background: var(--code); padding: 0.05rem 0.3rem; border-radius: 3px; overflow-wrap: anywhere; }
+.muted { color: var(--muted); font-size: 0.9rem; }
+dl { display: grid; grid-template-columns: minmax(9rem, max-content) 1fr; gap: 0.3rem 1rem; }
+dt { color: var(--muted); }
+dd { margin: 0; overflow-wrap: anywhere; }
+.table-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 0.9rem; }
+th, td { border-bottom: 1px solid var(--line); padding: 0.35rem 0.5rem; text-align: left; vertical-align: top; }
+th { color: var(--muted); font-weight: 600; }
+ul.tree { list-style: none; padding-left: 1.2rem; }
+ul.tree > li { margin: 0.15rem 0; }
+@media (max-width: 600px) { dl { grid-template-columns: 1fr; gap: 0.1rem; } dt { margin-top: 0.6rem; } }
+.draft { border-left: 3px solid var(--muted); padding: 0.3rem 0.8rem; color: var(--muted); font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<main>
+<nav><a href="../">m11-rdf</a> · <a href="../sections/">sections</a> · <a href="../code-lists/">code lists</a> · <a href="../vocabulary/">vocabulary</a> · <a href="https://github.com/kerfors/m11-rdf">source</a></nav>
+<h1>Trial-specific Procedure Risks and Mitigations</h1>
+<p><span class="iri">https://w3id.org/m11-rdf/C217343.C218722</span></p>
+
+<dl>
+<dt>Definition</dt><dd>A description of the potential risks associated with the trial procedures and mitigation strategies to be employed within the trial.</dd>
+
+<dt>Namespace</dt><dd><a href="../C217343/">ICH M11 Section 2 Terminology</a></dd>
+<dt>ICH pair</dt><dd><code>2.16.840.1.113883.3.989.2.3.3.2</code> + <code>C218722</code> <span class="muted">(stated in the Technical Specification)</span></dd>
+<dt>NCIt concept</dt><dd><span class="iri">http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C218722</span> (EVS identifier)<br><a href="http://purl.obolibrary.org/obo/NCIT_C218722">NCIT_C218722</a> (OBO PURL)</dd>
+<dt>EVS term</dt><dd><span class="iri">http://rdf.ich.org/ich-terminology#C217343.C218722</span> <span class="muted">(EVS term IRI; does not resolve)</span></dd>
+<dt>Label from</dt><dd>ICH M11 Terminology, NCI EVS, release 2025-12-19</dd>
+</dl>
+<h2>Specifications in the Technical Specification</h2>
+<p class="muted">One row per component block of Appendix 1 that names this element. Text as printed.</p>
+<div class="table-wrap"><table>
+<tr><th>Block</th><th>Term</th><th>Section</th><th>Conformance</th><th>Cardinality</th><th>Data type</th><th>Value code list</th><th>Repeating / reuse</th></tr>
+<tr><td>167</td><td>&lt;Trial-specific Procedure Risks and Mitigations&gt;</td><td><a href="../C217272.C218524/">2.2.2 Benefit Summary</a></td><td>Optional</td><td>One to one</td><td>Text <span class="muted">(D)</span></td><td></td><td>No</td></tr>
+</table></div>
+
+<p class="draft">Draft, not normative. A derived rendering of the ICH M11 Technical Specification, code lists and OID Listing (© ICH, used under the ICH Legal Mentions) and of the ICH M11 Terminology published by NCI EVS (CC BY 4.0). Not an ICH, CDISC or HL7 artifact, and not endorsed or sponsored by ICH.</p>
+</main>
+</body>
+</html>

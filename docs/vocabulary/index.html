@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vocabulary · m11-rdf</title>
+<link rel="alternate" type="text/turtle" href="../m11-rdf.ttl">
+<style>
+:root { --bg: #ffffff; --fg: #1d1d1f; --muted: #5f6368; --line: #dadce0; --link: #1a5fb4; --code: #f3f4f6; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --bg: #16181c; --fg: #e8eaed; --muted: #9aa0a6; --line: #3c4043; --link: #8ab4f8; --code: #23262b; }
+}
+:root[data-theme="dark"] { --bg: #16181c; --fg: #e8eaed; --muted: #9aa0a6; --line: #3c4043; --link: #8ab4f8; --code: #23262b; }
+body { background: var(--bg); color: var(--fg); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; margin: 0; }
+main { max-width: 60rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+a { color: var(--link); }
+nav { font-size: 0.9rem; color: var(--muted); margin-bottom: 1rem; }
+h1 { font-size: 1.6rem; margin: 0.2rem 0 0.4rem; }
+h2 { font-size: 1.15rem; margin-top: 2rem; border-bottom: 1px solid var(--line); padding-bottom: 0.2rem; }
+.iri, code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.88rem; background: var(--code); padding: 0.05rem 0.3rem; border-radius: 3px; overflow-wrap: anywhere; }
+.muted { color: var(--muted); font-size: 0.9rem; }
+dl { display: grid; grid-template-columns: minmax(9rem, max-content) 1fr; gap: 0.3rem 1rem; }
+dt { color: var(--muted); }
+dd { margin: 0; overflow-wrap: anywhere; }
+.table-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 0.9rem; }
+th, td { border-bottom: 1px solid var(--line); padding: 0.35rem 0.5rem; text-align: left; vertical-align: top; }
+th { color: var(--muted); font-weight: 600; }
+ul.tree { list-style: none; padding-left: 1.2rem; }
+ul.tree > li { margin: 0.15rem 0; }
+@media (max-width: 600px) { dl { grid-template-columns: 1fr; gap: 0.1rem; } dt { margin-top: 0.6rem; } }
+.draft { border-left: 3px solid var(--muted); padding: 0.3rem 0.8rem; color: var(--muted); font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<main>
+<nav><a href="../">m11-rdf</a> · <a href="../sections/">sections</a> · <a href="../code-lists/">code lists</a> · <a href="../vocabulary/">vocabulary</a> · <a href="https://github.com/kerfors/m11-rdf">source</a></nav>
+<h1>Vocabulary</h1>
+
+<div class="table-wrap"><table><tr><th>Term</th><th>Name</th><th>Type</th></tr><tr><td><a href="../Basis/">Basis</a></td><td><code>m11:Basis</code></td><td>Class</td></tr><tr><td><a href="../CodeList/">Code list</a></td><td><code>m11:CodeList</code></td><td>Class</td></tr><tr><td><a href="../Conditional/">Conditional</a></td><td><code>m11:Conditional</code></td><td>ConformanceCategory</td></tr><tr><td><a href="../ConformanceCategory/">Conformance category</a></td><td><code>m11:ConformanceCategory</code></td><td>Class</td></tr><tr><td><a href="../DerivedFromSection/">derived from the ToC section</a></td><td><code>m11:DerivedFromSection</code></td><td>Basis</td></tr><tr><td><a href="../EVSTerminology/">ICH M11 Terminology, NCI EVS, release 2025-12-19</a></td><td><code>m11:EVSTerminology</code></td><td>Basis</td></tr><tr><td><a href="../Element/">Element</a></td><td><code>m11:Element</code></td><td>Class</td></tr><tr><td><a href="../Namespace/">Namespace</a></td><td><code>m11:Namespace</code></td><td>Class</td></tr><tr><td><a href="../Optional/">Optional</a></td><td><code>m11:Optional</code></td><td>ConformanceCategory</td></tr><tr><td><a href="../Required/">Required</a></td><td><code>m11:Required</code></td><td>ConformanceCategory</td></tr><tr><td><a href="../Section/">Section</a></td><td><code>m11:Section</code></td><td>Class</td></tr><tr><td><a href="../Specification/">Specification</a></td><td><code>m11:Specification</code></td><td>Class</td></tr><tr><td><a href="../StatedInTS/">stated in the Technical Specification</a></td><td><code>m11:StatedInTS</code></td><td>Basis</td></tr><tr><td><a href="../TechnicalSpecification/">ICH M11 Technical Specification, Step 4, 2025-11-19</a></td><td><code>m11:TechnicalSpecification</code></td><td>Basis</td></tr><tr><td><a href="../ValueCodeList/">Value code list</a></td><td><code>m11:ValueCodeList</code></td><td>Class</td></tr><tr><td><a href="../cardinality/">cardinality</a></td><td><code>m11:cardinality</code></td><td>DatatypeProperty</td></tr><tr><td><a href="../concept/">concept</a></td><td><code>m11:concept</code></td><td>ObjectProperty</td></tr><tr><td><a href="../conformance/">conformance</a></td><td><code>m11:conformance</code></td><td>DatatypeProperty</td></tr><tr><td><a href="../dataType/">data type</a></td><td><code>m11:dataType</code></td><td>DatatypeProperty</td></tr><tr><td><a href="../dvh/">data, value or heading</a></td><td><code>m11:dvh</code></td><td>DatatypeProperty</td></tr><tr><td><a href="../forSection/">for section</a></td><td><code>m11:forSection</code></td><td>ObjectProperty</td></tr><tr><td><a href="../hasConformanceCategory/">has conformance category</a></td><td><code>m11:hasConformanceCategory</code></td><td>ObjectProperty</td></tr><tr><td><a href="../hasSpecification/">has specification</a></td><td><code>m11:hasSpecification</code></td><td>ObjectProperty</td></tr><tr><td><a href="../hasValueCodeList/">has value code list</a></td><td><code>m11:hasValueCodeList</code></td><td>ObjectProperty</td></tr><tr><td><a href="../ichConceptCode/">ICH concept code</a></td><td><code>m11:ichConceptCode</code></td><td>DatatypeProperty</td></tr><tr><td><a href="../ichNamespaceOid/">ICH namespace OID</a></td><td><code>m11:ichNamespaceOid</code></td><td>DatatypeProperty</td></tr><tr><td><a href="../ichOid/">ICH OID</a></td><td><code>m11:ichOid</code></td><td>Datatype</td></tr><tr><td><a href="../inSection/">in section</a></td><td><code>m11:inSection</code></td><td>ObjectProperty</td></tr><tr><td><a href="../labelSource/">label source</a></td><td><code>m11:labelSource</code></td><td>ObjectProperty</td></tr><tr><td><a href="../pairBasis/">pair basis</a></td><td><code>m11:pairBasis</code></td><td>ObjectProperty</td></tr><tr><td><a href="../repeatPattern/">repeat pattern</a></td><td><code>m11:repeatPattern</code></td><td>DatatypeProperty</td></tr><tr><td><a href="../repeatReuse/">repeating and reuse rules</a></td><td><code>m11:repeatReuse</code></td><td>DatatypeProperty</td></tr><tr><td><a href="../sectionNumber/">section number</a></td><td><code>m11:sectionNumber</code></td><td>DatatypeProperty</td></tr><tr><td><a href="../statedCodeListOid/">code list OID as stated</a></td><td><code>m11:statedCodeListOid</code></td><td>DatatypeProperty</td></tr><tr><td><a href="../tocReference/">ToC reference</a></td><td><code>m11:tocReference</code></td><td>DatatypeProperty</td></tr><tr><td><a href="../tsBlock/">TS block</a></td><td><code>m11:tsBlock</code></td><td>DatatypeProperty</td></tr><tr><td><a href="../tsTerm/">TS term</a></td><td><code>m11:tsTerm</code></td><td>DatatypeProperty</td></tr></table></div>
+<p class="draft">Draft, not normative. A derived rendering of the ICH M11 Technical Specification, code lists and OID Listing (© ICH, used under the ICH Legal Mentions) and of the ICH M11 Terminology published by NCI EVS (CC BY 4.0). Not an ICH, CDISC or HL7 artifact, and not endorsed or sponsored by ICH.</p>
+</main>
+</body>
+</html>

@@ -3,12 +3,57 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>m11-rdf</title>
+<title>ICH M11 protocol elements and sections as linked data · m11-rdf</title>
+<link rel="alternate" type="text/turtle" href="m11-rdf.ttl">
+<style>
+:root { --bg: #ffffff; --fg: #1d1d1f; --muted: #5f6368; --line: #dadce0; --link: #1a5fb4; --code: #f3f4f6; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --bg: #16181c; --fg: #e8eaed; --muted: #9aa0a6; --line: #3c4043; --link: #8ab4f8; --code: #23262b; }
+}
+:root[data-theme="dark"] { --bg: #16181c; --fg: #e8eaed; --muted: #9aa0a6; --line: #3c4043; --link: #8ab4f8; --code: #23262b; }
+body { background: var(--bg); color: var(--fg); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; margin: 0; }
+main { max-width: 60rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+a { color: var(--link); }
+nav { font-size: 0.9rem; color: var(--muted); margin-bottom: 1rem; }
+h1 { font-size: 1.6rem; margin: 0.2rem 0 0.4rem; }
+h2 { font-size: 1.15rem; margin-top: 2rem; border-bottom: 1px solid var(--line); padding-bottom: 0.2rem; }
+.iri, code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.88rem; background: var(--code); padding: 0.05rem 0.3rem; border-radius: 3px; overflow-wrap: anywhere; }
+.muted { color: var(--muted); font-size: 0.9rem; }
+dl { display: grid; grid-template-columns: minmax(9rem, max-content) 1fr; gap: 0.3rem 1rem; }
+dt { color: var(--muted); }
+dd { margin: 0; overflow-wrap: anywhere; }
+.table-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 0.9rem; }
+th, td { border-bottom: 1px solid var(--line); padding: 0.35rem 0.5rem; text-align: left; vertical-align: top; }
+th { color: var(--muted); font-weight: 600; }
+ul.tree { list-style: none; padding-left: 1.2rem; }
+ul.tree > li { margin: 0.15rem 0; }
+@media (max-width: 600px) { dl { grid-template-columns: 1fr; gap: 0.1rem; } dt { margin-top: 0.6rem; } }
+.draft { border-left: 3px solid var(--muted); padding: 0.3rem 0.8rem; color: var(--muted); font-size: 0.9rem; }
+</style>
 </head>
 <body>
-<h1>m11-rdf</h1>
-<p>Namespace <code>https://w3id.org/m11-rdf/</code>: ICH M11 protocol elements and sections as linked data, with mapping statements to <a href="https://w3id.org/cdisc/usdm/v4/">usdm-rdf</a>.</p>
-<p>Draft, not normative. Not an ICH, CDISC or HL7 artifact. The graph is not published yet.</p>
-<p>Source: <a href="https://github.com/kerfors/m11-rdf">github.com/kerfors/m11-rdf</a></p>
+<main>
+<nav><a href="">m11-rdf</a> · <a href="sections/">sections</a> · <a href="code-lists/">code lists</a> · <a href="vocabulary/">vocabulary</a> · <a href="https://github.com/kerfors/m11-rdf">source</a></nav>
+<h1>ICH M11 protocol elements and sections as linked data</h1>
+<p><span class="iri">https://w3id.org/m11-rdf/</span></p>
+
+<p>A derived rendering of the ICH M11 Technical Specification (Step 4, 2025-11-19), the ICH M11 code lists and OID Listing, and the ICH M11 Terminology published by NCI EVS (release 2025-12-19): one IRI per protocol element, section and code list. Draft, not normative. Not an ICH, CDISC or HL7 artifact, and not endorsed or sponsored by ICH.</p>
+<dl>
+<dt>Release</dt><dd>v0.1.0 · version IRI <span class="iri">https://w3id.org/m11-rdf/0.1.0</span></dd>
+<dt>Elements</dt><dd>270 · one IRI each, <code>&lt;namespace code list&gt;.&lt;concept code&gt;</code>, e.g. <a href="C217356.C132352/">Approval Date</a> <code>C217356.C132352</code></dd>
+<dt>Sections</dt><dd><a href="sections/">160</a> · identified by their C217272 term</dd>
+<dt>Code lists</dt><dd><a href="code-lists/">39</a> · 16 namespaces, 23 value code lists, with ICH OIDs</dd>
+<dt>Whole graph</dt><dd><a href="m11-rdf.ttl">Turtle</a> · <a href="m11-rdf.nt">N-Triples</a> · <a href="m11-rdf.rdf">RDF/XML</a> · <a href="m11-rdf.jsonld">JSON-LD</a></dd>
+<dt>Reports</dt><dd><a href="https://github.com/kerfors/m11-rdf/blob/main/reports/reconciliation.md">reconciliation of the sources</a> · <a href="https://github.com/kerfors/m11-rdf/blob/main/reports/tests.md">tests</a></dd>
+<dt>Design note</dt><dd><a href="d4-skeleton/">D4 skeleton</a>: how a study, a document section or a template field points at the element it realises</dd>
+</dl>
+<h2>Namespaces</h2>
+<div class="table-wrap"><table><tr><th>Namespace</th><th>Section</th><th>Elements</th></tr>
+<tr><td><a href="C217342/">ICH M11 Section 1 Terminology</a></td><td><a href="C217272.C218514/">1 PROTOCOL SUMMARY</a></td><td>38</td></tr><tr><td><a href="C217343/">ICH M11 Section 2 Terminology</a></td><td><a href="C217272.C218520/">2 INTRODUCTION</a></td><td>6</td></tr><tr><td><a href="C217344/">ICH M11 Section 3 Terminology</a></td><td><a href="C217272.C218526/">3 TRIAL OBJECTIVES AND ASSOCIATED ESTIMANDS</a></td><td>9</td></tr><tr><td><a href="C217345/">ICH M11 Section 4 Terminology</a></td><td><a href="C217272.C218533/">4 TRIAL DESIGN</a></td><td>18</td></tr><tr><td><a href="C217346/">ICH M11 Section 5 Terminology</a></td><td><a href="C217272.C218547/">5 TRIAL POPULATION</a></td><td>12</td></tr><tr><td><a href="C217347/">ICH M11 Section 6 Terminology</a></td><td><a href="C217272.C218560/">6 TRIAL INTERVENTION AND CONCOMITANT THERAPY</a></td><td>33</td></tr><tr><td><a href="C217348/">ICH M11 Section 7 Terminology</a></td><td><a href="C217272.C218583/">7 PARTICIPANT DISCONTINUATION OF TRIAL INTERVENTION AND DISCONTINUATION OR WITHDRAWAL FROM TRIAL</a></td><td>5</td></tr><tr><td><a href="C217349/">ICH M11 Section 8 Terminology</a></td><td><a href="C217272.C218590/">8 TRIAL ASSESSMENTS AND PROCEDURES</a></td><td>17</td></tr><tr><td><a href="C217350/">ICH M11 Section 9 Terminology</a></td><td><a href="C217272.C218608/">9 ADVERSE EVENTS, SERIOUS ADVERSE EVENTS, PRODUCT COMPLAINTS, PREGNANCY AND POSTPARTUM INFORMATION, AND SPECIAL SAFETY SITUATIONS</a></td><td>25</td></tr><tr><td><a href="C217351/">ICH M11 Section 10 Terminology</a></td><td><a href="C217272.C218625/">10 STATISTICAL CONSIDERATIONS</a></td><td>16</td></tr><tr><td><a href="C217352/">ICH M11 Section 11 Terminology</a></td><td><a href="C217272.C218649/">11 TRIAL OVERSIGHT AND OTHER GENERAL CONSIDERATIONS</a></td><td>23</td></tr><tr><td><a href="C217353/">ICH M11 Section 12 Terminology</a></td><td><a href="C217272.C218666/">12 APPENDIX: SUPPORTING DETAILS</a></td><td>14</td></tr><tr><td><a href="C217354/">ICH M11 Section 13 Terminology</a></td><td><a href="C217272.C218670/">13 APPENDIX: GLOSSARY OF TERMS AND ABBREVIATIONS</a></td><td>1</td></tr><tr><td><a href="C217355/">ICH M11 Section 14 Terminology</a></td><td><a href="C217272.C218671/">14 APPENDIX: REFERENCES</a></td><td>1</td></tr><tr><td><a href="C217357/">ICH M11 Section Amendment Details Terminology</a></td><td><a href="C217272.C222770/">Amendment Details</a></td><td>14</td></tr><tr><td><a href="C217356/">ICH M11 Section Title Page Terminology</a></td><td><a href="C217272.C222769/">Title Page</a></td><td>38</td></tr>
+</table></div>
+
+<p class="draft">Draft, not normative. A derived rendering of the ICH M11 Technical Specification, code lists and OID Listing (© ICH, used under the ICH Legal Mentions) and of the ICH M11 Terminology published by NCI EVS (CC BY 4.0). Not an ICH, CDISC or HL7 artifact, and not endorsed or sponsored by ICH.</p>
+</main>
 </body>
 </html>

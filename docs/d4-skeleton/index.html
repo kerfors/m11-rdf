@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>D4 skeleton: how content points at an M11 element · m11-rdf</title>
+<link rel="alternate" type="text/turtle" href="../m11-rdf.ttl">
+<style>
+:root { --bg: #ffffff; --fg: #1d1d1f; --muted: #5f6368; --line: #dadce0; --link: #1a5fb4; --code: #f3f4f6; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --bg: #16181c; --fg: #e8eaed; --muted: #9aa0a6; --line: #3c4043; --link: #8ab4f8; --code: #23262b; }
+}
+:root[data-theme="dark"] { --bg: #16181c; --fg: #e8eaed; --muted: #9aa0a6; --line: #3c4043; --link: #8ab4f8; --code: #23262b; }
+body { background: var(--bg); color: var(--fg); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; margin: 0; }
+main { max-width: 60rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+a { color: var(--link); }
+nav { font-size: 0.9rem; color: var(--muted); margin-bottom: 1rem; }
+h1 { font-size: 1.6rem; margin: 0.2rem 0 0.4rem; }
+h2 { font-size: 1.15rem; margin-top: 2rem; border-bottom: 1px solid var(--line); padding-bottom: 0.2rem; }
+.iri, code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.88rem; background: var(--code); padding: 0.05rem 0.3rem; border-radius: 3px; overflow-wrap: anywhere; }
+.muted { color: var(--muted); font-size: 0.9rem; }
+dl { display: grid; grid-template-columns: minmax(9rem, max-content) 1fr; gap: 0.3rem 1rem; }
+dt { color: var(--muted); }
+dd { margin: 0; overflow-wrap: anywhere; }
+.table-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 0.9rem; }
+th, td { border-bottom: 1px solid var(--line); padding: 0.35rem 0.5rem; text-align: left; vertical-align: top; }
+th { color: var(--muted); font-weight: 600; }
+ul.tree { list-style: none; padding-left: 1.2rem; }
+ul.tree > li { margin: 0.15rem 0; }
+@media (max-width: 600px) { dl { grid-template-columns: 1fr; gap: 0.1rem; } dt { margin-top: 0.6rem; } }
+.draft { border-left: 3px solid var(--muted); padding: 0.3rem 0.8rem; color: var(--muted); font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<main>
+<nav><a href="../">m11-rdf</a> · <a href="../sections/">sections</a> · <a href="../code-lists/">code lists</a> · <a href="../vocabulary/">vocabulary</a> · <a href="https://github.com/kerfors/m11-rdf">source</a></nav>
+<h1>D4 skeleton: how content points at an M11 element</h1>
+
+<p>Draft for discussion, published with v0.1.0 so others can react early. Nothing here is built yet; the D4 note itself comes after D2.</p>
+<h2>The question</h2>
+<p>m11-rdf gives every ICH M11 protocol element an IRI. Content that realises an element needs a way to say so: a USDM instance in a study definition, a section of a protocol document, a field in a sponsor template.</p>
+<h2>The one link</h2>
+<p>One property, from the content to the element:</p>
+<table>
+<thead>
+<tr>
+<th>From</th>
+<th>Link</th>
+<th>To</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a USDM instance (study publisher's IRI)</td>
+<td>realises</td>
+<td><code>m11:C217344.C25212</code> (Endpoint, namespace Section 3)</td>
+</tr>
+<tr>
+<td>a document section</td>
+<td>realises</td>
+<td><code>m11:C217272.C218527</code> (section 3.1)</td>
+</tr>
+<tr>
+<td>a template field</td>
+<td>realises</td>
+<td>an element IRI</td>
+</tr>
+</tbody>
+</table>
+<p>The property is not defined yet. Open: an m11-rdf property, or an existing one (for example <code>dcterms:conformsTo</code>); and whether one property serves both elements and sections.</p>
+<h2>Element is not instance</h2>
+<p>The element is the slot in M11; the instance is one study's content in that slot. Instance identity = element + scope + version:</p>
+<ul>
+<li><strong>Scope</strong> is the study design, cohort or sub-study the content belongs to, not the document. A repeating section (3.2.X, one per secondary objective) gives one instance per repetition within a scope.</li>
+<li><strong>Version</strong> is the study definition version the content is part of.</li>
+<li>Instance IRIs stay the study publisher's choice (usdm-rdf D7).</li>
+</ul>
+<h2>Conformance checks need a scope rule</h2>
+<p>The Technical Specification states conformance per block, for example Endpoint: Required in 3.1.X, Conditional in 3.2.X. A check such as "required once" needs to know: once per what. Proposal to discuss: once per scope (study design, cohort or sub-study), per repetition where the section repeats.</p>
+<h2>Master protocols</h2>
+<p>M11 treats a master protocol as an indicator element on one protocol (Master Protocol Indicator). USDM allows several study designs per study version. The scope rule above is meant to cover sub-studies as scopes. No public example study has a master protocol, so this is untested.</p>
+<h2>Elements outside M11</h2>
+<p>Design elements that live mainly in USDM structure (encounters, activities, timings, schedule) have few or no M11 elements. They get elements in their own namespace (a sponsor's or a project's), linked to USDM by the same kind of mapping statement as M11 elements (D2, SSSOM), not by <code>skos:broadMatch</code> to OWL properties.</p>
+<h2>The chain</h2>
+<p><code>design element (USDM instance) --realises--&gt; M11 element (m11-rdf) --D2 mapping--&gt; USDM class or attribute (usdm-rdf)
+                                                  |
+                                                  +--in section--&gt; M11 section (m11-rdf) &lt;--realises-- document section</code></p>
+<p>With this chain, two representations of the same design element (USDM, FHIR, a sponsor template, a document) are related through the element they share, instead of through pairwise spreadsheets.</p>
+<p class="draft">Draft, not normative. A derived rendering of the ICH M11 Technical Specification, code lists and OID Listing (© ICH, used under the ICH Legal Mentions) and of the ICH M11 Terminology published by NCI EVS (CC BY 4.0). Not an ICH, CDISC or HL7 artifact, and not endorsed or sponsored by ICH.</p>
+</main>
+</body>
+</html>

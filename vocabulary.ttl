@@ -1,0 +1,194 @@
+@prefix m11:     <https://w3id.org/m11-rdf/> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix vann:    <http://purl.org/vocab/vann/> .
+
+# Hand-maintained. build_d1.py merges this file with the generated graph
+# into m11-rdf.ttl and adds owl:versionInfo and owl:versionIRI.
+
+<https://w3id.org/m11-rdf/>
+    a owl:Ontology ;
+    rdfs:label "m11-rdf"@en ;
+    dcterms:title "ICH M11 protocol elements and sections as linked data"@en ;
+    dcterms:description "A derived rendering of the ICH M11 Technical Specification (Step 4, 2025-11-19), the ICH M11 code lists and OID Listing, and the ICH M11 Terminology published by NCI EVS (release 2025-12-19): one IRI per protocol element, section and code list. Draft, not normative. Not an ICH, CDISC or HL7 artifact, and not endorsed or sponsored by ICH."@en ;
+    dcterms:rights "Contains information derived from the ICH M11 Technical Specification and the ICH M11 code lists and OID Listing, copyright ICH, used under the ICH Legal Mentions (https://www.ich.org/page/legal-mentions); changes made: rendered as RDF and joined with the EVS terminology. Contains terms and definitions from the ICH M11 Terminology, NCI Enterprise Vocabulary Services, CC BY 4.0."@en ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    dcterms:creator "Kerstin Forsberg" ;
+    dcterms:source <https://database.ich.org/sites/default/files/ICH_Step4_M11_Final_TechnicalSpecification_2025_1119.pdf> ,
+        <https://admin.ich.org/sites/default/files/inline-files/3.M11_code_lists_1.zip> ,
+        <https://evs.nci.nih.gov/ftp1/ICH/M11/Archive/ICH%20M11%20Terminology%202025-12-19.txt> ;
+    rdfs:seeAlso <https://github.com/kerfors/m11-rdf> ;
+    vann:preferredNamespacePrefix "m11" ;
+    vann:preferredNamespaceUri "https://w3id.org/m11-rdf/" .
+
+# --- Classes
+
+m11:Element a owl:Class ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:label "Element"@en ;
+    rdfs:comment "An ICH M11 protocol element: a concept within a namespace, identified by the (namespace code list, concept C-code) pair the Technical Specification states. Local name <namespace code list>.<concept code>."@en .
+
+m11:Section a owl:Class ;
+    rdfs:subClassOf skos:Concept ;
+    rdfs:label "Section"@en ;
+    rdfs:comment "A section of the ICH M11 protocol, identified by its term in code list C217272 (Protocol Section Name and Number). Local name C217272.<term code>."@en .
+
+m11:CodeList a owl:Class ;
+    rdfs:subClassOf skos:ConceptScheme ;
+    rdfs:label "Code list"@en ;
+    rdfs:comment "An ICH M11 code list with an ICH OID. Local name = its C-code."@en .
+
+m11:Namespace a owl:Class ;
+    rdfs:subClassOf m11:CodeList ;
+    rdfs:label "Namespace"@en ;
+    rdfs:comment "One of the 16 M11 namespaces (OID arc 2.16.840.1.113883.3.989.2.3.3): the section code list that elements belong to."@en .
+
+m11:ValueCodeList a owl:Class ;
+    rdfs:subClassOf m11:CodeList ;
+    rdfs:label "Value code list"@en ;
+    rdfs:comment "An M11 code list of response values (OID arc 2.16.840.1.113883.3.989.2.3.1)."@en .
+
+m11:Specification a owl:Class ;
+    rdfs:label "Specification"@en ;
+    rdfs:comment "What one component block of Technical Specification Appendix 1 states about an element: place, conformance, cardinality, data type, value code list. An element specified in several blocks has several specifications; a block with alternative concepts is one specification shared by those elements."@en .
+
+m11:ConformanceCategory a owl:Class ;
+    rdfs:label "Conformance category"@en ;
+    rdfs:comment "Required, Optional or Conditional: the first word of the Technical Specification conformance statement. The statement itself is kept verbatim in m11:conformance."@en .
+
+m11:Required a m11:ConformanceCategory ; rdfs:label "Required"@en .
+m11:Optional a m11:ConformanceCategory ; rdfs:label "Optional"@en .
+m11:Conditional a m11:ConformanceCategory ; rdfs:label "Conditional"@en .
+
+m11:Basis a owl:Class ;
+    rdfs:label "Basis"@en ;
+    rdfs:comment "Where a statement in this graph comes from."@en .
+
+m11:StatedInTS a m11:Basis ;
+    rdfs:label "stated in the Technical Specification"@en .
+m11:DerivedFromSection a m11:Basis ;
+    rdfs:label "derived from the ToC section"@en ;
+    rdfs:comment "The Technical Specification gives the concept without an OID; the namespace is the one whose section contains the element's ToC section."@en .
+m11:TechnicalSpecification a m11:Basis ;
+    rdfs:label "ICH M11 Technical Specification, Step 4, 2025-11-19"@en .
+m11:EVSTerminology a m11:Basis ;
+    rdfs:label "ICH M11 Terminology, NCI EVS, release 2025-12-19"@en .
+
+m11:ichOid a rdfs:Datatype ;
+    rdfs:label "ICH OID"@en ;
+    rdfs:comment "An object identifier assigned by ICH (root 2.16.840.1.113883.3.989)."@en ;
+    owl:onDatatype xsd:string .
+
+# --- Properties
+
+m11:concept a owl:ObjectProperty ;
+    rdfs:label "concept"@en ;
+    rdfs:comment "The NCIt concept, always as the pair EVS identifier and OBO PURL (usdm-rdf decision D4). Not skos:exactMatch: one concept can be the concept of several elements."@en .
+
+m11:ichConceptCode a owl:DatatypeProperty ;
+    rdfs:label "ICH concept code"@en ;
+    rdfs:domain m11:Element .
+
+m11:ichNamespaceOid a owl:DatatypeProperty ;
+    rdfs:label "ICH namespace OID"@en ;
+    rdfs:comment "With m11:ichConceptCode, the pair by which ICH identifies the element. Taken from the OID Listing for the element's namespace."@en ;
+    rdfs:domain m11:Element ;
+    rdfs:range m11:ichOid .
+
+m11:pairBasis a owl:ObjectProperty ;
+    rdfs:label "pair basis"@en ;
+    rdfs:domain m11:Element ;
+    rdfs:range m11:Basis .
+
+m11:labelSource a owl:ObjectProperty ;
+    rdfs:label "label source"@en ;
+    rdfs:comment "EVS where EVS has the (namespace, concept) term; otherwise the Technical Specification term with its brackets removed."@en ;
+    rdfs:range m11:Basis .
+
+m11:hasSpecification a owl:ObjectProperty ;
+    rdfs:label "has specification"@en ;
+    rdfs:domain m11:Element ;
+    rdfs:range m11:Specification .
+
+m11:tsBlock a owl:DatatypeProperty ;
+    rdfs:label "TS block"@en ;
+    rdfs:comment "Number of the component block in Technical Specification Appendix 1, in document order, as counted by scripts/parse_ts.py."@en ;
+    rdfs:domain m11:Specification .
+
+m11:tsTerm a owl:DatatypeProperty ;
+    rdfs:label "TS term"@en ;
+    rdfs:comment "The Term (Variable) field, verbatim."@en ;
+    rdfs:domain m11:Specification .
+
+m11:dataType a owl:DatatypeProperty ;
+    rdfs:label "data type"@en ;
+    rdfs:comment "The Data Type field, verbatim."@en ;
+    rdfs:domain m11:Specification .
+
+m11:dvh a owl:DatatypeProperty ;
+    rdfs:label "data, value or heading"@en ;
+    rdfs:comment "The Data (D), Value (V) or Heading (H) field, verbatim."@en ;
+    rdfs:domain m11:Specification .
+
+m11:conformance a owl:DatatypeProperty ;
+    rdfs:label "conformance"@en ;
+    rdfs:comment "The Conformance field, verbatim."@en ;
+    rdfs:domain m11:Specification .
+
+m11:hasConformanceCategory a owl:ObjectProperty ;
+    rdfs:label "has conformance category"@en ;
+    rdfs:domain m11:Specification ;
+    rdfs:range m11:ConformanceCategory .
+
+m11:cardinality a owl:DatatypeProperty ;
+    rdfs:label "cardinality"@en ;
+    rdfs:comment "The Cardinality field, verbatim."@en ;
+    rdfs:domain m11:Specification .
+
+m11:tocReference a owl:DatatypeProperty ;
+    rdfs:label "ToC reference"@en ;
+    rdfs:comment "The Relationship content from ToC field, verbatim."@en ;
+    rdfs:domain m11:Specification .
+
+m11:inSection a owl:ObjectProperty ;
+    rdfs:label "in section"@en ;
+    rdfs:comment "The section the ToC reference names, joined by section number to the C217272 term whose definition states that number. For a repeating section (3.1.X) the section it repeats under."@en ;
+    rdfs:domain m11:Specification ;
+    rdfs:range m11:Section .
+
+m11:repeatPattern a owl:DatatypeProperty ;
+    rdfs:label "repeat pattern"@en ;
+    rdfs:comment "The ToC reference of a repeating section, verbatim (e.g. 3.2.X where X is a unique number for each Secondary Objective)."@en ;
+    rdfs:domain m11:Specification .
+
+m11:repeatReuse a owl:DatatypeProperty ;
+    rdfs:label "repeating and reuse rules"@en ;
+    rdfs:comment "The Repeating and/or Reuse Rules field, verbatim."@en ;
+    rdfs:domain m11:Specification .
+
+m11:hasValueCodeList a owl:ObjectProperty ;
+    rdfs:label "has value code list"@en ;
+    rdfs:comment "The code list the Value field names, by its C-code."@en ;
+    rdfs:domain m11:Specification ;
+    rdfs:range m11:CodeList .
+
+m11:statedCodeListOid a owl:DatatypeProperty ;
+    rdfs:label "code list OID as stated"@en ;
+    rdfs:comment "The OID the Value field gives for the code list, verbatim. Where it differs from the OID Listing, both are kept; the reconciliation report lists the difference."@en ;
+    rdfs:domain m11:Specification ;
+    rdfs:range m11:ichOid .
+
+m11:sectionNumber a owl:DatatypeProperty ;
+    rdfs:label "section number"@en ;
+    rdfs:comment "The section number stated in the C217272 term definition."@en ;
+    rdfs:domain m11:Section .
+
+m11:forSection a owl:ObjectProperty ;
+    rdfs:label "for section"@en ;
+    rdfs:comment "The top-level section a namespace belongs to, from the code list name (ICH M11 Section N Terminology)."@en ;
+    rdfs:domain m11:Namespace ;
+    rdfs:range m11:Section .

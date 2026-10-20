@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1.1.2 Overall Design · m11-rdf</title>
+<link rel="alternate" type="text/turtle" href="../m11-rdf.ttl">
+<style>
+:root { --bg: #ffffff; --fg: #1d1d1f; --muted: #5f6368; --line: #dadce0; --link: #1a5fb4; --code: #f3f4f6; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --bg: #16181c; --fg: #e8eaed; --muted: #9aa0a6; --line: #3c4043; --link: #8ab4f8; --code: #23262b; }
+}
+:root[data-theme="dark"] { --bg: #16181c; --fg: #e8eaed; --muted: #9aa0a6; --line: #3c4043; --link: #8ab4f8; --code: #23262b; }
+body { background: var(--bg); color: var(--fg); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; margin: 0; }
+main { max-width: 60rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+a { color: var(--link); }
+nav { font-size: 0.9rem; color: var(--muted); margin-bottom: 1rem; }
+h1 { font-size: 1.6rem; margin: 0.2rem 0 0.4rem; }
+h2 { font-size: 1.15rem; margin-top: 2rem; border-bottom: 1px solid var(--line); padding-bottom: 0.2rem; }
+.iri, code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.88rem; background: var(--code); padding: 0.05rem 0.3rem; border-radius: 3px; overflow-wrap: anywhere; }
+.muted { color: var(--muted); font-size: 0.9rem; }
+dl { display: grid; grid-template-columns: minmax(9rem, max-content) 1fr; gap: 0.3rem 1rem; }
+dt { color: var(--muted); }
+dd { margin: 0; overflow-wrap: anywhere; }
+.table-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 0.9rem; }
+th, td { border-bottom: 1px solid var(--line); padding: 0.35rem 0.5rem; text-align: left; vertical-align: top; }
+th { color: var(--muted); font-weight: 600; }
+ul.tree { list-style: none; padding-left: 1.2rem; }
+ul.tree > li { margin: 0.15rem 0; }
+@media (max-width: 600px) { dl { grid-template-columns: 1fr; gap: 0.1rem; } dt { margin-top: 0.6rem; } }
+.draft { border-left: 3px solid var(--muted); padding: 0.3rem 0.8rem; color: var(--muted); font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<main>
+<nav><a href="../">m11-rdf</a> · <a href="../sections/">sections</a> · <a href="../code-lists/">code lists</a> · <a href="../vocabulary/">vocabulary</a> · <a href="https://github.com/kerfors/m11-rdf">source</a></nav>
+<h1>1.1.2 Overall Design</h1>
+<p><span class="iri">https://w3id.org/m11-rdf/C217272.C218517</span></p>
+
+<dl>
+<dt>Definition</dt><dd>Section 1.1.2 of the ICH M11 Protocol standard, Overall Design.</dd>
+<dt>Section number</dt><dd>1.1.2</dd>
+<dt>Broader</dt><dd><a href="../C217272.C218515/">1.1 Protocol Synopsis</a></dd>
+
+<dt>NCIt concept</dt><dd><span class="iri">http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C218517</span> (EVS identifier)<br><a href="http://purl.obolibrary.org/obo/NCIT_C218517">NCIT_C218517</a> (OBO PURL)</dd>
+<dt>EVS term</dt><dd><span class="iri">http://rdf.ich.org/ich-terminology#C217272.C218517</span> <span class="muted">(EVS term IRI; does not resolve)</span></dd>
+</dl>
+
+<h2>Elements specified in this section</h2>
+<div class="table-wrap"><table><tr><th>Element</th><th>IRI</th><th>Conformance</th><th>TS block</th></tr><tr><td><a href="../C217342.C218675/">Sponsor’s Investigational Product Code(s)</a></td><td><code>C217342.C218675</code></td><td>Required Either Sponsor Investigational Product Code or Nonproprietary Name</td><td>96</td></tr><tr><td><a href="../C217342.C97054/">Nonproprietary Name(s)</a></td><td><code>C217342.C97054</code></td><td>Required Either Sponsor Investigational Product Code or Nonproprietary Name</td><td>97</td></tr><tr><td><a href="../C217342.C98746/">Intervention Model</a></td><td><code>C217342.C98746</code></td><td>Required</td><td>99</td></tr><tr><td><a href="../C217342.C218703/">Population Type</a></td><td><code>C217342.C218703</code></td><td>Required</td><td>101</td></tr><tr><td><a href="../C217342.C49647/">Control Type</a></td><td><code>C217342.C49647</code></td><td>Required</td><td>103</td></tr><tr><td><a href="../C217342.C112038/">Population Diagnosis or Condition</a></td><td><code>C217342.C112038</code></td><td>Required</td><td>105</td></tr><tr><td><a href="../C217342.C97054/">Nonproprietary Name(s)</a></td><td><code>C217342.C97054</code></td><td>Conditional: if there is a Nonproprietary Name</td><td>108</td></tr><tr><td><a href="../C217342.C142585/">INN</a></td><td><code>C217342.C142585</code></td><td>Conditional: if there is an INN</td><td>109</td></tr><tr><td><a href="../C217342.C49693/">Minimum Age</a></td><td><code>C217342.C49693</code></td><td>Required</td><td>113</td></tr><tr><td><a href="../C217342.C50400/">Units of Age</a></td><td><code>C217342.C50400</code></td><td>Required</td><td>114</td></tr><tr><td><a href="../C217342.C49694/">Maximum Age</a></td><td><code>C217342.C49694</code></td><td>Required</td><td>116</td></tr><tr><td><a href="../C217342.C50400/">Units of Age</a></td><td><code>C217342.C50400</code></td><td>Required</td><td>117</td></tr><tr><td><a href="../C217342.C218475/">Intervention Assignment Method</a></td><td><code>C217342.C218475</code></td><td>Required</td><td>119</td></tr><tr><td><a href="../C217342.C223137/">Randomisation Type</a></td><td><code>C217342.C223137</code></td><td>Conditional if Randomisation is selected as Valid Value</td><td>120</td></tr><tr><td><a href="../C217342.C223136/">Stratification Indicator</a></td><td><code>C217342.C223136</code></td><td>Required</td><td>123</td></tr><tr><td><a href="../C217342.C218704/">Site Distribution</a></td><td><code>C217342.C218704</code></td><td>Required</td><td>125</td></tr><tr><td><a href="../C217342.C218705/">Site Geographic Scope</a></td><td><code>C217342.C218705</code></td><td>Required</td><td>126</td></tr><tr><td><a href="../C217342.C218707/">Master Protocol Indicator</a></td><td><code>C217342.C218707</code></td><td>Required</td><td>128</td></tr><tr><td><a href="../C217342.C218708/">Drug/Device Combination Product Indicator</a></td><td><code>C217342.C218708</code></td><td>Required</td><td>130</td></tr><tr><td><a href="../C217342.C218706/">Adaptive Trial Design Indicator</a></td><td><code>C217342.C218706</code></td><td>Required</td><td>132</td></tr><tr><td><a href="../C217342.C98771/">Number of Arms</a></td><td><code>C217342.C98771</code></td><td>Required</td><td>134</td></tr><tr><td><a href="../C217342.C49658/">Trial Blind Schema</a></td><td><code>C217342.C49658</code></td><td>Required</td><td>136</td></tr><tr><td><a href="../C217342.C218709/">Blinded Roles</a></td><td><code>C217342.C218709</code></td><td>Required</td><td>138</td></tr><tr><td><a href="../C217342.C218710/">Target/Maximum</a></td><td><code>C217342.C218710</code></td><td>Required</td><td>140</td></tr><tr><td><a href="../C217342.C49692/">Number of Participants</a></td><td><code>C217342.C49692</code></td><td>Required</td><td>141</td></tr><tr><td><a href="../C217342.C218711/">randomly assigned to trial intervention/enrolled</a></td><td><code>C217342.C218711</code></td><td>Required</td><td>142</td></tr><tr><td><a href="../C217342.C218712/">total planned duration of trial intervention</a></td><td><code>C217342.C218712</code></td><td>Conditional: when Planned Duration of trial Intervention Number and unit of time</td><td>145</td></tr><tr><td><a href="../C217342.C218713/">total planned duration of trial intervention unit of time</a></td><td><code>C217342.C218713</code></td><td>Conditional: when Planned Duration of trial Intervention Number and unit of time</td><td>145</td></tr><tr><td><a href="../C217342.C218714/">Alternate Description of Planned Duration of Trial Intervention</a></td><td><code>C217342.C218714</code></td><td>Conditional: when an alternate description for planned duration of trial Intervention if the duration varies</td><td>146</td></tr><tr><td><a href="../C217342.C218715/">total planned duration of trial participation</a></td><td><code>C217342.C218715</code></td><td>Conditional: when planned duration of trial participation number and unit of time</td><td>148</td></tr><tr><td><a href="../C217342.C218716/">total planned duration of trial participation unit of time</a></td><td><code>C217342.C218716</code></td><td>Conditional: when planned duration of trial participation number and unit of time</td><td>148</td></tr><tr><td><a href="../C217342.C218717/">Alternate Description of Planned Duration of Trial Participation</a></td><td><code>C217342.C218717</code></td><td>Conditional: when an alternate description for planned duration of trial participation if duration will vary</td><td>149</td></tr><tr><td><a href="../C217342.C218838/">Additional Description of Duration</a></td><td><code>C217342.C218838</code></td><td>Optional</td><td>150</td></tr><tr><td><a href="../C217342.C218718/">Independent Committees</a></td><td><code>C217342.C218718</code></td><td>Required</td><td>153</td></tr><tr><td><a href="../C217342.C218719/">Other Committees</a></td><td><code>C217342.C218719</code></td><td>Optional</td><td>155</td></tr></table></div>
+
+<p class="draft">Draft, not normative. A derived rendering of the ICH M11 Technical Specification, code lists and OID Listing (© ICH, used under the ICH Legal Mentions) and of the ICH M11 Terminology published by NCI EVS (CC BY 4.0). Not an ICH, CDISC or HL7 artifact, and not endorsed or sponsored by ICH.</p>
+</main>
+</body>
+</html>

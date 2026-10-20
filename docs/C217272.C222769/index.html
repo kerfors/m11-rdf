@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Title Page · m11-rdf</title>
+<link rel="alternate" type="text/turtle" href="../m11-rdf.ttl">
+<style>
+:root { --bg: #ffffff; --fg: #1d1d1f; --muted: #5f6368; --line: #dadce0; --link: #1a5fb4; --code: #f3f4f6; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --bg: #16181c; --fg: #e8eaed; --muted: #9aa0a6; --line: #3c4043; --link: #8ab4f8; --code: #23262b; }
+}
+:root[data-theme="dark"] { --bg: #16181c; --fg: #e8eaed; --muted: #9aa0a6; --line: #3c4043; --link: #8ab4f8; --code: #23262b; }
+body { background: var(--bg); color: var(--fg); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; margin: 0; }
+main { max-width: 60rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+a { color: var(--link); }
+nav { font-size: 0.9rem; color: var(--muted); margin-bottom: 1rem; }
+h1 { font-size: 1.6rem; margin: 0.2rem 0 0.4rem; }
+h2 { font-size: 1.15rem; margin-top: 2rem; border-bottom: 1px solid var(--line); padding-bottom: 0.2rem; }
+.iri, code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.88rem; background: var(--code); padding: 0.05rem 0.3rem; border-radius: 3px; overflow-wrap: anywhere; }
+.muted { color: var(--muted); font-size: 0.9rem; }
+dl { display: grid; grid-template-columns: minmax(9rem, max-content) 1fr; gap: 0.3rem 1rem; }
+dt { color: var(--muted); }
+dd { margin: 0; overflow-wrap: anywhere; }
+.table-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 0.9rem; }
+th, td { border-bottom: 1px solid var(--line); padding: 0.35rem 0.5rem; text-align: left; vertical-align: top; }
+th { color: var(--muted); font-weight: 600; }
+ul.tree { list-style: none; padding-left: 1.2rem; }
+ul.tree > li { margin: 0.15rem 0; }
+@media (max-width: 600px) { dl { grid-template-columns: 1fr; gap: 0.1rem; } dt { margin-top: 0.6rem; } }
+.draft { border-left: 3px solid var(--muted); padding: 0.3rem 0.8rem; color: var(--muted); font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<main>
+<nav><a href="../">m11-rdf</a> · <a href="../sections/">sections</a> · <a href="../code-lists/">code lists</a> · <a href="../vocabulary/">vocabulary</a> · <a href="https://github.com/kerfors/m11-rdf">source</a></nav>
+<h1>Title Page</h1>
+<p><span class="iri">https://w3id.org/m11-rdf/C217272.C222769</span></p>
+
+<dl>
+<dt>Definition</dt><dd>Title Page Section of the ICH M11 Protocol standard, Title Page.</dd>
+<dt>Section number</dt><dd><span class="muted">none</span></dd>
+<dt>Broader</dt><dd><span class="muted">top level</span></dd>
+<dt>Namespace</dt><dd><a href="../C217356/">ICH M11 Section Title Page Terminology</a></dd>
+<dt>NCIt concept</dt><dd><span class="iri">http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C222769</span> (EVS identifier)<br><a href="http://purl.obolibrary.org/obo/NCIT_C222769">NCIT_C222769</a> (OBO PURL)</dd>
+<dt>EVS term</dt><dd><span class="iri">http://rdf.ich.org/ich-terminology#C217272.C222769</span> <span class="muted">(EVS term IRI; does not resolve)</span></dd>
+</dl>
+
+<h2>Elements specified in this section</h2>
+<div class="table-wrap"><table><tr><th>Element</th><th>IRI</th><th>Conformance</th><th>TS block</th></tr><tr><td><a href="../C217356.C181236/">Sponsor Confidentiality Statement</a></td><td><code>C217356.C181236</code></td><td>Optional</td><td>2</td></tr><tr><td><a href="../C217356.C132346/">Full Title</a></td><td><code>C217356.C132346</code></td><td>Required</td><td>4</td></tr><tr><td><a href="../C217356.C94108/">Trial Acronym</a></td><td><code>C217356.C94108</code></td><td>Optional</td><td>6</td></tr><tr><td><a href="../C217356.C132351/">Sponsor Protocol Identifier</a></td><td><code>C217356.C132351</code></td><td>Required</td><td>8</td></tr><tr><td><a href="../C217356.C218672/">Original Protocol Indicator</a></td><td><code>C217356.C218672</code></td><td>Required</td><td>10</td></tr><tr><td><a href="../C217356.C181232/">Version Number</a></td><td><code>C217356.C181232</code></td><td>Optional</td><td>12</td></tr><tr><td><a href="../C217356.C93813/">Version Date</a></td><td><code>C217356.C93813</code></td><td>Optional</td><td>14</td></tr><tr><td><a href="../C217356.C218477/">Amendment Identifier</a></td><td><code>C217356.C218477</code></td><td>Conditional: when there is an amendment</td><td>16</td></tr><tr><td><a href="../C217356.C218673/">Amendment Scope</a></td><td><code>C217356.C218673</code></td><td>Conditional: when there is an amendment</td><td>18</td></tr><tr><td><a href="../C217356.C20108/">Country Identifier</a></td><td><code>C217356.C20108</code></td><td>Conditional: when Amendment scope is not global</td><td>19</td></tr><tr><td><a href="../C217356.C218674/">Region Identifier</a></td><td><code>C217356.C218674</code></td><td>Conditional: when Amendment scope is not global</td><td>19</td></tr><tr><td><a href="../C217356.C83081/">Site Identifier</a></td><td><code>C217356.C83081</code></td><td>Conditional: when Amendment scope is not global</td><td>19</td></tr><tr><td><a href="../C217356.C218675/">Sponsor&#x27;s Investigational Product Code(s)</a></td><td><code>C217356.C218675</code></td><td>Optional: if there is Sponsor Investigational Product Code</td><td>21</td></tr><tr><td><a href="../C217356.C97054/">Nonproprietary Name(s)</a></td><td><code>C217356.C97054</code></td><td>Optional</td><td>23</td></tr><tr><td><a href="../C217356.C71898/">Proprietary Name(s)</a></td><td><code>C217356.C71898</code></td><td>Optional; Blank</td><td>24</td></tr><tr><td><a href="../C217356.C48281/">Trial Phase</a></td><td><code>C217356.C48281</code></td><td>Required</td><td>26</td></tr><tr><td><a href="../C217356.C94105/">Trial Short Title</a></td><td><code>C217356.C94105</code></td><td>Optional</td><td>28</td></tr><tr><td><a href="../C217356.C222495/">Sponsor Name</a></td><td><code>C217356.C222495</code></td><td>Required</td><td>30</td></tr><tr><td><a href="../C217356.C222495/">Sponsor Name</a></td><td><code>C217356.C222495</code></td><td>Required</td><td>31</td></tr><tr><td><a href="../C217356.C218678/">Co-Sponsor Name</a></td><td><code>C217356.C218678</code></td><td>Optional</td><td>33</td></tr><tr><td><a href="../C217356.C218679/">Co-Sponsor Legal Address</a></td><td><code>C217356.C218679</code></td><td>Optional</td><td>34</td></tr><tr><td><a href="../C217356.C218680/">Local Sponsor Name</a></td><td><code>C217356.C218680</code></td><td>Optional</td><td>36</td></tr><tr><td><a href="../C217356.C218681/">Local Sponsor Legal Address</a></td><td><code>C217356.C218681</code></td><td>Optional</td><td>37</td></tr><tr><td><a href="../C217356.C218682/">Device Manufacturer Name</a></td><td><code>C217356.C218682</code></td><td>Optional</td><td>39</td></tr><tr><td><a href="../C217356.C218683/">Device Manufacturer Legal Address</a></td><td><code>C217356.C218683</code></td><td>Optional</td><td>40</td></tr><tr><td><a href="../C217356.C218684/">EU CT Number</a></td><td><code>C217356.C218684</code></td><td>Optional</td><td>42</td></tr><tr><td><a href="../C217356.C218685/">FDA IND Number</a></td><td><code>C217356.C218685</code></td><td>Optional</td><td>43</td></tr><tr><td><a href="../C217356.C218686/">IDE Number</a></td><td><code>C217356.C218686</code></td><td>Optional</td><td>44</td></tr><tr><td><a href="../C217356.C218687/">jRCT Number</a></td><td><code>C217356.C218687</code></td><td>Optional</td><td>45</td></tr><tr><td><a href="../C217356.C172240/">NCT Number</a></td><td><code>C217356.C172240</code></td><td>Optional</td><td>46</td></tr><tr><td><a href="../C217356.C218688/">NMPA IND Number</a></td><td><code>C217356.C218688</code></td><td>Optional</td><td>47</td></tr><tr><td><a href="../C217356.C218689/">WHO/UTN Number</a></td><td><code>C217356.C218689</code></td><td>Optional</td><td>48</td></tr><tr><td><a href="../C217356.C218690/">Other Regulatory or Clinical Trial Identifier</a></td><td><code>C217356.C218690</code></td><td>Optional</td><td>49</td></tr><tr><td><a href="../C217356.C132352/">Approval Date</a></td><td><code>C217356.C132352</code></td><td>Required</td><td>51</td></tr><tr><td><a href="../C217356.C218484/">State location where sponsor approval information can be found</a></td><td><code>C217356.C218484</code></td><td>Required</td><td>51</td></tr><tr><td><a href="../C217356.C222014/">sponsor signatory (e.g., name, title, signature and date)</a></td><td><code>C217356.C222014</code></td><td>Optional</td><td>53</td></tr><tr><td><a href="../C217356.C222064/">state location where sponsor signatory information can be found (e.g., electronic signature)</a></td><td><code>C217356.C222064</code></td><td>Optional</td><td>53</td></tr><tr><td><a href="../C217356.C218693/">Medical Expert contact information (as designated by sponsor)</a></td><td><code>C217356.C218693</code></td><td>Optional</td><td>55</td></tr><tr><td><a href="../C217356.C222063/">state location where Medical Expert contact information can be found</a></td><td><code>C217356.C222063</code></td><td>Optional</td><td>55</td></tr></table></div>
+
+<p class="draft">Draft, not normative. A derived rendering of the ICH M11 Technical Specification, code lists and OID Listing (© ICH, used under the ICH Legal Mentions) and of the ICH M11 Terminology published by NCI EVS (CC BY 4.0). Not an ICH, CDISC or HL7 artifact, and not endorsed or sponsored by ICH.</p>
+</main>
+</body>
+</html>

@@ -1,0 +1,7 @@
+<https://w3id.org/m11-rdf/> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .
+<https://w3id.org/m11-rdf/> <http://purl.org/dc/terms/creator> "Kerstin Forsberg" .
+<https://w3id.org/m11-rdf/> <http://purl.org/dc/terms/license> <https://creativecommons.org/licenses/by/4.0/> .
+<https://w3id.org/m11-rdf/> <http://purl.org/dc/terms/description> "Draft, not normative. Not an ICH, CDISC or HL7 artifact. Elements and sections are not published yet; see https://github.com/kerfors/m11-rdf."@en .
+<https://w3id.org/m11-rdf/> <http://purl.org/dc/terms/title> "ICH M11 protocol elements and sections as linked data"@en .
+<https://w3id.org/m11-rdf/> <http://www.w3.org/2000/01/rdf-schema#label> "m11-rdf"@en .
+<https://w3id.org/m11-rdf/> <http://www.w3.org/2000/01/rdf-schema#seeAlso> <https://github.com/kerfors/m11-rdf> .

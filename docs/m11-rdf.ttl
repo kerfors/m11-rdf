@@ -1,0 +1,11 @@
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+<https://w3id.org/m11-rdf/> a owl:Ontology ;
+    rdfs:label "m11-rdf"@en ;
+    dcterms:title "ICH M11 protocol elements and sections as linked data"@en ;
+    dcterms:description "Draft, not normative. Not an ICH, CDISC or HL7 artifact. Elements and sections are not published yet; see https://github.com/kerfors/m11-rdf."@en ;
+    dcterms:creator "Kerstin Forsberg" ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    rdfs:seeAlso <https://github.com/kerfors/m11-rdf> .

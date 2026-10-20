@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+   xmlns:dcterms="http://purl.org/dc/terms/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+>
+  <rdf:Description rdf:about="https://w3id.org/m11-rdf/">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+    <rdfs:label xml:lang="en">m11-rdf</rdfs:label>
+    <dcterms:title xml:lang="en">ICH M11 protocol elements and sections as linked data</dcterms:title>
+    <dcterms:description xml:lang="en">Draft, not normative. Not an ICH, CDISC or HL7 artifact. Elements and sections are not published yet; see https://github.com/kerfors/m11-rdf.</dcterms:description>
+    <dcterms:creator>Kerstin Forsberg</dcterms:creator>
+    <dcterms:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/>
+    <rdfs:seeAlso rdf:resource="https://github.com/kerfors/m11-rdf"/>
+  </rdf:Description>
+</rdf:RDF>

@@ -3,7 +3,8 @@
 ## Scope
 
 A rendering of published ICH M11 sources as linked data (D1: elements and
-sections) plus mapping statements from M11 elements to usdm-rdf IRIs (D2).
+sections) plus mapping statements from M11 elements to usdm-rdf IRIs (D2)
+and the ICH M11 Template's headings and fields linked to the elements (D5).
 Readings, findings and judgements go to usdm-overlay, not here. usdm-rdf is
 not changed. Describe usdm-rdf as an RDF/OWL representation of USDM, not as
 an "ontology". Resist scope creep: flag "let's also do X" before
@@ -15,6 +16,7 @@ implementing.
 - Element local name = namespace codelist + "." + concept C-code, the pair
   as stated in the ICH M11 Technical Specification.
 - Sections by their C217272 term. Nothing else is minted for headings.
+- Template fields are blank nodes on their section; no IRIs.
 - Lifecycle is not inferred from a diff: label, definition, conformance or
   cardinality changes keep the IRI; a membership change is a new element.
 

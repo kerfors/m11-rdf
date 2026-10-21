@@ -15,7 +15,7 @@ m11:m11-usdm.sssom.tsv a sssom:MappingSet ;
     dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
     dcterms:title "ICH M11 elements to USDM v4 (usdm-rdf), as stated in two published mappings" ;
     rdfs:seeAlso <https://github.com/kerfors/m11-rdf> ;
-    owl:versionInfo "0.2.0" ;
+    owl:versionInfo "0.3.0" ;
     sssom:creator_label "Kerstin Forsberg" ;
     sssom:extension_definitions [ a sssom:ExtensionDefinition ;
             sssom:property m11:sourceRow ;
@@ -549,7 +549,7 @@ m11:m11-usdm.sssom.tsv a sssom:MappingSet ;
     sssom:object_source_version usdm:0.7.0 ;
     sssom:sssom_version sssom:version1.1 ;
     sssom:subject_source m11: ;
-    sssom:subject_source_version m11:0.2.0 .
+    sssom:subject_source_version m11:0.3.0 .
 
 <https://w3id.org/m11-rdf/mapping/cdisc/104> a owl:Axiom ;
     owl:annotatedProperty m11:mappedTo ;

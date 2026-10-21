@@ -44,7 +44,7 @@ SSSOM = Namespace("https://w3id.org/sssom/")
 SEMAPV = Namespace("https://w3id.org/semapv/vocab/")
 MAP = Namespace(str(M11) + "mapping/")
 
-VERSION = "0.2.0"
+VERSION = "0.3.0"
 SET_FILE = "m11-usdm.sssom.tsv"
 SET_ID = str(M11) + SET_FILE
 SCHEMA = "sssom/sssom_schema.yaml"

@@ -14,11 +14,12 @@
     a owl:Ontology ;
     rdfs:label "m11-rdf"@en ;
     dcterms:title "ICH M11 protocol elements and sections as linked data"@en ;
-    dcterms:description "A derived rendering of the ICH M11 Technical Specification (Step 4, 2025-11-19), the ICH M11 code lists and OID Listing, and the ICH M11 Terminology published by NCI EVS (release 2025-12-19): one IRI per protocol element, section and code list; and mapping statements from the elements to USDM v4 attributes (usdm-rdf), as stated in the HL7 FHIR Clinical Study Protocol IG ballot mapping (May 2026) and the CDISC DDF-RA v4.0.0 M11 mapping. Draft, not normative. Not an ICH, CDISC or HL7 artifact, and not endorsed or sponsored by ICH."@en ;
-    dcterms:rights "Contains information derived from the ICH M11 Technical Specification and the ICH M11 code lists and OID Listing, copyright ICH, used under the ICH Legal Mentions (https://www.ich.org/page/legal-mentions); changes made: rendered as RDF and joined with the EVS terminology. Contains terms and definitions from the ICH M11 Terminology, NCI Enterprise Vocabulary Services, CC BY 4.0. Mapping statements contain content based on DDF-RA (https://github.com/cdisc-org/DDF-RA), used under CC BY 4.0, as published in CDISC DDF-RA v4.0.0 and in the HL7 FHIR Clinical Study Protocol IG ballot (May 2026, CC0); changes made: the M11 side identified against m11-rdf, the USDM side resolved against usdm-rdf."@en ;
+    dcterms:description "A derived rendering of the ICH M11 Technical Specification (Step 4, 2025-11-19), the ICH M11 code lists and OID Listing, and the ICH M11 Terminology published by NCI EVS (release 2025-12-19): one IRI per protocol element, section and code list; the headings and fields of the ICH M11 Template (Step 4, 2025-11-19), each linked to its section and to the element it realises; and mapping statements from the elements to USDM v4 attributes (usdm-rdf), as stated in the HL7 FHIR Clinical Study Protocol IG ballot mapping (May 2026) and the CDISC DDF-RA v4.0.0 M11 mapping. Draft, not normative. Not an ICH, CDISC or HL7 artifact, and not endorsed or sponsored by ICH."@en ;
+    dcterms:rights "Contains information derived from the ICH M11 Technical Specification, the ICH M11 Template and the ICH M11 code lists and OID Listing, copyright ICH, used under the ICH Legal Mentions (https://www.ich.org/page/legal-mentions); changes made: rendered as RDF and joined with the EVS terminology; of the Template, headings and fields rendered as RDF and linked to the elements, instructional and universal text not carried. Contains terms and definitions from the ICH M11 Terminology, NCI Enterprise Vocabulary Services, CC BY 4.0. Mapping statements contain content based on DDF-RA (https://github.com/cdisc-org/DDF-RA), used under CC BY 4.0, as published in CDISC DDF-RA v4.0.0 and in the HL7 FHIR Clinical Study Protocol IG ballot (May 2026, CC0); changes made: the M11 side identified against m11-rdf, the USDM side resolved against usdm-rdf."@en ;
     dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
     dcterms:creator "Kerstin Forsberg" ;
     dcterms:source <https://database.ich.org/sites/default/files/ICH_Step4_M11_Final_TechnicalSpecification_2025_1119.pdf> ,
+        <https://database.ich.org/sites/default/files/ICH_Step4_M11_Final_Template_2025_1119.pdf> ,
         <https://admin.ich.org/sites/default/files/inline-files/3.M11_code_lists_1.zip> ,
         <https://evs.nci.nih.gov/ftp1/ICH/M11/Archive/ICH%20M11%20Terminology%202025-12-19.txt> ,
         <https://hl7.org/fhir/uv/clinical-study-protocol/2026May/en/Mappings/M11%20to%20FHIR%20Mapping%2002.xlsx> ,
@@ -235,3 +236,91 @@ m11:targetPath a owl:AnnotationProperty ;
 m11:conditionPath a owl:AnnotationProperty ;
     rdfs:label "condition path"@en ;
     rdfs:comment "The row's Condition Path cell, line breaks replaced by a space."@en .
+
+# --- ICH M11 Template (D5)
+# Headings are recorded on the C217272 section; fields are blank nodes on
+# their section (no IRI: section and element do not identify a field, and an
+# order number would change with the next Template version).
+
+m11:TemplateField a owl:Class ;
+    rdfs:label "Template field"@en ;
+    rdfs:comment "A text insertion point (<...>) or controlled-terminology pick ([...]) in one section of the ICH M11 Template (Step 4, 2025-11-19), outside instructional text. A blank node on its section, not identified by an IRI."@en .
+
+m11:TemplateFieldKind a owl:Class ;
+    rdfs:label "Template field kind"@en ;
+    rdfs:comment "The Template convention a field follows (Template section 0.3)."@en .
+
+m11:TextInsertion a m11:TemplateFieldKind ;
+    rdfs:label "text insertion point"@en ;
+    rdfs:comment "<Chevrons>: where to insert text (Template section 0.3)."@en .
+m11:ControlledTerminology a m11:TemplateFieldKind ;
+    rdfs:label "controlled terminology"@en ;
+    rdfs:comment "[Square brackets]: a value picked from controlled terminology (Template section 0.3)."@en .
+
+m11:hasTemplateField a owl:ObjectProperty ;
+    rdfs:label "has Template field"@en ;
+    rdfs:comment "A field of the ICH M11 Template in this section. Fields under a repeating heading (12.X) are on the section they repeat under."@en ;
+    rdfs:domain m11:Section ;
+    rdfs:range m11:TemplateField .
+
+m11:fieldLabel a owl:DatatypeProperty ;
+    rdfs:label "field label"@en ;
+    rdfs:comment "The text inside the field's brackets as printed, line breaks and runs of white space as one space."@en ;
+    rdfs:domain m11:TemplateField .
+
+m11:fieldKind a owl:ObjectProperty ;
+    rdfs:label "field kind"@en ;
+    rdfs:domain m11:TemplateField ;
+    rdfs:range m11:TemplateFieldKind .
+
+m11:templateSectionNumber a owl:DatatypeProperty ;
+    rdfs:label "Template section number"@en ;
+    rdfs:comment "The number of the Template heading the field is under, as printed (12.X), or Title Page, Amendment Details."@en ;
+    rdfs:domain m11:TemplateField .
+
+m11:templatePage a owl:DatatypeProperty ;
+    rdfs:label "Template page"@en ;
+    rdfs:comment "The page of the Template PDF (1-based) where the field or heading is printed."@en .
+
+m11:templateOrder a owl:DatatypeProperty ;
+    rdfs:label "Template order"@en ;
+    rdfs:comment "Position of the field in the pinned Template, in reading order. A sort key, not an identifier."@en ;
+    rdfs:domain m11:TemplateField .
+
+m11:templateOptional a owl:DatatypeProperty ;
+    rdfs:label "Template optional"@en ;
+    rdfs:comment "True when the Template prints the field (all its non-instructional characters) or the heading in blue, its convention for optional text (section 0.3)."@en ;
+    rdfs:range xsd:boolean .
+
+m11:templateConditional a owl:DatatypeProperty ;
+    rdfs:label "Template conditional"@en ;
+    rdfs:comment "True when the Template prints the field inside {braces}, or the heading title in braces, its convention for conditional text (section 0.3)."@en ;
+    rdfs:range xsd:boolean .
+
+m11:templateHeading a owl:DatatypeProperty ;
+    rdfs:label "Template heading"@en ;
+    rdfs:comment "The title of the section's heading in the ICH M11 Template, as printed, without its number."@en ;
+    rdfs:domain m11:Section .
+
+m11:headingElement a owl:ObjectProperty ;
+    rdfs:label "heading element"@en ;
+    rdfs:comment "The Template heading of this section is the Technical Specification term of this element (names normalised as in D2): the element is the text under the heading."@en ;
+    rdfs:domain m11:Section ;
+    rdfs:range m11:Element .
+
+m11:realises a owl:ObjectProperty ;
+    rdfs:label "realises"@en ;
+    rdfs:comment "Content that realises an ICH M11 element. In this release only from a Template field to the element it is the field for (D5). Whether a USDM instance or a document section uses the same property is open (D4 skeleton)."@en ;
+    rdfs:range m11:Element .
+
+m11:nameSource a owl:DatatypeProperty ;
+    rdfs:label "name source"@en ;
+    rdfs:comment "Which name of the element the field label was compared with: ts-term (the Technical Specification term), evs-label (the EVS preferred term), or ts-heading-context (the label matches several elements; the Technical Specification heading block before the element's block equals the first cell of the field's table row)."@en .
+
+m11:nameMatch a owl:DatatypeProperty ;
+    rdfs:label "name match"@en ;
+    rdfs:comment "exact (names equal after normalisation) or verb-dropped (equal after removing one leading verb: Enter, Select, Insert, Specify, Provide, Add, Describe, State, List)."@en .
+
+m11:placeScope a owl:DatatypeProperty ;
+    rdfs:label "place scope"@en ;
+    rdfs:comment "Where the element was looked for: section (an element block whose ToC reference is the field's or heading's section, X and # read as any number) or namespace (an element whose namespace is for the field's or heading's top-level section). On a section, the scope of its heading element."@en .

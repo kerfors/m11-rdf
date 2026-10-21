@@ -1,0 +1,42 @@
+what,category,section_number,page,text,detail
+field without an element,part of an element's TS term,Title Page,12,Enter Sponsor Approval Date,block 51: C217356.C132352;C217356.C218484
+name only in another section (not linked),name only in another section,Title Page,12,Enter Sponsor Approval Date,C217353.C132352
+field without an element,part of a TS block term without an element,Amendment Details,13,#/%,block 60
+field without an element,part of an element's TS term,Amendment Details,13,#/%,block 61: C217357.C218478
+field without an element,TS block without an element,1.1.2,23,Enter “Not applicable”,block 110
+field linked via namespace,Template place differs from the TS ToC reference,1.1.2,23,Other Intervention Assignment Method,C217342.C223138 (TS ToC Amendment Details)
+field without an element,part of a TS block term without an element,3.2.1,29,Enter Table of Estimand Characteristics,block 194
+field without an element,part of a TS block term without an element,3.3.1,29,Enter Table of Estimand Characteristics,block 212
+field linked via namespace,Template place differs from the TS ToC reference,5.4.2,35,Enter Contraception Requirements.,C217346.C218741 (TS ToC 5.4)
+field without an element,spelling (hyphen or space),9.2,51,Backup Method for Reporting,block 430: C217350.C218790
+field without an element,part of an element's TS term,9.2.4,53,Enter Not Applicable,block 449: C217350.C217358
+field without an element,TS block without an element,12.2,64,Not applicable,block 546
+field without an element,part of an element's TS term,12.3,65,#/%,block 557: C217353.C218478
+field linked via namespace,Template place differs from the TS ToC reference,12.3,65,Enter Amendment Scope Enrollment Description,C217353.C218695 (TS ToC Amendment Details)
+heading linked via namespace,Template place differs from the TS ToC reference,5.4.2,34,Contraception Requirements,C217346.C218741 (TS ToC 5.4)
+heading not rendered,repeating heading without a C217272 term,12.X,66,{Additional Appendices},
+kind differs from TS D/V/H,Template bracket differs from TS term,Title Page,9,Amendment Identifier,C217356.C218477 (D/V/H D; TS term {Amendment Identifier})
+kind differs from TS D/V/H,combined TS block (one D/V/H for several fields),Title Page,10,Enter Site Identifier,C217356.C83081 (D/V/H V; TS term {[Country Identifier] or [Region Identifier] or <Site Identifier>})
+kind differs from TS D/V/H,combined TS block (one D/V/H for several fields),Title Page,12,State location where sponsor approval information can be found,C217356.C218484 (D/V/H V; TS term {<Sponsor Approval Date> or <State location where sponsor approval information can be found>})
+kind differs from TS D/V/H,TS term bracket differs from TS D/V/H,Amendment Details,13,enter Amendment Scope Enrollment Definition,C217357.C218695 (D/V/H V; TS term <Amendment Scope Enrollment Definition>)
+kind differs from TS D/V/H,TS term bracket differs from TS D/V/H,Amendment Details,15,Enter Section # and Name,C217357.C218479 (D/V/H V; TS term <Section # and Name>)
+kind differs from TS D/V/H,TS gives several D/V/H,1.1.2,22,Enter Nonproprietary Name(s),"C217342.C97054 (D/V/H D, V; TS term [NonProprietary Name(s)] | [Nonproprietary Name])"
+kind differs from TS D/V/H,TS gives several D/V/H,1.1.2,22,Population Diagnosis or Condition,C217342.C112038 (D/V/H V or D; TS term [Population Diagnosis or Condition])
+kind differs from TS D/V/H,TS gives several D/V/H,1.1.2,23,Nonproprietary Name,"C217342.C97054 (D/V/H D, V; TS term [NonProprietary Name(s)] | [Nonproprietary Name])"
+kind differs from TS D/V/H,TS term bracket differs from TS D/V/H,1.1.2,24,Number of Arms,C217342.C98771 (D/V/H D; TS term [Number of Arms])
+kind differs from TS D/V/H,combined TS block (one D/V/H for several fields),1.1.2,24,Enter total planned duration of trial intervention,"C217342.C218712 (D/V/H D, V; TS term {<total planned duration of trial intervention> [total planned duration of trial unit of time]})"
+kind differs from TS D/V/H,combined TS block (one D/V/H for several fields),1.1.2,24,total planned duration of trial intervention unit of time,"C217342.C218713 (D/V/H D, V; TS term {<total planned duration of trial intervention> [total planned duration of trial unit of time]})"
+kind differs from TS D/V/H,combined TS block (one D/V/H for several fields),1.1.2,24,Enter total planned duration of trial participation,"C217342.C218715 (D/V/H D, V; TS term {<total planned duration of trial participation> [Total planned duration of trial participation unit of time]})"
+kind differs from TS D/V/H,combined TS block (one D/V/H for several fields),1.1.2,24,total planned duration of trial participation unit of time,"C217342.C218716 (D/V/H D, V; TS term {<total planned duration of trial participation> [Total planned duration of trial participation unit of time]})"
+kind differs from TS D/V/H,TS term bracket differs from TS D/V/H,1.1.2,25,Enter Independent Committees,C217342.C218718 (D/V/H V; TS term <Independent Committees>)
+kind differs from TS D/V/H,TS gives several D/V/H,3.1.1,28,Enter Description of Intercurrent Event,"C217344.C188856 (D/V/H D, H; TS term {<Description of Intercurrent Event>} | {Description of Intercurrent Event} | {Description of Intercurrent Event})"
+kind differs from TS D/V/H,TS term bracket differs from TS D/V/H,9.2,51,Event Type,C217350.C218784 (D/V/H V; TS term <Event Type>)
+kind differs from TS D/V/H,TS term bracket differs from TS D/V/H,12.2,64,Country/Region Identifier,C217353.C218832 (D/V/H H; TS term [Country/Region Identifier])
+kind differs from TS D/V/H,TS term bracket differs from TS D/V/H,12.3,65,Enter Amendment Scope Enrollment Description,C217353.C218695 (D/V/H V; TS term <Amendment Scope Enrollment Description>)
+kind differs from TS D/V/H,TS term bracket differs from TS D/V/H,12.3,66,Enter Section # and Name,C217353.C218479 (D/V/H V; TS term <Section # and Name>)
+D1 element not reached,only in residue: spelling (hyphen or space),,,<Back-up Method for Reporting>,C217350.C218790
+D1 element not reached,no Template field,,,<Other Event Type>,C217350.C222263
+D1 element not reached,only in residue: part of an element's TS term,,,Approximately <#/%> enrolled,C217353.C218478
+D1 element not reached,only in residue: part of an element's TS term,,,{<Sponsor Approval Date> or <State location where sponsor approval information can be found>},C217356.C132352
+D1 element not reached,no Template field,,,<Other description> | <Other description>,C217357.C17649
+D1 element not reached,only in residue: part of an element's TS term,,,Approximately <#/%> enrolled,C217357.C218478

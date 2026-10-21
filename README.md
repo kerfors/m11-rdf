@@ -6,7 +6,8 @@ representation of CDISC USDM v4.
 
 **Draft, not normative.** Not an ICH, CDISC or HL7 artifact, and not
 endorsed or sponsored by them. Early work: D1 (elements, sections, code
-lists) and D2 (mapping statements to USDM v4) are built.
+lists), D2 (mapping statements to USDM v4) and D5 (the ICH M11 Template,
+linked to the elements) are built.
 
 Site: <https://w3id.org/m11-rdf/> (redirects to
 <https://kerfors.github.io/m11-rdf/>), one page per IRI.
@@ -48,6 +49,7 @@ the same element can be compared by a query.
 | D1 | Elements, sections and code lists. Element: label and ICH definition (EVS), namespace, the ICH pair (namespace OID + concept code), NCIt concept, and one specification per Technical Specification block (section, conformance, cardinality, data type, value code list, as printed). Section: C217272 term, number, hierarchy. Code list: ICH OID. A reconciliation table of the sources as build output. | Built (v0.1.0) |
 | D2 | Mapping statements M11 element → usdm-rdf attribute, from the HL7 Clinical Study Protocol IG ballot and CDISC DDF-RA v4.0.0, neither primary, as an SSSOM mapping set | Built (v0.2.0) |
 | D4 | How content (a USDM instance, a document section, a template field) points at the element it realises: [skeleton](notes/d4-skeleton.md) for discussion | Skeleton |
+| D5 | The ICH M11 Template: each heading on its section, each field (insertion point or controlled-terminology pick) on its section, linked to the element it realises, with the Template's optional and conditional flags | Built (v0.3.0) |
 
 Conformance and cardinality belong to a Technical Specification block, not
 to the element: the same element can be specified in several blocks (for
@@ -97,6 +99,41 @@ M11 lands in USDM, go to
 [usdm-overlay](https://github.com/kerfors/usdm-overlay), not into this
 repository. usdm-rdf is not changed.
 
+## ICH M11 Template (D5)
+
+The Template is the document an author fills in; the Technical
+Specification describes its elements. D5 records, from the published
+Template PDF (Step 4, 19 November 2025):
+
+- each numbered heading on the C217272 section with that number
+  (`m11:templateHeading`, page, optional, conditional), and Amendment
+  Details on its section. Where the heading is the Technical Specification
+  term of an element, `m11:headingElement` names it (narrative elements:
+  the text under the heading). The repeating heading 12.X has no section
+  term and is not rendered; its fields are on section 12.
+- each field, a text insertion point `<...>` or a controlled-terminology
+  pick `[...]`, as a blank node on its section (`m11:TemplateField`): label
+  as printed, kind, page, order, the section number as printed, and the
+  Template's flags: optional (printed in blue) and conditional (in
+  `{braces}`), its conventions in section 0.3. Fields have no IRIs: section
+  and element do not identify a field, and an order number would change
+  with the next Template version.
+- `m11:realises` from a field to the element it is the field for, with how
+  it was found: name source (`ts-term`, `evs-label`, `ts-heading-context`),
+  match (`exact`, `verb-dropped`: one leading verb such as Enter or Select
+  removed) and scope (`section`: the element's ToC reference;
+  `namespace`: the element's namespace is for the field's top-level
+  section). A name that only occurs in another section is not linked.
+
+The PDF is tagged: headings come from its H1–H4 tags, text units from its
+block tags, and the Template's conventions from the text colour (red =
+instructional, not carried; blue = optional; black = universal, not
+carried). The extraction (`build/template.json`) is pinned by SHA-256.
+Fields without an element, links found via the namespace, field kinds that
+differ from the Technical Specification's D/V/H, and elements without a
+field are listed by category in `reports/d5-residue.csv`, input for
+usdm-overlay. Counts are in `reports/d5-template.md`.
+
 ## Sources and attribution
 
 Inputs are pinned by URL and SHA-256 in `downloads/MANIFEST.md`.
@@ -108,10 +145,13 @@ Inputs are pinned by URL and SHA-256 in `downloads/MANIFEST.md`.
 - **ICH M11 Technical Specification** (Step 4, 19 November 2025) and the
   **ICH M11 code lists and OID Listing** (Step 4 M11 Package 1.0, November
   2025; OID Listing dated 16 October 2025): element place, conformance,
-  cardinality, data type and OIDs. Copyright © ICH, used under the
+  cardinality, data type and OIDs. **ICH M11 Template** (Step 4,
+  19 November 2025): headings and fields (D5); instructional and universal
+  text is not carried. Copyright © ICH, used under the
   [ICH Legal Mentions](https://www.ich.org/page/legal-mentions). This
   repository adapts that content: it renders it as RDF, joins it with the
-  EVS terminology and records where the sources disagree. The adaptation is
+  EVS terminology, links the Template's headings and fields to the
+  elements and records where the sources disagree. The adaptation is
   not endorsed or sponsored by ICH.
 - **CDISC DDF-RA** v4.0.0, `Documents/Mappings/m11_mapping.xlsx` (D2).
   Content based on
@@ -132,16 +172,18 @@ Inputs are pinned by URL and SHA-256 in `downloads/MANIFEST.md`.
 
 | Path | What |
 | --- | --- |
-| `m11-rdf.ttl` | The graph (canonical Turtle). Generated by `scripts/build_d1.py`. |
+| `m11-rdf.ttl` | The graph (canonical Turtle). Generated by `scripts/build_d1.py`, extended by `build_d2.py` and `build_d5.py`. |
 | `vocabulary.ttl` | Classes and properties. Hand-maintained; merged into `m11-rdf.ttl`. |
 | `m11-usdm.sssom.tsv`, `.ttl` | D2 mapping set, SSSOM/TSV and SSSOM/RDF. Generated by `scripts/build_d2.py`, which also adds the records to `m11-rdf.ttl`. |
 | `reports/d2-identification.md`, `.csv` | D2: how each mapping row was identified and resolved, counts, and the two mappings compared. Generated. |
 | `reports/d2-residue.csv` | D2: rows without a record and flagged records, by category. Input for usdm-overlay. Generated. |
 | `reports/reconciliation.md`, `.csv` | How the Technical Specification blocks, EVS terms, sections, code lists and OIDs line up, and where they disagree. Every count in the docs comes from here or from the tests. Generated. |
-| `reports/tests.md`, `reports/tests-d2.md` | Tests passed in the last build. Generated by `scripts/test_d1.py` and `scripts/test_d2.py`. |
+| `reports/d5-template.md`, `reports/d5-fields.csv` | D5: counts (headings, fields, links by basis, field kind against D/V/H, Template optionality against TS conformance) and every field with its element. Generated. |
+| `reports/d5-residue.csv` | D5: fields without an element, links via the namespace, kind differences and elements without a field, by category. Input for usdm-overlay. Generated. |
+| `reports/tests.md`, `reports/tests-d2.md`, `reports/tests-d5.md` | Tests passed in the last build. Generated by `scripts/test_d1.py`, `scripts/test_d2.py` and `scripts/test_d5.py`. |
 | `notes/d4-skeleton.md` | D4 skeleton, for discussion. |
 | `downloads/MANIFEST.md` | Pinned inputs: file, source, terms, URL, SHA-256. Written by `scripts/fetch_inputs.py`. |
-| `scripts/` | `fetch_inputs.py`, `parse_ts.py` (Technical Specification Appendix 1), `build_d1.py`, `build_d2.py`, `test_d1.py`, `test_d2.py`, `build_site.py`, `common.py`. |
+| `scripts/` | `fetch_inputs.py`, `parse_ts.py` (Technical Specification Appendix 1), `parse_template.py` (Template headings and fields), `build_d1.py`, `build_d2.py`, `build_d5.py`, `test_d1.py`, `test_d2.py`, `test_d5.py`, `build_site.py`, `common.py`. |
 | `docs/` | GitHub Pages site for the namespace: one page per IRI, the graph in four serializations. Generated; do not edit by hand. |
 | `w3id/` | Copy of the w3id.org entry (`ids/m11-rdf/`): `.htaccess` and `README.md`. |
 
@@ -152,18 +194,25 @@ python3 scripts/fetch_inputs.py
 python3 scripts/parse_ts.py
 python3 scripts/build_d1.py
 python3 scripts/build_d2.py
+python3 scripts/parse_template.py
+python3 scripts/build_d5.py
 python3 scripts/test_d1.py
 python3 scripts/test_d2.py
+python3 scripts/test_d5.py
 python3 scripts/build_site.py
 ```
 
 `build_d2.py` adds the mapping records to `m11-rdf.ttl` and stops if they
-are already there: run `build_d1.py` first.
+are already there: run `build_d1.py` first. `build_d5.py` likewise adds the
+Template data and stops if it is already there: run `build_d1.py` and
+`build_d2.py` first.
 
-Requires Python 3, `rdflib`, `markdown`, `openpyxl` and `pyyaml`, and
-`pdftotext` (poppler). The
-text extracted from the Technical Specification is pinned by SHA-256; the
-build stops if a different poppler version produces different text.
+Requires Python 3, `rdflib`, `markdown`, `openpyxl`, `pyyaml` and
+`pymupdf`, and `pdftotext` (poppler). The text extracted from the
+Technical Specification and the extraction of the Template are pinned by
+SHA-256; the build stops if a different poppler, PyMuPDF or MuPDF version
+produces different output (the Template extraction was pinned with
+PyMuPDF 2.0, MuPDF 1.28.5).
 
 ## Licence
 

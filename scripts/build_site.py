@@ -3,8 +3,10 @@
 One page per minted IRI at its own path (<local name>/index.html): elements,
 sections, code lists and vocabulary terms; each mapping record
 (mapping/<source>/<row>) as a forward to its row on the element page. The
-whole graph as Turtle, N-Triples, RDF/XML and JSON-LD; the mapping set as
-SSSOM/TSV and SSSOM/RDF. docs/ is generated; do not edit by hand.
+ICH M11 Template (D5) on the section and element pages and as one page in
+Template order (template/). The whole graph as Turtle, N-Triples, RDF/XML
+and JSON-LD; the mapping set as SSSOM/TSV and SSSOM/RDF. docs/ is
+generated; do not edit by hand.
 Fails if two page paths differ only by case.
 """
 import html
@@ -27,7 +29,9 @@ MAPPING_FILES = ["m11-usdm.sssom.tsv", "m11-usdm.sssom.ttl"]
 
 DOCS = ROOT / "docs"
 REPO = "https://github.com/kerfors/m11-rdf"
-READING_PAGES = {"d4-skeleton"}
+READING_PAGES = {"d4-skeleton", "template"}
+TEMPLATE_URL = "https://database.ich.org/sites/default/files/ICH_Step4_M11_Final_Template_2025_1119.pdf"
+KIND_SIGN = {"TextInsertion": "&lt;…&gt;", "ControlledTerminology": "[…]"}
 CSS = """
 :root { --bg: #ffffff; --fg: #1d1d1f; --muted: #5f6368; --line: #dadce0; --link: #1a5fb4; --code: #f3f4f6; }
 @media (prefers-color-scheme: dark) {
@@ -85,11 +89,11 @@ def page(title, body, depth=1, iri=None):
 </head>
 <body>
 <main>
-<nav><a href="{up}">m11-rdf</a> · <a href="{up}sections/">sections</a> · <a href="{up}code-lists/">code lists</a> · <a href="{up}vocabulary/">vocabulary</a> · <a href="{REPO}">source</a></nav>
+<nav><a href="{up}">m11-rdf</a> · <a href="{up}sections/">sections</a> · <a href="{up}code-lists/">code lists</a> · <a href="{up}template/">template</a> · <a href="{up}vocabulary/">vocabulary</a> · <a href="{REPO}">source</a></nav>
 <h1>{esc(title)}</h1>
 {head_iri}
 {body}
-<p class="draft">Draft, not normative. A derived rendering of the ICH M11 Technical Specification, code lists and OID Listing (© ICH, used under the ICH Legal Mentions) and of the ICH M11 Terminology published by NCI EVS (CC BY 4.0). Not an ICH, CDISC or HL7 artifact, and not endorsed or sponsored by ICH.</p>
+<p class="draft">Draft, not normative. A derived rendering of the ICH M11 Technical Specification, Template, code lists and OID Listing (© ICH, used under the ICH Legal Mentions) and of the ICH M11 Terminology published by NCI EVS (CC BY 4.0). Not an ICH, CDISC or HL7 artifact, and not endorsed or sponsored by ICH.</p>
 </main>
 </body>
 </html>
@@ -112,10 +116,11 @@ def evs_twin(g, s):
 
 
 def stable_bnodes(g):
-    """Copy of g with each specification's blank node labelled by its TS block (parsing assigns random labels)."""
+    """Copy of g with blank nodes labelled spec<TS block> and field<Template order> (parsing assigns random labels)."""
     label = {s: BNode(f"spec{g.value(s, M11.tsBlock)}") for s in g.subjects(RDF.type, M11.Specification)}
+    label.update({f: BNode(f"field{g.value(f, M11.templateOrder)}") for f in g.subjects(RDF.type, M11.TemplateField)})
     if len(set(label.values())) != len(label) or any(isinstance(x, BNode) and x not in label for t in g for x in t):
-        raise RuntimeError("Blank nodes other than one per specification, or two specifications with one TS block")
+        raise RuntimeError("Blank nodes other than one per specification and one per Template field, or two with one label")
     out = Graph()
     for prefix, ns in g.namespaces():
         out.bind(prefix, ns)
@@ -188,6 +193,81 @@ def main():
         n = g.value(s, M11.sectionNumber)
         return [int(p) for p in str(n).split(".")] if n else [999, str(g.value(s, SKOS.prefLabel))]
 
+    # Template (D5): fields by section and by element; sections whose heading is an element.
+    fields = sorted(g.subjects(RDF.type, M11.TemplateField), key=lambda n: int(g.value(n, M11.templateOrder)))
+    fields_by_section = defaultdict(list)
+    fields_by_element = defaultdict(list)
+    for n in fields:
+        fields_by_section[g.value(predicate=M11.hasTemplateField, object=n)].append(n)
+        if g.value(n, M11.realises) is not None:
+            fields_by_element[g.value(n, M11.realises)].append(n)
+    heading_of = defaultdict(list)
+    for sec, el in g.subject_objects(M11.headingElement):
+        heading_of[el].append(sec)
+
+    def bracketed(n):
+        lab = esc(g.value(n, M11.fieldLabel))
+        return f"&lt;{lab}&gt;" if g.value(n, M11.fieldKind) == M11.TextInsertion else f"[{lab}]"
+
+    def flags(x):
+        out = [w for p, w in ((M11.templateOptional, "optional"), (M11.templateConditional, "conditional"))
+               if g.value(x, p) is not None and g.value(x, p).toPython()]
+        return ", ".join(out)
+
+    def pdf_page(x, depth=1):
+        p = g.value(x, M11.templatePage)
+        return f'<a href="{TEMPLATE_URL}#page={esc(p)}">p. {esc(p)}</a>'
+
+    def basis(n):
+        return f'{esc(g.value(n, M11.nameSource))} / {esc(g.value(n, M11.nameMatch))} / {esc(g.value(n, M11.placeScope))}'
+
+    def field_table(ns, depth=1):
+        rows = "".join("<tr>" + "".join(f"<td>{c}</td>" for c in [
+            f"<code>{bracketed(n)}</code>",
+            esc(flags(n)),
+            pdf_page(n),
+            link(g.value(n, M11.realises), g, depth) if g.value(n, M11.realises) is not None else '<span class="muted">none</span>',
+            f'<span class="muted">{basis(n)}</span>' if g.value(n, M11.realises) is not None else "",
+        ]) + "</tr>" for n in ns)
+        return f'<div class="table-wrap"><table><tr><th>Field</th><th>Template</th><th>Page</th><th>Realises</th><th>Linked by</th></tr>{rows}</table></div>'
+
+    def template_part(s, depth=1):
+        heading = g.value(s, M11.templateHeading)
+        out = "<h2>In the ICH M11 Template</h2>"
+        if heading is not None:
+            el = g.value(s, M11.headingElement)
+            out += f"""<dl>
+<dt>Heading</dt><dd>{esc(heading)} <span class="muted">{esc(flags(s))}</span></dd>
+<dt>Page</dt><dd>{pdf_page(s)}</dd>
+{f'<dt>Heading is</dt><dd>{link(el, g, depth)} <span class="muted">(TS term, {esc(g.value(s, M11.placeScope))})</span></dd>' if el is not None else ''}
+</dl>"""
+        elif fields_by_section.get(s):
+            out += '<p class="muted">No heading of its own in the Template.</p>'
+        else:
+            return ""
+        if fields_by_section.get(s):
+            out += field_table(fields_by_section[s], depth)
+        return out
+
+    def element_template(e):
+        hs = sorted(heading_of.get(e, []), key=section_sort)
+        fs = fields_by_element.get(e, [])
+        if not hs and not fs:
+            return '<h2>In the ICH M11 Template</h2><p class="muted">No Template heading or field is linked to this element.</p>'
+        out = "<h2>In the ICH M11 Template</h2>"
+        if hs:
+            out += "<p>The Template heading of " + ", ".join(link(x, g) for x in hs) + " is this element.</p>"
+        if fs:
+            rows = "".join("<tr>" + "".join(f"<td>{c}</td>" for c in [
+                link(g.value(predicate=M11.hasTemplateField, object=n), g) + f' <span class="muted">{esc(g.value(n, M11.templateSectionNumber))}</span>',
+                f"<code>{bracketed(n)}</code>",
+                esc(flags(n)),
+                pdf_page(n),
+                f'<span class="muted">{basis(n)}</span>',
+            ]) + "</tr>" for n in fs)
+            out += f'<div class="table-wrap"><table><tr><th>Section</th><th>Field</th><th>Template</th><th>Page</th><th>Linked by</th></tr>{rows}</table></div>'
+        return out
+
     # Elements.
     for e in elements:
         rows = []
@@ -240,6 +320,7 @@ def main():
 <tr><th>Block</th><th>Term</th><th>Section</th><th>Conformance</th><th>Cardinality</th><th>Data type</th><th>Value code list</th><th>Repeating / reuse</th></tr>
 {''.join(rows)}
 </table></div>
+{element_template(e)}
 {mappings}
 """
         write(f"{local(e)}/index.html", page(str(g.value(e, SKOS.prefLabel)), body, iri=e))
@@ -276,6 +357,7 @@ def main():
 {f'<h2>Subsections</h2><ul class="tree">{kids}</ul>' if kids else ''}
 <h2>Elements specified in this section</h2>
 {f'<div class="table-wrap"><table><tr><th>Element</th><th>IRI</th><th>Conformance</th><th>TS block</th></tr>{el_rows}</table></div>' if el_rows else '<p class="muted">None.</p>'}
+{template_part(s)}
 """
         write(f"{local(s)}/index.html", page(str(g.value(s, SKOS.prefLabel)), body, iri=s))
 
@@ -342,6 +424,31 @@ def main():
                       for c in namespaces + value_lists)
     write("code-lists/index.html", page("Code lists", f'<div class="table-wrap"><table><tr><th>Code list</th><th>Code</th><th>ICH OID</th><th>Kind</th></tr>{cl_rows}</table></div>'))
 
+    # The Template in Template order: Title Page (fields, no heading), then sections by heading page and number.
+    in_template = [s for s in sections if g.value(s, M11.templateHeading) is not None or fields_by_section.get(s)]
+    in_template.sort(key=lambda s: (int(g.value(s, M11.templatePage)) if g.value(s, M11.templatePage) is not None
+                                    else min(int(g.value(n, M11.templatePage)) for n in fields_by_section[s]), section_sort(s)))
+    parts = []
+    for s in in_template:
+        num = g.value(s, M11.sectionNumber)
+        heading = g.value(s, M11.templateHeading)
+        title = f"{esc(num)} " if num else ""
+        title += esc(heading if heading is not None else g.value(s, SKOS.prefLabel))
+        el = g.value(s, M11.headingElement)
+        meta = [pdf_page(s)] if heading is not None else []
+        if flags(s):
+            meta.append(esc(flags(s)))
+        if el is not None:
+            meta.append(f"heading is {link(el, g)}")
+        parts.append(f'<h2><a href="../{esc(local(s))}/">{title}</a></h2>'
+                     + (f'<p class="muted">{" · ".join(meta)}</p>' if meta else "")
+                     + (field_table(fields_by_section[s]) if fields_by_section.get(s) else ""))
+    linked = sum(1 for n in fields if g.value(n, M11.realises) is not None)
+    write("template/index.html", page("ICH M11 Template", f"""
+<p>The headings and fields of the <a href="{TEMPLATE_URL}">ICH M11 Template</a> (Step 4, 19 November 2025), in Template order: {len([s for s in in_template if g.value(s, M11.templateHeading) is not None])} headings on their sections, {len(fields)} fields, {linked} of them linked to the element they realise. Instructional and universal text is not carried; the page links point into the PDF. Optional = printed in blue, conditional = in {{braces}} (Template section 0.3). How fields were linked: <a href="{REPO}/blob/main/reports/d5-template.md">D5 report</a>.</p>
+{''.join(parts)}
+"""))
+
     # D4 skeleton note.
     d4 = (ROOT / "notes" / "d4-skeleton.md").read_text(encoding="utf-8")
     write("d4-skeleton/index.html", page("D4 skeleton: how content points at an M11 element", markdown.markdown(d4.split("\n", 2)[2], extensions=["tables"])))
@@ -356,8 +463,9 @@ def main():
 <dt>Sections</dt><dd><a href="sections/">{len(sections)}</a> · identified by their C217272 term</dd>
 <dt>Code lists</dt><dd><a href="code-lists/">{len(namespaces) + len(value_lists)}</a> · {len(namespaces)} namespaces, {len(value_lists)} value code lists, with ICH OIDs</dd>
 <dt>Mapping statements</dt><dd>{len(records)} SSSOM records ({", ".join(f"{sum(1 for r in records if local(r).split('/')[1] == k)} {esc(v)}" for k, v in SOURCE_LABEL.items())}) to {len(set(g.objects(None, M11.mappedTo)))} USDM attributes, on {len(records_by_element)} elements · <a href="m11-usdm.sssom.tsv">SSSOM/TSV</a> · <a href="m11-usdm.sssom.ttl">SSSOM/RDF</a> · <a href="{REPO}/blob/main/reports/d2-identification.md">identification report</a></dd>
+<dt>ICH M11 Template</dt><dd><a href="template/">{sum(1 for s in sections if g.value(s, M11.templateHeading) is not None)} headings and {len(fields)} fields</a> on their sections, {sum(1 for n in fields if g.value(n, M11.realises) is not None)} fields linked to the element they realise · <a href="{REPO}/blob/main/reports/d5-template.md">D5 report</a></dd>
 <dt>Whole graph</dt><dd><a href="m11-rdf.ttl">Turtle</a> · <a href="m11-rdf.nt">N-Triples</a> · <a href="m11-rdf.rdf">RDF/XML</a> · <a href="m11-rdf.jsonld">JSON-LD</a></dd>
-<dt>Reports</dt><dd><a href="{REPO}/blob/main/reports/reconciliation.md">reconciliation of the sources</a> · <a href="{REPO}/blob/main/reports/tests.md">tests</a> · <a href="{REPO}/blob/main/reports/d2-identification.md">D2 identification</a> · <a href="{REPO}/blob/main/reports/tests-d2.md">D2 tests</a></dd>
+<dt>Reports</dt><dd><a href="{REPO}/blob/main/reports/reconciliation.md">reconciliation of the sources</a> · <a href="{REPO}/blob/main/reports/tests.md">tests</a> · <a href="{REPO}/blob/main/reports/d2-identification.md">D2 identification</a> · <a href="{REPO}/blob/main/reports/tests-d2.md">D2 tests</a> · <a href="{REPO}/blob/main/reports/d5-template.md">D5 Template</a> · <a href="{REPO}/blob/main/reports/tests-d5.md">D5 tests</a></dd>
 <dt>Design note</dt><dd><a href="d4-skeleton/">D4 skeleton</a>: how a study, a document section or a template field points at the element it realises</dd>
 </dl>
 <h2>Namespaces</h2>

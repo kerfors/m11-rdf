@@ -41,6 +41,13 @@ INPUTS = [
         "sha256": "57b8bf8edf32bf359a90a8632f0d771e7956fac5083f2f3a31350a47520e7691",
     },
     {
+        "name": "ich/ICH_Step4_M11_Final_Template_2025_1119.pdf",
+        "url": ICH + "ICH_Step4_M11_Final_Template_2025_1119.pdf",
+        "source": "ICH M11 Template, Step 4, 2025-11-19",
+        "terms": "ICH copyright, ICH Legal Mentions",
+        "sha256": "89ee5c3f5ff24cb6e7b5f19223f57338e2610a521942a2c575e315a368a4f8c8",
+    },
+    {
         "name": "ich/M11_code_lists_1.zip",
         "url": "https://admin.ich.org/sites/default/files/inline-files/3.M11_code_lists_1.zip",
         "source": "ICH Step 4 M11 Package 1.0, November 2025 (Genericode code lists, OID Listing 2025-10-16)",

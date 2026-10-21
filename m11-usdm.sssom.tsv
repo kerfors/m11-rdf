@@ -8,14 +8,14 @@
 #  skos: http://www.w3.org/2004/02/skos/core#
 #  usdm: https://w3id.org/cdisc/usdm/v4/
 #mapping_set_id: "https://w3id.org/m11-rdf/m11-usdm.sssom.tsv"
-#mapping_set_version: "0.2.0"
+#mapping_set_version: "0.3.0"
 #mapping_set_title: "ICH M11 elements to USDM v4 (usdm-rdf), as stated in two published mappings"
 #mapping_set_description: "One record per row of the HL7 FHIR Clinical Study Protocol IG ballot mapping (May 2026) and of the CDISC DDF-RA v4.0.0 M11 mapping whose M11 side is identified against m11-rdf and whose USDM target resolves in usdm-rdf (USDM v4.0.0). Neither mapping is primary. The link from element to USDM target is the publisher's; m11-rdf adds only the identification of the M11 side: by code (the row's NCIt Code is the concept of one element, or the row's section decides between namespaces), or by the row's element name when its normalised form (case, punctuation, brackets, white space) equals the term of exactly one Technical Specification element block. Target and condition paths as given, line breaks replaced by a space. Rows without a record are listed in reports/d2-residue.csv. Draft, not normative; not an ICH, CDISC or HL7 artifact."
 #license: "https://creativecommons.org/licenses/by/4.0/"
 #sssom_version: "1.1"
 #creator_label: "Kerstin Forsberg"
 #subject_source: "https://w3id.org/m11-rdf/"
-#subject_source_version: "https://w3id.org/m11-rdf/0.2.0"
+#subject_source_version: "https://w3id.org/m11-rdf/0.3.0"
 #object_source: "https://w3id.org/cdisc/usdm/v4/"
 #object_source_version: "https://w3id.org/cdisc/usdm/v4/0.7.0"
 #see_also: "https://github.com/kerfors/m11-rdf"

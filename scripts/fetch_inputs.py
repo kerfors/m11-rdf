@@ -51,7 +51,7 @@ INPUTS = [
         "name": "hl7/M11 to FHIR Mapping 02.xlsx",
         "url": "https://hl7.org/fhir/uv/clinical-study-protocol/2026May/en/Mappings/M11%20to%20FHIR%20Mapping%2002.xlsx",
         "source": "HL7 FHIR Clinical Study Protocol IG, STU 1 ballot, May 2026",
-        "terms": "Licenses sheet in the file; HL7 terms to be checked before v0.2.0",
+        "terms": "IG CC0-1.0 (package licence); Licenses sheet: ICH content under the ICH licence, CDISC content CC BY 4.0",
         "sha256": "7781cc6eed97363b389045f15d5e029e02d3938269a0643e136f0e648bf7b93e",
     },
     {
@@ -63,10 +63,17 @@ INPUTS = [
     },
     {
         "name": "usdm-rdf/usdm_v4.ttl",
-        "url": "https://raw.githubusercontent.com/kerfors/usdm-rdf/v0.7.1/usdm_v4.ttl",
-        "source": "kerfors/usdm-rdf, tag v0.7.1 (commit da86062db2bacb01d5725ad000a8f1c5118aebfd)",
+        "url": "https://raw.githubusercontent.com/kerfors/usdm-rdf/v0.7.0/usdm_v4.ttl",
+        "source": "kerfors/usdm-rdf, tag v0.7.0 (commit 71ad13233b278c62fa33372b5024c579124207ca), the release the graph's owl:versionIRI names",
         "terms": "CC BY 4.0",
         "sha256": "7c6c7b2f79ecc9908a5b7cc7f75011a93245b34c54713d7ee9a19b00dc261deb",
+    },
+    {
+        "name": "sssom/sssom_schema.yaml",
+        "url": "https://raw.githubusercontent.com/mapping-commons/sssom/v1.1.0a5/src/sssom_schema/schema/sssom_schema.yaml",
+        "source": "SSSOM LinkML schema, tag v1.1.0a5 (commit eb811fbc6a032f1d1c78f601885d0d39deec38fa)",
+        "terms": "BSD 3-Clause (SSSOM repository LICENSE)",
+        "sha256": "557b3931590a9c9382cd0ca7d0ba71c4c2324bdc3eb623e8869b805d5317421e",
     },
 ]
 

@@ -20,7 +20,7 @@ from common import (EVS, M11, NCIT, OBO, OID_ROOT, REPORTS, ROOT, SECTION_CODELI
                     evs_rows, genericode_lists, oid_listing, ts_text)
 from parse_ts import parse_blocks
 
-VERSION = "0.1.0"
+VERSION = "0.2.0"
 OID_DT = M11.ichOid
 CONCEPT_RE = re.compile(r"(C\d+)\s*(?:ICH OID\s*([\d.]+))?")
 CODELIST_RE = re.compile(r"Code ?List[^:]*?(C\d+)[^:]*?:?\s*ICH OID\s*([\d.]+)")

@@ -1,0 +1,158 @@
+category,source,row,section,element_name,ncit_code,identification,elements,note,stated_class,stated_attribute,object,object_resolution,flags,status
+unidentified,hl7,47,Title Page,contact information for Medical Expert (as designated by sponsor) or state location where information can be found,C218693 C222063,unidentified,,code cell is not one C-code,Address,text,Address-text,attribute name,,residue
+"identified, no target",hl7,48,Title Page,Amendment Details,C218694,by-code,C217357.C218694,,,,,no target,,residue
+ambiguous-code,hl7,49,Title Page,#/%,C218478,ambiguous-code,C217353.C218478;C217357.C218478,code is the concept of elements in several namespaces; the row's section does not decide,Quantity,value + @unit,,attribute not on the class,,residue
+ambiguous-code,hl7,50,Title Page,Globally/Locally/by Cohort,C218695,ambiguous-code,C217353.C218695;C217357.C218695,code is the concept of elements in several namespaces; the row's section does not decide,GeographicScope,type,GeographicScope-type,attribute name,,residue
+code and unique name identify different elements,hl7,52,Title Page,Primary Reason for Amendment,C17649,by-code,C217357.C17649,,,,,no target,unique name identifies C217357.C218696,residue
+code and unique name identify different elements,hl7,54,Title Page,Secondary Reason for Amendment,C17649,by-code,C217357.C17649,,,,,no target,unique name identifies C217357.C218697,residue
+"identified, target: attribute not on the class",hl7,56,Title Page,Yes/No,C218698,by-code,C217357.C218698,,StudyAmendmentImpact,isSubtantial,,attribute not on the class,,residue
+"identified, no target",hl7,57,Title Page,Text,C218699,by-code,C217357.C218699,,,,,no target,,residue
+"identified, target: attribute not on the class",hl7,58,Title Page,Yes/No,C218700,by-code,C217357.C218700,,StudyAmendmentImpact,isSubtantial,,attribute not on the class,,residue
+"identified, no target",hl7,59,Title Page,Text,C218701,by-code,C217357.C218701,,,,,no target,,residue
+ambiguous-code,hl7,60,Title Page,Description of Change,C218483,ambiguous-code,C217353.C218483;C217357.C218483,code is the concept of elements in several namespaces; the row's section does not decide,StudyChange,summary,StudyChange-summary,attribute name,,residue
+ambiguous-code,hl7,61,Title Page,Brief Rationale for Change,C181233,ambiguous-code,C217353.C181233;C217357.C181233,code is the concept of elements in several namespaces; the row's section does not decide,StudyChange,rationale,StudyChange-rationale,attribute name,,residue
+ambiguous-code,hl7,62,Title Page,Section # and Name of Change,C218479,ambiguous-code,C217353.C218479;C217357.C218479,code is the concept of elements in several namespaces; the row's section does not decide,DocumentContentReference,sectionNumber + @sectionTitle,,attribute not on the class,,residue
+"identified, target: attribute only on subclasses",hl7,66,1.1.2,Intervention model,C98746,by-code,C217342.C98746,,StudyDesign,model,,"attribute only on subclasses InterventionalStudyDesign, ObservationalStudyDesign",,residue
+unidentified,hl7,78,1.1.2,INN,CNEW,unidentified,,,Substance,label,Substance-label,attribute name,,residue
+"unidentified, no target",hl7,79,1.1.2,“Not applicable”,,unidentified,,name on TS block(s) without a concept: 110,,,,no target,,residue
+"identified, target: attribute not on the class",hl7,83,1.1.2,Master Protocol Indicator,CNEW,by-unique-name,C217342.C218707,,StudyDefinitionDocumentVersion,children,,attribute not on the class,,residue
+"identified, target: attribute only on subclasses",hl7,87,1.1.2,Trial Blind Schema,C49658,by-code,C217342.C49658,,StudyDesign,blindingSchema,,attribute only on subclasses InterventionalStudyDesign,,residue
+unidentified,hl7,93,1.1.2,total planned duration of trial intervention,,unidentified,,,Quantity,value,Quantity-value,attribute name,,residue
+unidentified,hl7,94,1.1.2,total planned duration of trial intervention unit of time,,unidentified,,,AdministrationDuration,quantity,,class not in usdm-rdf,,residue
+unidentified,hl7,95,1.1.2,alternate description of planned duration of trial intervention if duration will vary,CNEW,unidentified,,,AdministrationDuration,reasonDurationWillVary,,class not in usdm-rdf,,residue
+unidentified,hl7,96,1.1.2,total planned duration of trial participation,,unidentified,,,Duration,quantity,Duration-quantity,attribute name,,residue
+unidentified,hl7,97,1.1.2,total planned duration of trial participation unit of time,,unidentified,,,Duration,quantity,Duration-quantity,attribute name,,residue
+unidentified,hl7,98,1.1.2,alternate description of planned duration of trial participation if duration will vary,CNEW,unidentified,,,NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+unidentified,hl7,102,1.1.2,Sponsors Investigational Product Codes,CNEW,unidentified,,,AdministrableProductIdentifier,text,Identifier-text,"attribute name, inherited",,residue
+unidentified,hl7,103,1.1.2,Sponsors Investigational Product Codes,CNEW,unidentified,,,MedicalDeviceIdentifier,text,Identifier-text,"attribute name, inherited",,residue
+unidentified,hl7,104,1.1.2,Nonproprietary Names,CNEW,unidentified,,,Substance,label,Substance-label,attribute name,,residue
+unidentified,hl7,116,3.1.#,Table of Estimand Characteristics including Endpoint at a minimum,,unidentified,,"name on TS block(s) without a concept: 194, 212",NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+"identified, target: attribute not on the class",hl7,122,3.1.#,Treatment,C49236,by-code,C217344.C49236,,Quantity,value + @unit + @frequency @route,,attribute not on the class,,residue
+"identified, target: attribute not on the class",hl7,127,3.2.#,Treatment,C49236,by-code,C217344.C49236,,Quantity,"value + unit, frequency, route",,attribute not on the class,,residue
+"identified, target: attribute not on the class",hl7,132,3.3.#,Treatment,C49236,by-code,C217344.C49236,,Quantity,"value + unit, frequency, route",,attribute not on the class,,residue
+statement flagged: row section differs from the element's ToC reference,hl7,147,3.2.#,Secondary Objective <#>,C85826,by-code,C217344.C85826,,Objective,label,SyntaxTemplate-label,"attribute name, inherited",row section differs from the element's ToC reference,statement
+statement flagged: row section differs from the element's ToC reference,hl7,149,3.3.#,Exploratory Objective <#>,C85826,by-code,C217344.C85826,,Objective,label,SyntaxTemplate-label,"attribute name, inherited",row section differs from the element's ToC reference,statement
+unidentified,hl7,153,4.1,Method of Assignment to Trial Intervention,CNEW,unidentified,,,StudyDesign,characteristics,StudyDesign-characteristics,attribute name,,residue
+unidentified,hl7,169,5.2,#,,unidentified,,"name on TS block(s) without a concept: 265, 269",EligibilityCriterion,identifier,EligibilityCriterion-identifier,attribute name,,residue
+unidentified,hl7,171,5.3,#,,unidentified,,"name on TS block(s) without a concept: 265, 269",EligibilityCriterion,identifier,EligibilityCriterion-identifier,attribute name,,residue
+"unidentified, no target",hl7,173,5.4,Heading,,unidentified,,,,,,no target,,residue
+statement flagged: row section differs from the element's ToC reference,hl7,175,5.4.2,Contraception Requirements.,CNEW,by-unique-name,C217346.C218741,,NarrativeContentItem,text,NarrativeContentItem-text,attribute name,row section differs from the element's ToC reference,statement
+unidentified,hl7,183,6,description of the overview of trial interventions or a heading for the optional table below,CNEW,unidentified,,,NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+"identified, target: attribute not on the class",hl7,188,6,Select Pharmaceutical Dose Form,C42636,by-code,C217347.C42636,,AdministrableProduct,adminstrableDoseForm,,attribute not on the class,,residue
+unidentified,hl7,193,6,Select Use,CNEW,unidentified,,,StudyIntervention,role,StudyIntervention-role,attribute name,,residue
+unidentified,hl7,194,6,Select IMP or NIMP,CNEW,unidentified,,,AdministrableProduct,productDesignation,AdministrableProduct-productDesignation,attribute name,,residue
+unidentified,hl7,195,6,Select Sourcing,CNEW,unidentified,,,AdministrableProduct,sourcing,AdministrableProduct-sourcing,attribute name,,residue
+unidentified,hl7,210,6.9.1,Background Trial Interventions,C165822,unidentified,,code is not the concept of a TS element,NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+"unidentified, no target",hl7,221,8,heading,,unidentified,,,,,,no target,,residue
+unidentified,hl7,234,8.6.1,Genetics and Pharmacogenomics,CNEW,unidentified,,,NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+"unidentified, no target",hl7,239,9,heading,,unidentified,,,,,,no target,,residue
+unidentified,hl7,243,9.1.3.1,Definition of Medical Device Product Complaints,CNEW,unidentified,,,NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+unidentified,hl7,250,9.2,Backup Method for Reporting,CNEW,unidentified,,,NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+unidentified,hl7,259,9.2.4,Adverse Events of Special Interest or state “Not applicable”,CNEW,unidentified,,,NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+"unidentified, no target",hl7,264,10,heading,,unidentified,,,,,,no target,,residue
+ambiguous-name,hl7,268,10.4.1.1,Statistical Analysis Method,CNEW,ambiguous-name,C217351.C218482,"name on TS element blocks 469, 481",NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+ambiguous-name,hl7,271,10.4.1.4,Sensitivity Analysis,CNEW,ambiguous-name,C217351.C218480,"name on TS element blocks 475, 487",NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+ambiguous-name,hl7,272,10.4.1.5,Supplementary Analysis,CNEW,ambiguous-name,C217351.C218481,"name on TS element blocks 477, 489",NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+ambiguous-name,hl7,273,10.5.1.1,Statistical Analysis Method,CNEW,ambiguous-name,C217351.C218482,"name on TS element blocks 469, 481",NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+ambiguous-name,hl7,276,10.5.1.4,Sensitivity Analysis,CNEW,ambiguous-name,C217351.C218480,"name on TS element blocks 475, 487",NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+ambiguous-name,hl7,277,10.5.1.5,Supplementary Analysis,CNEW,ambiguous-name,C217351.C218481,"name on TS element blocks 477, 489",NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+"unidentified, no target",hl7,284,11,heading,,unidentified,,,,,,no target,,residue
+unidentified,hl7,299,11.9,Source Data Introduction,CNEW,unidentified,,,NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+unidentified,hl7,300,11.9,Investigator Expectations for Source Data,CNEW,unidentified,,,NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+unidentified,hl7,301,11.9,Trial Monitor Expectations for Source Data,CNEW,unidentified,,,NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+unidentified,hl7,302,11.9,Identification of Source Data,C125442,unidentified,,code is not the concept of a TS element,NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+"unidentified, no target",hl7,308,12,heading,,unidentified,,,,,,no target,,residue
+ambiguous-name,hl7,313,12.3,Amendment Identifier,CNEW,ambiguous-name,C217353.C218477;C217356.C218477,"name on TS element blocks 16, 555, 562",StudyAmendment,number,StudyAmendment-number,attribute name,,residue
+ambiguous-name,hl7,314,12.3,Sponsor Approval Date,CNEW,ambiguous-name,C217353.C132352,"name on TS element blocks 556, 563",GovernanceDate,dateValue,GovernanceDate-dateValue,attribute name,,residue
+unidentified,hl7,315,12.3,# or % enrolled globally/locally/per cohort,CNEW,unidentified,,,Quantity,unit,Quantity-unit,attribute name,,residue
+unidentified,hl7,317,12.3,enter amendment number,CNEW,unidentified,,,StudyAmendment,number,StudyAmendment-number,attribute name,,residue
+ambiguous-name,hl7,318,12.3,Description of Change,CNEW,ambiguous-name,C217353.C218483;C217357.C218483,"name on TS element blocks 82, 565",StudyChange,summary,StudyChange-summary,attribute name,,residue
+ambiguous-name,hl7,319,12.3,Brief Rationale for Change,CNEW,ambiguous-name,C217353.C181233;C217357.C181233,"name on TS element blocks 84, 567",StudyChange,rationale,StudyChange-rationale,attribute name,,residue
+unidentified,hl7,320,12.3,Section # and Name of Change,CNEW,unidentified,,,DocumentContentReference,"sectionNumber, sectionTitle",,attribute not on the class,,residue
+unidentified,hl7,321,12.3,Previous Amendment Enrollment Scope,CNEW,unidentified,,,GeographicScope,code,GeographicScope-code,attribute name,,residue
+unidentified,hl7,322,12.3,Previous Amendment Enrollment Scope,CNEW,unidentified,,,StudySite,label,StudySite-label,attribute name,,residue
+unidentified,hl7,323,12.3,Previous Amendment Enrollment Scope,CNEW,unidentified,,,StudyCohort,label,PopulationDefinition-label,"attribute name, inherited",,residue
+unidentified,hl7,324,12.3,Prior Protocol Amendments,CNEW,unidentified,,,NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+unidentified,hl7,325,12.3,Country Region Not Applicable,,unidentified,,,NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+ambiguous-name,cdisc,10,Title Page,Amendment Identifier,CNEW,ambiguous-name,C217353.C218477;C217356.C218477,"name on TS element blocks 16, 555, 562",StudyAmendment,number,StudyAmendment-number,attribute name,,residue
+unidentified,cdisc,12,Title Page,Country Identifier,C20108 CNEW CNEW,unidentified,,code cell is not one C-code,GeographicScope,code,GeographicScope-code,attribute name,,residue
+unidentified,cdisc,13,Title Page,Region Identifier,C20108 CNEW CNEW,unidentified,,code cell is not one C-code,GeographicScope,code,GeographicScope-code,attribute name,,residue
+unidentified,cdisc,14,Title Page,Site Identifier,C20108 CNEW CNEW,unidentified,,code cell is not one C-code,StudySite,label,StudySite-label,attribute name,,residue
+ambiguous-name,cdisc,15,Title Page,Sponsor’s Investigational Product Code(s),CNEW,ambiguous-name,C217342.C218675;C217356.C218675,"name on TS element blocks 21, 96",AdministrableProductIdentifier,text,Identifier-text,"attribute name, inherited",,residue
+ambiguous-name,cdisc,16,Title Page,Sponsor’s Investigational Product Code(s),CNEW,ambiguous-name,C217342.C218675;C217356.C218675,"name on TS element blocks 21, 96",MedicalDeviceIdentifier,text,Identifier-text,"attribute name, inherited",,residue
+unidentified,cdisc,31,Title Page,Local Sponsor Address,CNEW,unidentified,,,Address,text,Address-text,attribute name,,residue
+unidentified,cdisc,32,Title Page,Local Sponsor Address,CNEW,unidentified,,,Address,text,Address-text,attribute name,,residue
+unidentified,cdisc,34,Title Page,Device Manufacturer Address,CNEW,unidentified,,,Address,text,Address-text,attribute name,,residue
+unidentified,cdisc,43,Title Page,Approval Date,CNEW,unidentified,,,GovernanceDate,dateValue,GovernanceDate-dateValue,attribute name,,residue
+unidentified,cdisc,44,Title Page,State location where information can be found,CNEW,unidentified,,,NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+unidentified,cdisc,45,Title Page,sponsor signature block (name and title of sponsor signatory and signature date),CNEW,unidentified,,,NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+unidentified,cdisc,46,Title Page,describe method,CNEW,unidentified,,,NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+unidentified,cdisc,47,Title Page,contact information for Medical Expert (as designated by sponsor) or state location where information can be found,CNEW,unidentified,,,Address,text,Address-text,attribute name,,residue
+unidentified,cdisc,48,Title Page,#/%,CNEW,unidentified,,,Quantity,value + @unit,,attribute not on the class,,residue
+unidentified,cdisc,49,Title Page,Globally/Locally/by Cohort,CNEW,unidentified,,,GeographicScope,type,GeographicScope-type,attribute name,,residue
+unidentified,cdisc,50,Title Page,Globally/Locally/by Cohort,CNEW,unidentified,,,GeographicScope,code,GeographicScope-code,attribute name,,residue
+unidentified,cdisc,51,Title Page,Globally/Locally/by Cohort,CNEW,unidentified,,,StudySite,label,StudySite-label,attribute name,,residue
+unidentified,cdisc,52,Title Page,Globally/Locally/by Cohort,CNEW,unidentified,,,StudyCohort,label,PopulationDefinition-label,"attribute name, inherited",,residue
+ambiguous-name,cdisc,56,Title Page,Yes/No,CNEW,ambiguous-name,C217357.C218698;C217357.C218700,"name on TS element blocks 75, 78",StudyAmendmentImpact,isSubtantial,,attribute not on the class,,residue
+ambiguous-name,cdisc,57,Title Page,Yes/No,CNEW,ambiguous-name,C217357.C218698;C217357.C218700,"name on TS element blocks 75, 78",StudyAmendmentImpact,isSubtantial,,attribute not on the class,,residue
+ambiguous-name,cdisc,58,Title Page,Description of Change,CNEW,ambiguous-name,C217353.C218483;C217357.C218483,"name on TS element blocks 82, 565",StudyChange,summary,StudyChange-summary,attribute name,,residue
+ambiguous-name,cdisc,59,Title Page,Brief Rationale for Change,CNEW,ambiguous-name,C217353.C181233;C217357.C181233,"name on TS element blocks 84, 567",StudyChange,rationale,StudyChange-rationale,attribute name,,residue
+unidentified,cdisc,60,Title Page,Section # and Name of Change,CNEW,unidentified,,,DocumentContentReference,sectionNumber + @sectionTitle,,attribute not on the class,,residue
+unidentified,cdisc,66,Title Page,Briefly Explain Substantial Impact On Safety,CNEW,unidentified,,,StudyAmendmentImpact,text,StudyAmendmentImpact-text,attribute name,,residue
+unidentified,cdisc,67,Title Page,Briefly Explain Substantial Impact on Data,CNEW,unidentified,,,StudyAmendmentImpact,text,StudyAmendmentImpact-text,attribute name,,residue
+"identified, target: attribute only on subclasses",cdisc,71,1.1.2,Intervention model,C98746,by-code,C217342.C98746,,StudyDesign,model,,"attribute only on subclasses InterventionalStudyDesign, ObservationalStudyDesign",,residue
+unidentified,cdisc,83,1.1.2,INN,CNEW,unidentified,,,Substance,label,Substance-label,attribute name,,residue
+"unidentified, no target",cdisc,84,1.1.2,“Not applicable”,,unidentified,,name on TS block(s) without a concept: 110,,,,no target,,residue
+"identified, target: attribute not on the class",cdisc,88,1.1.2,Master Protocol Indicator,CNEW,by-unique-name,C217342.C218707,,StudyDefinitionDocumentVersion,children,,attribute not on the class,,residue
+"identified, target: attribute only on subclasses",cdisc,92,1.1.2,Trial Blind Schema,C49658,by-code,C217342.C49658,,StudyDesign,blindingSchema,,attribute only on subclasses InterventionalStudyDesign,,residue
+unidentified,cdisc,98,1.1.2,total planned duration of trial intervention,,unidentified,,,Quantity,value,Quantity-value,attribute name,,residue
+unidentified,cdisc,99,1.1.2,total planned duration of trial intervention unit of time,,unidentified,,,AdministrationDuration,quantity,,class not in usdm-rdf,,residue
+unidentified,cdisc,100,1.1.2,alternate description of planned duration of trial intervention if duration will vary,CNEW,unidentified,,,AdministrationDuration,reasonDurationWillVary,,class not in usdm-rdf,,residue
+unidentified,cdisc,101,1.1.2,total planned duration of trial participation,,unidentified,,,Duration,quantity,Duration-quantity,attribute name,,residue
+unidentified,cdisc,102,1.1.2,total planned duration of trial participation unit of time,,unidentified,,,Duration,quantity,Duration-quantity,attribute name,,residue
+unidentified,cdisc,103,1.1.2,alternate description of planned duration of trial participation if duration will vary,CNEW,unidentified,,,NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+unidentified,cdisc,107,1.1.2,Sponsors Investigational Product Codes,CNEW,unidentified,,,AdministrableProductIdentifier,text,Identifier-text,"attribute name, inherited",,residue
+unidentified,cdisc,108,1.1.2,Sponsors Investigational Product Codes,CNEW,unidentified,,,MedicalDeviceIdentifier,text,Identifier-text,"attribute name, inherited",,residue
+unidentified,cdisc,109,1.1.2,Nonproprietary Names,CNEW,unidentified,,,Substance,label,Substance-label,attribute name,,residue
+unidentified,cdisc,120,3.1.#,Table of Estimand Characteristics including Endpoint at a minimum,,unidentified,,"name on TS block(s) without a concept: 194, 212",NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+"identified, target: attribute not on the class",cdisc,126,3.1.#,Treatment,C49236,by-code,C217344.C49236,,Quantity,value + @unit + @frequency @route,,attribute not on the class,,residue
+"identified, target: attribute not on the class",cdisc,131,3.2.#,Treatment,C49236,by-code,C217344.C49236,,Quantity,"value + unit, frequency, route",,attribute not on the class,,residue
+"identified, target: attribute not on the class",cdisc,136,3.3.#,Treatment,C49236,by-code,C217344.C49236,,Quantity,"value + unit, frequency, route",,attribute not on the class,,residue
+statement flagged: row section differs from the element's ToC reference,cdisc,151,3.2.#,Secondary Objective <#>,C85826,by-code,C217344.C85826,,Objective,label,SyntaxTemplate-label,"attribute name, inherited",row section differs from the element's ToC reference,statement
+statement flagged: row section differs from the element's ToC reference,cdisc,153,3.3.#,Exploratory Objective <#>,C85826,by-code,C217344.C85826,,Objective,label,SyntaxTemplate-label,"attribute name, inherited",row section differs from the element's ToC reference,statement
+unidentified,cdisc,157,4.1,Method of Assignment to Trial Intervention,CNEW,unidentified,,,StudyDesign,characteristics,StudyDesign-characteristics,attribute name,,residue
+unidentified,cdisc,173,5.2,#,,unidentified,,"name on TS block(s) without a concept: 265, 269",EligibilityCriterion,identifier,EligibilityCriterion-identifier,attribute name,,residue
+unidentified,cdisc,175,5.3,#,,unidentified,,"name on TS block(s) without a concept: 265, 269",EligibilityCriterion,identifier,EligibilityCriterion-identifier,attribute name,,residue
+statement flagged: row section differs from the element's ToC reference,cdisc,178,5.4.2,Contraception Requirements.,CNEW,by-unique-name,C217346.C218741,,NarrativeContentItem,text,NarrativeContentItem-text,attribute name,row section differs from the element's ToC reference,statement
+unidentified,cdisc,186,6,description of the overview of trial interventions or a heading for the optional table below,CNEW,unidentified,,,NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+"identified, target: attribute not on the class",cdisc,191,6,Select Pharmaceutical Dose Form,C42636,by-code,C217347.C42636,,AdministrableProduct,adminstrableDoseForm,,attribute not on the class,,residue
+unidentified,cdisc,196,6,Select Use,CNEW,unidentified,,,StudyIntervention,role,StudyIntervention-role,attribute name,,residue
+unidentified,cdisc,197,6,Select IMP or NIMP,CNEW,unidentified,,,AdministrableProduct,productDesignation,AdministrableProduct-productDesignation,attribute name,,residue
+unidentified,cdisc,198,6,Select Sourcing,CNEW,unidentified,,,AdministrableProduct,sourcing,AdministrableProduct-sourcing,attribute name,,residue
+unidentified,cdisc,213,6.9.1,Background Trial Interventions,C165822,unidentified,,code is not the concept of a TS element,NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+unidentified,cdisc,236,8.6.1,Genetics and Pharmacogenomics,CNEW,unidentified,,,NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+unidentified,cdisc,244,9.1.3.1,Definition of Medical Device Product Complaints,CNEW,unidentified,,,NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+unidentified,cdisc,251,9.2,Backup Method for Reporting,CNEW,unidentified,,,NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+unidentified,cdisc,260,9.2.4,Adverse Events of Special Interest or state “Not applicable”,CNEW,unidentified,,,NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+ambiguous-name,cdisc,268,10.4.1.1,Statistical Analysis Method,CNEW,ambiguous-name,C217351.C218482,"name on TS element blocks 469, 481",NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+ambiguous-name,cdisc,271,10.4.1.4,Sensitivity Analysis,CNEW,ambiguous-name,C217351.C218480,"name on TS element blocks 475, 487",NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+ambiguous-name,cdisc,272,10.4.1.5,Supplementary Analysis,CNEW,ambiguous-name,C217351.C218481,"name on TS element blocks 477, 489",NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+ambiguous-name,cdisc,273,10.5.1.1,Statistical Analysis Method,CNEW,ambiguous-name,C217351.C218482,"name on TS element blocks 469, 481",NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+ambiguous-name,cdisc,276,10.5.1.4,Sensitivity Analysis,CNEW,ambiguous-name,C217351.C218480,"name on TS element blocks 475, 487",NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+ambiguous-name,cdisc,277,10.5.1.5,Supplementary Analysis,CNEW,ambiguous-name,C217351.C218481,"name on TS element blocks 477, 489",NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+unidentified,cdisc,298,11.9,Source Data Introduction,CNEW,unidentified,,,NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+unidentified,cdisc,299,11.9,Investigator Expectations for Source Data,CNEW,unidentified,,,NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+unidentified,cdisc,300,11.9,Trial Monitor Expectations for Source Data,CNEW,unidentified,,,NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+unidentified,cdisc,301,11.9,Identification of Source Data,C125442,unidentified,,code is not the concept of a TS element,NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+ambiguous-name,cdisc,311,12.3,Amendment Identifier,CNEW,ambiguous-name,C217353.C218477;C217356.C218477,"name on TS element blocks 16, 555, 562",StudyAmendment,number,StudyAmendment-number,attribute name,,residue
+ambiguous-name,cdisc,312,12.3,Sponsor Approval Date,CNEW,ambiguous-name,C217353.C132352,"name on TS element blocks 556, 563",GovernanceDate,dateValue,GovernanceDate-dateValue,attribute name,,residue
+unidentified,cdisc,313,12.3,# or % enrolled globally/locally/per cohort,CNEW,unidentified,,,Quantity,unit,Quantity-unit,attribute name,,residue
+unidentified,cdisc,315,12.3,enter amendment number,CNEW,unidentified,,,StudyAmendment,number,StudyAmendment-number,attribute name,,residue
+ambiguous-name,cdisc,316,12.3,Description of Change,CNEW,ambiguous-name,C217353.C218483;C217357.C218483,"name on TS element blocks 82, 565",StudyChange,summary,StudyChange-summary,attribute name,,residue
+ambiguous-name,cdisc,317,12.3,Brief Rationale for Change,CNEW,ambiguous-name,C217353.C181233;C217357.C181233,"name on TS element blocks 84, 567",StudyChange,rationale,StudyChange-rationale,attribute name,,residue
+unidentified,cdisc,318,12.3,Section # and Name of Change,CNEW,unidentified,,,DocumentContentReference,"sectionNumber, sectionTitle",,attribute not on the class,,residue
+unidentified,cdisc,319,12.3,Previous Amendment Enrollment Scope,CNEW,unidentified,,,GeographicScope,code,GeographicScope-code,attribute name,,residue
+unidentified,cdisc,320,12.3,Previous Amendment Enrollment Scope,CNEW,unidentified,,,StudySite,label,StudySite-label,attribute name,,residue
+unidentified,cdisc,321,12.3,Previous Amendment Enrollment Scope,CNEW,unidentified,,,StudyCohort,label,PopulationDefinition-label,"attribute name, inherited",,residue
+unidentified,cdisc,322,12.3,Prior Protocol Amendments,CNEW,unidentified,,,NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue
+unidentified,cdisc,323,12.3,Country Region Not Applicable,,unidentified,,,NarrativeContentItem,text,NarrativeContentItem-text,attribute name,,residue

@@ -53,6 +53,12 @@ ul.tree > li { margin: 0.15rem 0; }
 <tr><th>Block</th><th>Term</th><th>Section</th><th>Conformance</th><th>Cardinality</th><th>Data type</th><th>Value code list</th><th>Repeating / reuse</th></tr>
 <tr><td>51</td><td>{&lt;Sponsor Approval Date&gt; or &lt;State location where sponsor approval information can be found&gt;}</td><td><a href="../C217272.C222769/">Title Page</a></td><td>Required</td><td>One to one; One to Protocol Identifier; One to Original Protocol One to Amendment Identifier</td><td>Date or Text <span class="muted">(V)</span></td><td></td><td>Yes, Not repeatable reuse to Sponsor Approval Date in Section 12.3</td></tr>
 </table></div>
+<h2>Mapping statements to USDM v4</h2>
+<p class="muted">One row per published mapping row that names this element (SSSOM record). The link to the USDM attribute is the mapping publisher's; how the row was tied to this element is in the third column. Paths as given.</p>
+<div class="table-wrap"><table>
+<tr><th>Source</th><th>USDM attribute (usdm-rdf)</th><th>Identified</th><th>Target path</th><th>Condition</th></tr>
+<tr id="mapping-hl7-43"><td>HL7 CSP IG ballot<br><a href="../mapping/hl7/43/">row 43</a></td><td><a href="https://w3id.org/cdisc/usdm/v4/GovernanceDate-dateValue">GovernanceDate-dateValue</a><br><span class="muted">stated: GovernanceDate.dateValue (attribute name)</span></td><td>by-code</td><td><code>StudyDefinitionDocument/@versions/ StudyDefinitionDocumentVersion/@dateValues/GovernanceDate/@dateValue</code></td><td><code>StudyDefinitionDocument/@type/code/@code=&quot;C70817&quot; | StudyDefinitionDocument/@versions/ StudyDefinitionDocumentVersion/@dateValues/GovernanceDate/@type/Code/@code=&quot;C71476&quot;</code></td></tr>
+</table></div>
 
 <p class="draft">Draft, not normative. A derived rendering of the ICH M11 Technical Specification, code lists and OID Listing (© ICH, used under the ICH Legal Mentions) and of the ICH M11 Terminology published by NCI EVS (CC BY 4.0). Not an ICH, CDISC or HL7 artifact, and not endorsed or sponsored by ICH.</p>
 </main>

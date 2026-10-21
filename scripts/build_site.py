@@ -1,8 +1,10 @@
 """Build the GitHub Pages site in docs/ from m11-rdf.ttl.
 
 One page per minted IRI at its own path (<local name>/index.html): elements,
-sections, code lists and vocabulary terms. The whole graph as Turtle,
-N-Triples, RDF/XML and JSON-LD. docs/ is generated; do not edit by hand.
+sections, code lists and vocabulary terms; each mapping record
+(mapping/<source>/<row>) as a forward to its row on the element page. The
+whole graph as Turtle, N-Triples, RDF/XML and JSON-LD; the mapping set as
+SSSOM/TSV and SSSOM/RDF. docs/ is generated; do not edit by hand.
 Fails if two page paths differ only by case.
 """
 import html
@@ -18,6 +20,10 @@ from rdflib import BNode, Graph, URIRef
 from rdflib.namespace import OWL, RDF, RDFS, SKOS
 
 from common import M11, NCIT, OBO, ROOT
+
+USDM = "https://w3id.org/cdisc/usdm/v4/"
+SOURCE_LABEL = {"hl7": "HL7 CSP IG ballot", "cdisc": "CDISC DDF-RA v4.0.0"}
+MAPPING_FILES = ["m11-usdm.sssom.tsv", "m11-usdm.sssom.ttl"]
 
 DOCS = ROOT / "docs"
 REPO = "https://github.com/kerfors/m11-rdf"
@@ -134,7 +140,13 @@ def main():
     vocab = Graph().parse(ROOT / "vocabulary.ttl")
     terms = sorted({s for s in vocab.subjects() if isinstance(s, URIRef) and str(s).startswith(str(M11)) and local(s)}, key=str)
 
-    paths = [local(x) for x in elements + sections + namespaces + value_lists + terms]
+    records = sorted(g.subjects(RDF.type, OWL.Axiom),
+                     key=lambda r: (list(SOURCE_LABEL).index(local(r).split("/")[1]), int(local(r).split("/")[2])))
+    records_by_element = defaultdict(list)
+    for r in records:
+        records_by_element[g.value(r, OWL.annotatedSource)].append(r)
+
+    paths = [local(x) for x in elements + sections + namespaces + value_lists + terms + records]
     paths += ["sections", "code-lists", "vocabulary"] + sorted(READING_PAGES)
     seen = defaultdict(list)
     for p in paths:
@@ -148,6 +160,8 @@ def main():
     DOCS.mkdir()
     (DOCS / ".nojekyll").write_text("")
     shutil.copyfile(ROOT / "m11-rdf.ttl", DOCS / "m11-rdf.ttl")
+    for f in MAPPING_FILES:
+        shutil.copyfile(ROOT / f, DOCS / f)
     stable = stable_bnodes(g)
     nt = stable.serialize(format="nt", encoding="utf-8").decode("utf-8")
     (DOCS / "m11-rdf.nt").write_text("\n".join(sorted(l for l in nt.split("\n") if l)) + "\n", encoding="utf-8")
@@ -191,6 +205,23 @@ def main():
                 cls + (f'<br><span class="muted">OID as stated in the TS: {stated}</span>' if stated else ""),
                 esc(g.value(s, M11.repeatReuse)),
             ]) + "</tr>")
+        map_rows = []
+        for r in records_by_element.get(e, []):
+            _, src, row = local(r).split("/")
+            target = g.value(r, OWL.annotatedTarget)
+            map_rows.append(f'<tr id="mapping-{src}-{row}">' + "".join(f"<td>{c}</td>" for c in [
+                f'{esc(SOURCE_LABEL[src])}<br><a href="../mapping/{src}/{row}/">row {esc(row)}</a>',
+                f'<a href="{esc(target)}">{esc(str(target)[len(USDM):])}</a><br><span class="muted">stated: {esc(g.value(r, M11.statedClass))}.{esc(g.value(r, M11.statedAttribute))} ({esc(g.value(r, M11.objectResolution))})</span>',
+                esc(g.value(r, M11.subjectIdentification)),
+                f'<code>{esc(g.value(r, M11.targetPath))}</code>',
+                f'<code>{esc(g.value(r, M11.conditionPath))}</code>' if str(g.value(r, M11.conditionPath)) else "",
+            ]) + "</tr>")
+        mappings = (f"""<h2>Mapping statements to USDM v4</h2>
+<p class="muted">One row per published mapping row that names this element (SSSOM record). The link to the USDM attribute is the mapping publisher's; how the row was tied to this element is in the third column. Paths as given.</p>
+<div class="table-wrap"><table>
+<tr><th>Source</th><th>USDM attribute (usdm-rdf)</th><th>Identified</th><th>Target path</th><th>Condition</th></tr>
+{''.join(map_rows)}
+</table></div>""" if map_rows else '<h2>Mapping statements to USDM v4</h2><p class="muted">None: no row of the two pinned mappings is identified with this element and resolves in USDM v4.0.0.</p>')
         alts = ", ".join(esc(a) for a in g.objects(e, SKOS.altLabel))
         definition = g.value(e, SKOS.definition)
         body = f"""
@@ -209,8 +240,21 @@ def main():
 <tr><th>Block</th><th>Term</th><th>Section</th><th>Conformance</th><th>Cardinality</th><th>Data type</th><th>Value code list</th><th>Repeating / reuse</th></tr>
 {''.join(rows)}
 </table></div>
+{mappings}
 """
         write(f"{local(e)}/index.html", page(str(g.value(e, SKOS.prefLabel)), body, iri=e))
+
+    # Mapping records: a forward to the row on the element page.
+    for r in records:
+        _, src, row = local(r).split("/")
+        e = g.value(r, OWL.annotatedSource)
+        to = f"../../../{local(e)}/#mapping-{src}-{row}"
+        write(f"{local(r)}/index.html", f"""<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0; url={esc(to)}">
+<link rel="alternate" type="text/turtle" href="../../../m11-rdf.ttl">
+<title>Mapping record {esc(src)} row {esc(row)} · m11-rdf</title></head>
+<body><p>Mapping record <span class="iri">{esc(r)}</span>: {esc(SOURCE_LABEL[src])}, row {esc(row)}, on <a href="{esc(to)}">{esc(g.value(e, SKOS.prefLabel))}</a>.</p></body></html>
+""")
 
     # Sections.
     for s in sections:
@@ -311,8 +355,9 @@ def main():
 <dt>Elements</dt><dd>{len(elements)} · one IRI each, <code>&lt;namespace code list&gt;.&lt;concept code&gt;</code>, e.g. {link(M11['C217356.C132352'], g, 0)} <code>C217356.C132352</code></dd>
 <dt>Sections</dt><dd><a href="sections/">{len(sections)}</a> · identified by their C217272 term</dd>
 <dt>Code lists</dt><dd><a href="code-lists/">{len(namespaces) + len(value_lists)}</a> · {len(namespaces)} namespaces, {len(value_lists)} value code lists, with ICH OIDs</dd>
+<dt>Mapping statements</dt><dd>{len(records)} SSSOM records ({", ".join(f"{sum(1 for r in records if local(r).split('/')[1] == k)} {esc(v)}" for k, v in SOURCE_LABEL.items())}) to {len(set(g.objects(None, M11.mappedTo)))} USDM attributes, on {len(records_by_element)} elements · <a href="m11-usdm.sssom.tsv">SSSOM/TSV</a> · <a href="m11-usdm.sssom.ttl">SSSOM/RDF</a> · <a href="{REPO}/blob/main/reports/d2-identification.md">identification report</a></dd>
 <dt>Whole graph</dt><dd><a href="m11-rdf.ttl">Turtle</a> · <a href="m11-rdf.nt">N-Triples</a> · <a href="m11-rdf.rdf">RDF/XML</a> · <a href="m11-rdf.jsonld">JSON-LD</a></dd>
-<dt>Reports</dt><dd><a href="{REPO}/blob/main/reports/reconciliation.md">reconciliation of the sources</a> · <a href="{REPO}/blob/main/reports/tests.md">tests</a></dd>
+<dt>Reports</dt><dd><a href="{REPO}/blob/main/reports/reconciliation.md">reconciliation of the sources</a> · <a href="{REPO}/blob/main/reports/tests.md">tests</a> · <a href="{REPO}/blob/main/reports/d2-identification.md">D2 identification</a> · <a href="{REPO}/blob/main/reports/tests-d2.md">D2 tests</a></dd>
 <dt>Design note</dt><dd><a href="d4-skeleton/">D4 skeleton</a>: how a study, a document section or a template field points at the element it realises</dd>
 </dl>
 <h2>Namespaces</h2>

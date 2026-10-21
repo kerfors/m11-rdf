@@ -53,6 +53,12 @@ ul.tree > li { margin: 0.15rem 0; }
 <tr><th>Block</th><th>Term</th><th>Section</th><th>Conformance</th><th>Cardinality</th><th>Data type</th><th>Value code list</th><th>Repeating / reuse</th></tr>
 <tr><td>47</td><td>&lt;NMPA IND Number&gt;</td><td><a href="../C217272.C222769/">Title Page</a></td><td>Optional</td><td>One to one; One to Sponsor Protocol Identifier</td><td>Text <span class="muted">(D)</span></td><td></td><td>No</td></tr>
 </table></div>
+<h2>Mapping statements to USDM v4</h2>
+<p class="muted">One row per published mapping row that names this element (SSSOM record). The link to the USDM attribute is the mapping publisher's; how the row was tied to this element is in the third column. Paths as given.</p>
+<div class="table-wrap"><table>
+<tr><th>Source</th><th>USDM attribute (usdm-rdf)</th><th>Identified</th><th>Target path</th><th>Condition</th></tr>
+<tr id="mapping-hl7-40"><td>HL7 CSP IG ballot<br><a href="../mapping/hl7/40/">row 40</a></td><td><a href="https://w3id.org/cdisc/usdm/v4/Identifier-text">Identifier-text</a><br><span class="muted">stated: StudyIdentifier.text (attribute name, inherited)</span></td><td>by-code</td><td><code>StudyVersion/@studyIdentifiers/StudyIdentifier/@text</code></td><td><code>StudyVersion/@studyIdentifiers/StudyIdentifier/@scope/Organization/@type/Code/@code=&quot;C188863&quot; | StudyVersion/@studyIdentifiers/StudyIdentifier/@scope/Organization/@label=&quot;NMPA&quot;</code></td></tr><tr id="mapping-cdisc-40"><td>CDISC DDF-RA v4.0.0<br><a href="../mapping/cdisc/40/">row 40</a></td><td><a href="https://w3id.org/cdisc/usdm/v4/Identifier-text">Identifier-text</a><br><span class="muted">stated: StudyIdentifier.text (attribute name, inherited)</span></td><td>by-unique-name</td><td><code>StudyVersion/@studyIdentifiers/StudyIdentifier/@text</code></td><td><code>StudyVersion/@studyIdentifiers/StudyIdentifier/@scope/Organization/@type/Code/@code=&quot;C188863&quot; | StudyVersion/@studyIdentifiers/StudyIdentifier/@scope/Organization/@label=&quot;NMPA&quot;</code></td></tr>
+</table></div>
 
 <p class="draft">Draft, not normative. A derived rendering of the ICH M11 Technical Specification, code lists and OID Listing (© ICH, used under the ICH Legal Mentions) and of the ICH M11 Terminology published by NCI EVS (CC BY 4.0). Not an ICH, CDISC or HL7 artifact, and not endorsed or sponsored by ICH.</p>
 </main>

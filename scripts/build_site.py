@@ -5,8 +5,9 @@ sections, code lists and vocabulary terms; each mapping record
 (mapping/<source>/<row>) as a forward to its row on the element page. The
 ICH M11 Template (D5) on the section and element pages and as one page in
 Template order (template/). The whole graph as Turtle, N-Triples, RDF/XML
-and JSON-LD; the mapping set as SSSOM/TSV and SSSOM/RDF. docs/ is
-generated; do not edit by hand.
+and JSON-LD; the mapping set as SSSOM/TSV and SSSOM/RDF. The slides PDF
+(rendered from site/slides/ by scripts/render_slides.py) in slides/, where
+the folder URL forwards to it. docs/ is generated; do not edit by hand.
 Fails if two page paths differ only by case.
 """
 import html
@@ -29,7 +30,8 @@ MAPPING_FILES = ["m11-usdm.sssom.tsv", "m11-usdm.sssom.ttl"]
 
 DOCS = ROOT / "docs"
 REPO = "https://github.com/kerfors/m11-rdf"
-READING_PAGES = {"d4-skeleton", "template"}
+READING_PAGES = {"d4-skeleton", "slides", "template"}
+SLIDES_PDF = "ich-m11-elements-mapping-target.pdf"
 TEMPLATE_URL = "https://database.ich.org/sites/default/files/ICH_Step4_M11_Final_Template_2025_1119.pdf"
 KIND_SIGN = {"TextInsertion": "&lt;…&gt;", "ControlledTerminology": "[…]"}
 CSS = """
@@ -89,7 +91,7 @@ def page(title, body, depth=1, iri=None):
 </head>
 <body>
 <main>
-<nav><a href="{up}">m11-rdf</a> · <a href="{up}sections/">sections</a> · <a href="{up}code-lists/">code lists</a> · <a href="{up}template/">template</a> · <a href="{up}vocabulary/">vocabulary</a> · <a href="{REPO}">source</a></nav>
+<nav><a href="{up}">m11-rdf</a> · <a href="{up}sections/">sections</a> · <a href="{up}code-lists/">code lists</a> · <a href="{up}template/">template</a> · <a href="{up}vocabulary/">vocabulary</a> · <a href="{up}slides/">slides</a> · <a href="{REPO}">source</a></nav>
 <h1>{esc(title)}</h1>
 {head_iri}
 {body}
@@ -453,6 +455,19 @@ def main():
     d4 = (ROOT / "notes" / "d4-skeleton.md").read_text(encoding="utf-8")
     write("d4-skeleton/index.html", page("D4 skeleton: how content points at an M11 element", markdown.markdown(d4.split("\n", 2)[2], extensions=["tables"])))
 
+    # Slides: the PDF as rendered, and a forward from the folder URL.
+    write("slides/index.html", f"""<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="refresh" content="0; url={SLIDES_PDF}">
+<title>ICH M11 elements: a target to map to (slides)</title>
+</head>
+<body><p><a href="{SLIDES_PDF}">ICH M11 elements: a target to map to (slides, PDF)</a></p></body>
+</html>
+""")
+    shutil.copyfile(ROOT / "site" / SLIDES_PDF, DOCS / "slides" / SLIDES_PDF)
+
     onto = URIRef(str(M11))
     version = g.value(onto, OWL.versionInfo)
     body = f"""
@@ -466,6 +481,7 @@ def main():
 <dt>ICH M11 Template</dt><dd><a href="template/">{sum(1 for s in sections if g.value(s, M11.templateHeading) is not None)} headings and {len(fields)} fields</a> on their sections, {sum(1 for n in fields if g.value(n, M11.realises) is not None)} fields linked to the element they realise · <a href="{REPO}/blob/main/reports/d5-template.md">D5 report</a></dd>
 <dt>Whole graph</dt><dd><a href="m11-rdf.ttl">Turtle</a> · <a href="m11-rdf.nt">N-Triples</a> · <a href="m11-rdf.rdf">RDF/XML</a> · <a href="m11-rdf.jsonld">JSON-LD</a></dd>
 <dt>Reports</dt><dd><a href="{REPO}/blob/main/reports/reconciliation.md">reconciliation of the sources</a> · <a href="{REPO}/blob/main/reports/tests.md">tests</a> · <a href="{REPO}/blob/main/reports/d2-identification.md">D2 identification</a> · <a href="{REPO}/blob/main/reports/tests-d2.md">D2 tests</a> · <a href="{REPO}/blob/main/reports/d5-template.md">D5 Template</a> · <a href="{REPO}/blob/main/reports/tests-d5.md">D5 tests</a></dd>
+<dt>Slides</dt><dd><a href="slides/">ICH M11 elements: a target to map to</a> · what m11-rdf gives when mapping protocol content to ICH M11 and USDM v4, what is left, and questions for USDM 4.1 (PDF, eight slides)</dd>
 <dt>Design note</dt><dd><a href="d4-skeleton/">D4 skeleton</a>: how a study, a document section or a template field points at the element it realises</dd>
 </dl>
 <h2>Namespaces</h2>

@@ -1,0 +1,336 @@
+<!doctype html>
+<!-- Source of ich-m11-elements-mapping-target.pdf: six 16:9 slides (1920 x 1080 px each).
+     Hand-maintained. Rendered to PDF by scripts/render_slides.py; the PDF is then
+     copied into the site by scripts/build_site.py.
+     Arrows: <svg class="arrow" data-from="id:side" data-to="id:side"> are drawn by the
+     script at the end of this file between the named boxes (side = left|right|top|bottom).
+     Content: m11-rdf v0.3.0 and the published sources it renders (ICH M11 Technical
+     Specification and Template, Step 4, 2025-11-19; ICH M11 Terminology, NCI EVS 2025-12-19;
+     HL7 FHIR Clinical Study Protocol IG ballot mapping, May 2026; CDISC DDF-RA v4.0.0
+     m11_mapping.xlsx; usdm-rdf v0.7.0). Every number comes from the m11-rdf graph or its reports. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ICH M11 elements</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Domine:wght@500;700&family=Nunito+Sans:wght@400;600;700&display=swap">
+<style>
+@page { size: 1920px 1080px; margin: 0; }
+html, body { margin: 0; padding: 0; background: #FAF8F3; }
+* { box-sizing: border-box; }
+p, h1, h2, h3, ul { margin: 0; }
+section { width: 1920px; height: 1080px; position: relative; overflow: hidden; break-after: page;
+  font-family: 'Nunito Sans', Verdana, sans-serif; color: #1E2A44; background: #FAF8F3; padding: 112px 128px; display: flex; flex-direction: column; gap: 44px; }
+section.dark { background: #1E2A44; color: #FAF8F3; }
+.serif { font-family: Domine, Georgia, serif; font-weight: 700; }
+.eyebrow { font-size: 30px; font-weight: 700; color: #A3561B; }
+.dark .eyebrow { color: #E8B27A; }
+h2.serif { font-size: 64px; line-height: 1.15; }
+.chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip { font-size: 24px; padding: 4px 16px; border-radius: 999px; border: 2px solid transparent; white-space: nowrap; }
+.chip.data { background: #DCE7F5; color: #1E4F8A; }
+.chip.str { background: #FFFDF8; color: #1E4F8A; border: 2px dashed #2B67B0; }
+.chip.words { background: #F6E3D2; color: #7A3D10; }
+.chip.none { background: transparent; color: #4A5468; border: 2px dashed #8A93A6; }
+.chip.big { font-size: 30px; padding: 8px 22px; font-weight: 700; }
+.box { background: #FFFDF8; border: 2px solid #D8D2C4; border-radius: 20px; padding: 20px 26px; display: flex; flex-direction: column; gap: 10px; }
+.box h3 { font-size: 30px; font-weight: 700; }
+.box.struct { background: #E6EEF8; border-color: #2B67B0; }
+.box.struct h3 { color: #1E4F8A; }
+.box.doc { background: transparent; border: 2px dashed #8A93A6; }
+.box p { font-size: 24px; line-height: 1.4; }
+.box p.small { font-size: 22px; }
+.muted { color: #4A5468; }
+.small { font-size: 22px; line-height: 1.4; }
+.legend { display: flex; gap: 12px; }
+.hub { position: absolute; text-align: center; background: #2B67B0; color: #FFFFFF; font-size: 28px; font-weight: 700; padding: 16px 30px; border-radius: 999px; text-decoration: none; z-index: 2; line-height: 1.25; }
+.hub span { display: block; font-size: 22px; font-weight: 600; color: #DCE7F5; }
+.idstrip { display: grid; grid-template-columns: 330px 1fr; gap: 10px 28px; font-size: 26px; color: #D3DAE8; border: 2px solid #3A4766; border-radius: 16px; padding: 22px 28px; }
+.idstrip .k { grid-column: 1 / -1; font-size: 24px; font-weight: 700; color: #E8B27A; }
+.idstrip .r { font-weight: 700; color: #FAF8F3; }
+.idstrip .rdf { color: #9CC0EE; }
+a.u { color: inherit; text-decoration: underline dotted; text-decoration-thickness: 2px; text-underline-offset: 6px; }
+h3 a.u::after { content: " ↗"; font-size: 0.75em; font-weight: 400; }
+.idstrip a { color: inherit; }
+code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.92em; }
+.idstrip code { font-size: 24px; color: #FAF8F3; }
+.col { position: absolute; top: 0; display: flex; flex-direction: column; gap: 28px; }
+.cap { font-size: 20px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #4A5468; }
+.foot { font-size: 24px; line-height: 1.4; color: #4A5468; border-top: 2px solid #D8D2C4; padding-top: 14px; }
+.warn { color: #A3561B; font-weight: 700; }
+svg.arrow { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; overflow: visible; pointer-events: none; }
+</style>
+</head>
+<body>
+
+<!-- 1: cover -->
+<section class="dark" style="justify-content: space-between;">
+  <p class="eyebrow">Protocol content, ICH M11 and USDM v4</p>
+  <div style="display:flex;flex-direction:column;gap:40px">
+    <h1 class="serif" style="font-size:104px;line-height:1.1">ICH M11 elements:<br>a target to map to</h1>
+    <p style="font-size:44px;line-height:1.3;color:#D3DAE8;width:1560px">One global identifier per protocol element, linked to its place in the Template, its specification, its term and its USDM attributes</p>
+    <div class="chips" style="gap:16px">
+      <span class="chip data big">Data</span><span class="chip str big">Data in a string</span><span class="chip words big">Words</span>
+    </div>
+  </div>
+  <p style="font-size:28px;color:#D3DAE8;width:1600px;line-height:1.4">Kerstin Forsberg · the published ICH M11 Technical Specification, Template and Terminology, and the HL7 and CDISC mappings to USDM v4, <a class="u" href="https://w3id.org/m11-rdf/">represented as a knowledge graph</a></p>
+</section>
+
+<!-- 2: two standards -->
+<section style="gap:24px;padding:72px 128px 48px">
+  <div style="display:flex;flex-direction:column;gap:14px">
+    <p class="eyebrow">Two standards, one protocol</p>
+    <h2 class="serif" style="font-size:54px">ICH M11 is the document, USDM is the data</h2>
+  </div>
+  <div style="position:relative;width:1664px;height:600px">
+    <div class="col" style="left:0;width:600px">
+      <div class="box" id="m11">
+        <p class="cap">The document</p>
+        <h3><a class="u" href="https://database.ich.org/sites/default/files/ICH_Step4_M11_Final_Template_2025_1119.pdf">ICH M11</a></h3>
+        <p class="small"><b>Template</b>: the headings and fields of the protocol, as written</p>
+        <p class="small"><b>Technical Specification</b>: each element with its term, data type, conformance and place in the document</p>
+        <p class="small"><b>Terminology</b> (NCI EVS): a code and a definition per element</p>
+        <p class="small muted">Step 4, 19 November 2025; Terminology release 2025-12-19</p>
+      </div>
+    </div>
+    <div class="box doc" id="content" style="position:absolute;left:672px;top:120px;width:320px;align-items:center;text-align:center">
+      <h3 style="color:#4A5468">Your protocol content</h3>
+      <p class="small muted">design elements, sections, text</p>
+      <p class="small" style="font-weight:700;color:#4A5468;margin-top:6px">maps to which?</p>
+    </div>
+    <div class="col" style="left:1064px;width:600px">
+      <div class="box" id="usdm">
+        <p class="cap">The data</p>
+        <h3><a class="u" href="https://github.com/cdisc-org/DDF-RA/tree/v4.0.0">USDM v4</a></h3>
+        <p class="small">Classes and attributes of the study definition, published by CDISC (DDF-RA v4.0.0)</p>
+        <p class="small">As a knowledge graph in <a class="u" href="https://w3id.org/cdisc/usdm/v4/">usdm-rdf</a>: a global identifier per class and attribute</p>
+      </div>
+    </div>
+    <svg class="arrow" data-from="content:left" data-to="m11:right" data-color="#4A5468"></svg>
+    <svg class="arrow" data-from="content:right" data-to="usdm:left" data-color="#4A5468"></svg>
+    <div class="box" id="maps" style="position:absolute;left:0;top:448px;width:1664px;flex-direction:row;align-items:center;gap:28px">
+      <p style="font-size:26px;font-weight:700;width:330px;flex:none">M11 → USDM, as two published mappings state it</p>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div class="chips"><span class="chip str"><a class="u" href="https://hl7.org/fhir/uv/clinical-study-protocol/2026May/en/">HL7 FHIR Clinical Study Protocol IG ballot, May 2026</a></span><span class="small muted" style="align-self:center">stated against M11 Step 4 and USDM “v4.0.0 (update pending)”</span></div>
+        <div class="chips"><span class="chip str"><a class="u" href="https://github.com/cdisc-org/DDF-RA/blob/v4.0.0/Documents/Mappings/m11_mapping.xlsx">CDISC DDF-RA v4.0.0, m11_mapping.xlsx</a></span><span class="small muted" style="align-self:center">stated against the M11 Step 2 draft and USDM v4.0.0</span></div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:30px;line-height:1.4;width:1600px">Protocol content needs a place in both. The question is what exactly one maps to: a Template field, a specification block, a code, or a USDM attribute.</p>
+  <p class="foot">Each mapping is a spreadsheet: a row names an element by code or by name and a USDM class and attribute by name. Data in a string, until it is resolved.</p>
+</section>
+
+<!-- 3: not yet a target -->
+<section style="gap:28px;padding:76px 128px 56px">
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:40px">
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <p class="eyebrow">ICH M11 as published</p>
+      <h2 class="serif" style="font-size:54px;width:1200px">Not yet a target to map to</h2>
+    </div>
+    <div class="legend"><span class="chip data">Data</span><span class="chip str">Data in a string</span><span class="chip words">Words</span></div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:36px;align-items:stretch">
+    <div class="box">
+      <h3>One element, several names</h3>
+      <p class="small muted">The secondary objective:</p>
+      <div class="chips"><span class="chip words">{&lt;Secondary Objective&gt;}</span><span class="small muted" style="align-self:center">Specification</span></div>
+      <div class="chips"><span class="chip words">&lt;Enter Secondary Objective&gt;</span><span class="small muted" style="align-self:center">Template</span></div>
+      <div class="chips"><span class="chip words">Secondary Objective</span><span class="small muted" style="align-self:center">Terminology</span></div>
+      <p style="margin-top:10px">“Back-up Method for Reporting” in the Specification and Terminology is “Backup Method for Reporting” in the Template and in both mappings. Matched by name, that element gets neither its Template field nor a mapping.</p>
+      <p class="small muted" style="margin-top:auto">Mapping rows with a code that identifies the element: HL7 134 of 324, CDISC 93 of 323. The rest go by name, or not at all.</p>
+    </div>
+    <div class="box">
+      <h3>A code names a concept, not an element</h3>
+      <div style="position:relative;height:250px">
+        <span class="chip data big" id="c132352" style="position:absolute;left:0;top:94px">C132352</span>
+        <div class="box struct" id="s12" style="position:absolute;left:230px;top:10px;width:250px;padding:12px 18px;gap:4px"><p class="small"><b>Section 12</b></p><p class="small">Sponsor Approval Date</p></div>
+        <div class="box struct" id="stp" style="position:absolute;left:230px;top:140px;width:250px;padding:12px 18px;gap:4px"><p class="small"><b>Title Page</b></p><p class="small">Approval Date</p></div>
+        <svg class="arrow" data-from="c132352:right" data-to="s12:left" data-color="#2B67B0" data-thin="1"></svg>
+        <svg class="arrow" data-from="c132352:right" data-to="stp:left" data-color="#2B67B0" data-thin="1"></svg>
+      </div>
+      <p>The element is the pair as the Specification states it: section code list and concept code.</p>
+      <p class="small muted" style="margin-top:auto">9 codes are elements in two sections: 18 elements.</p>
+    </div>
+    <div class="box">
+      <h3>The place is written as text</h3>
+      <div class="chips"><span class="chip words" style="white-space:normal">“3.2.X where X is a unique number for each Secondary Objective”</span></div>
+      <p class="small muted">Specification, place in the table of contents</p>
+      <div class="chips" style="margin-top:8px"><span class="chip str">3.2.1</span><span class="small muted" style="align-self:center">the Template, as printed</span></div>
+      <div class="chips"><span class="chip str">3.2.#</span><span class="small muted" style="align-self:center">the mapping rows</span></div>
+      <p class="small muted" style="margin-top:auto">The sections themselves have codes: 160 terms in code list C217272.</p>
+    </div>
+  </div>
+  <p class="foot">Sources: ICH M11 Technical Specification and Template (Step 4, 2025-11-19), ICH M11 Terminology (NCI EVS, 2025-12-19), the HL7 and CDISC mappings; counts from the m11-rdf v0.3.0 build reports.</p>
+</section>
+
+<!-- 4: one element, all its links -->
+<section style="padding:72px 128px 56px;gap:24px">
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:40px">
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <p class="eyebrow">m11-rdf</p>
+      <h2 class="serif" style="font-size:54px;width:1240px">One element, one global identifier, all its links</h2>
+    </div>
+    <div class="legend"><span class="chip data">Data</span><span class="chip str">Data in a string</span><span class="chip words">Words</span></div>
+  </div>
+  <div style="position:relative;width:1664px;height:740px">
+    <div class="col" style="left:0;width:600px">
+      <div class="box struct" id="tpl">
+        <h3><a class="u" href="https://w3id.org/m11-rdf/C217272.C218530">Template · 3.2.1 Secondary Objective</a></h3>
+        <div class="chips"><span class="chip words">&lt;Enter Secondary Objective&gt;</span></div>
+        <div class="chips"><span class="chip data">page 29</span><span class="chip data">text insertion</span><span class="chip data">in { }: conditional</span></div>
+        <p class="small muted">Field linked to the element by m11-rdf, by the Specification term</p>
+      </div>
+      <div class="box struct" id="ts">
+        <h3>Specification · block 193</h3>
+        <div class="chips"><span class="chip words">{&lt;Secondary Objective&gt;}</span></div>
+        <div class="chips"><span class="chip data">Text</span><span class="chip data">D</span><span class="chip data">Required</span><span class="chip data"><a class="u" href="https://w3id.org/m11-rdf/C217272.C218529">in section 3.2</a></span></div>
+        <div class="chips"><span class="chip words">place: “3.2.X where X is a unique number …”</span></div>
+      </div>
+    </div>
+    <a class="hub" id="el" href="https://w3id.org/m11-rdf/C217344.C85827" style="left:666px;top:300px;width:332px">Secondary Objective<span>C217344.C85827</span></a>
+    <div class="col" style="left:1064px;width:600px">
+      <div class="box struct" id="evs">
+        <h3><a class="u" href="https://w3id.org/m11-rdf/C217344">Terminology · code C85827</a></h3>
+        <div class="chips"><span class="chip words" style="white-space:normal">“The secondary reason for performing a study in terms of the scientific questions to be answered by the analysis of data collected during the study.”</span></div>
+        <div class="chips"><span class="chip data">code list C217344, Section 3</span><span class="chip data">ICH OID …2.3.3.3</span></div>
+      </div>
+      <div class="box struct" id="map">
+        <h3><a class="u" href="https://w3id.org/cdisc/usdm/v4/SyntaxTemplate-text">USDM v4 · Objective.text</a></h3>
+        <div class="chips"><span class="chip str"><a class="u" href="https://w3id.org/m11-rdf/mapping/hl7/148">HL7 row 148</a></span><span class="chip str"><a class="u" href="https://w3id.org/m11-rdf/mapping/cdisc/152">CDISC row 152</a></span></div>
+        <div class="chips"><span class="chip str">where Objective.level = C85827</span></div>
+        <p class="small muted">Both rows, resolved in usdm-rdf: <code>SyntaxTemplate-text</code>, the attribute Objective inherits</p>
+      </div>
+    </div>
+    <svg class="arrow" data-from="el:left" data-to="tpl:right" data-color="#2B67B0" data-thin="1"></svg>
+    <svg class="arrow" data-from="el:left" data-to="ts:right" data-color="#2B67B0" data-thin="1"></svg>
+    <svg class="arrow" data-from="el:right" data-to="evs:left" data-color="#2B67B0" data-thin="1"></svg>
+    <svg class="arrow" data-from="el:right" data-to="map:left" data-color="#2B67B0" data-thin="1"></svg>
+  </div>
+  <p class="foot">All links on this slide are in m11-rdf v0.3.0. The Template does not state which element a field is; m11-rdf links the field by the Specification term, and each mapping row by its code or name.</p>
+</section>
+
+<!-- 5: where they don't line up -->
+<section style="padding:72px 128px 56px;gap:26px">
+  <div style="display:flex;flex-direction:column;gap:14px">
+    <p class="eyebrow">Recorded, not repaired</p>
+    <h2 class="serif" style="font-size:54px">Where the standards don't line up, on the same example</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:stretch">
+    <div class="box">
+      <h3>The secondary objective heading</h3>
+      <p class="small muted">Mapping row, the same in both files (<a class="u" href="https://w3id.org/m11-rdf/mapping/hl7/147">HL7 147</a>, <a class="u" href="https://w3id.org/m11-rdf/mapping/cdisc/151">CDISC 151</a>):</p>
+      <div class="chips"><span class="chip words">Secondary Objective &lt;#&gt;</span><span class="chip str">3.2.#</span><span class="chip str">Objective.label</span></div>
+      <div class="chips"><span class="chip str" style="font-weight:700">code C85826 · Primary Objective</span><span class="chip str">where Objective.level = C85827</span></div>
+      <p><span class="warn">The row contradicts itself:</span> its code is the primary objective, its condition the secondary.</p>
+      <p class="small muted">The Specification has a heading here, not an element: <code>{3.2.X Secondary Objective &lt;#&gt;}</code>, H, “Concept: Heading”. The exploratory objective heading has the same pattern (HL7 149, CDISC 153).</p>
+    </div>
+    <div class="box">
+      <h3>Narrative elements: one attribute, told apart by a section number</h3>
+      <div style="display:flex;align-items:center;gap:22px;margin:6px 0">
+        <svg width="250" height="150" viewBox="0 0 250 150"><g stroke="#7FA6D6" stroke-width="2" fill="none" opacity="0.6"><path d="M0 8 C 120 8, 150 75, 250 75"/><path d="M0 26 C 120 26, 150 75, 250 75"/><path d="M0 44 C 120 44, 150 75, 250 75"/><path d="M0 62 C 120 62, 150 75, 250 75"/><path d="M0 80 C 120 80, 150 75, 250 75"/><path d="M0 98 C 120 98, 150 75, 250 75"/><path d="M0 116 C 120 116, 150 75, 250 75"/><path d="M0 134 C 120 134, 150 75, 250 75"/></g></svg>
+        <div style="display:flex;flex-direction:column;gap:10px"><span class="chip data big"><a class="u" href="https://w3id.org/cdisc/usdm/v4/NarrativeContentItem-text">NarrativeContentItem.text</a></span><span class="chip str">sectionNumber = &lt;desired section&gt;</span></div>
+      </div>
+      <p>277 mapping statements, for 140 elements, point at the same USDM attribute. Only the condition tells them apart, and a section number is a string in the study file.</p>
+      <p class="small muted">m11-rdf gives each of the 160 sections a global identifier; 108 Template headings are themselves an element.</p>
+    </div>
+  </div>
+  <p style="font-size:26px;line-height:1.4">And for the field on slide 4: in <code>{ }</code> in the Template, Required in the Specification. 4 fields linked to an element are like this.</p>
+  <p class="foot">m11-rdf keeps each statement as published, flags it, and lists the rest in its build reports (<code>d2-residue.csv</code>, <code>d5-residue.csv</code>). It does not repair them, and it does not judge which source is right.</p>
+</section>
+
+<!-- 6: what it gives -->
+<section class="dark" style="gap:34px;justify-content:center;padding:72px 128px 64px">
+  <div style="display:flex;flex-direction:column;gap:18px">
+    <p class="eyebrow">What it gives</p>
+    <h2 class="serif" style="color:#FAF8F3">Map once, to an M11 element</h2>
+  </div>
+  <div class="idstrip">
+    <p class="k">Map your content to <a href="https://w3id.org/m11-rdf/C217344.C85827"><code>https://w3id.org/m11-rdf/C217344.C85827</code></a> and you get</p>
+    <p class="r">its place</p><p>the Template section, heading and field, with page</p>
+    <p class="r">its specification</p><p>term, data type, conformance, cardinality, place in the table of contents</p>
+    <p class="r">its term</p><p>the NCI EVS code and definition, the ICH OID of its code list</p>
+    <p class="r rdf">its USDM attributes</p><p>as the HL7 and the CDISC mapping state them, side by side, as usdm-rdf global identifiers</p>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:28px;font-size:26px;line-height:1.35">
+    <div><p class="serif" style="font-size:56px;color:#9CC0EE">270</p><p>elements, from 284 specification blocks, in 16 section code lists</p></div>
+    <div><p class="serif" style="font-size:56px;color:#9CC0EE">160</p><p>sections; Template headings on their sections</p></div>
+    <div><p class="serif" style="font-size:56px;color:#9CC0EE">281</p><p>Template fields; 271 linked to an element</p></div>
+    <div><p class="serif" style="font-size:56px;color:#9CC0EE">496</p><p>mapping statements; 202 elements mapped by both files, all to the same USDM targets</p></div>
+  </div>
+  <div style="display:grid;grid-template-columns:330px 1fr;gap:16px 28px;align-items:center;font-size:26px">
+    <span class="chip none big" style="justify-self:start;color:#9AA3B5;border:2px dotted #6E7891;background:transparent">Not given</span><p style="color:#D3DAE8">a mapping for 55 of the 270 elements; study instances; anything normative. Not an ICH, CDISC or HL7 artifact.</p>
+  </div>
+  <p style="font-size:26px;color:#D3DAE8">Published sources → <a class="u" href="https://w3id.org/m11-rdf/">m11-rdf</a> (one graph, rebuilt from pinned files) → USDM attributes in <a class="u" href="https://w3id.org/cdisc/usdm/v4/">usdm-rdf</a> · source: <a class="u" href="https://github.com/kerfors/m11-rdf">github.com/kerfors/m11-rdf</a></p>
+</section>
+
+<!-- 7: what is left -->
+<section style="padding:72px 128px 56px;gap:28px">
+  <div style="display:flex;flex-direction:column;gap:14px">
+    <p class="eyebrow">What is left</p>
+    <h2 class="serif" style="font-size:54px">As good as the published sources allow, for now</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:36px;align-items:stretch">
+    <div class="box struct">
+      <p class="cap">Settled in m11-rdf</p>
+      <h3>Identity and place</h3>
+      <p>270 elements, each the pair the Specification states; 160 sections; Template headings on their sections, 108 of them an element.</p>
+      <p>271 of 281 Template fields linked to an element; 264 of 270 elements reached by a field or a heading.</p>
+      <p>496 of 647 mapping rows are mapping statements.</p>
+    </div>
+    <div class="box">
+      <p class="cap">Needs the publishers</p>
+      <h3>151 mapping rows without a statement</h3>
+      <p>98 with a name that is not a Specification term and no usable code. Rows still marked CNEW: HL7 163, CDISC 212.</p>
+      <p>34 where the name or code fits more than one element, or code and name disagree.</p>
+      <p>19 where the element is found but the stated USDM class and attribute are not.</p>
+      <p class="small muted" style="margin-top:auto">Each listed in <code>d2-residue.csv</code>; Template residue in <code>d5-residue.csv</code>.</p>
+    </div>
+    <div class="box doc">
+      <p class="cap">Needs a convention</p>
+      <h3 style="color:#4A5468">Content that points at its element</h3>
+      <p>277 statements, for 140 elements, reach USDM only as <code>NarrativeContentItem.text</code> plus a section-number string.</p>
+      <p>A study file needs a way to say: this content is that M11 section or element. Neither USDM v4 nor the mappings have one yet.</p>
+    </div>
+  </div>
+  <p class="foot">m11-rdf applies mechanical, reproducible rules only. Where a rule would need judgement (a near-match of names, a choice between subclasses, a repaired spelling), the row stays in the residue.</p>
+</section>
+
+<!-- 8: questions for USDM 4.1 -->
+<section class="dark" style="gap:30px;justify-content:center;padding:72px 128px 64px">
+  <div style="display:flex;flex-direction:column;gap:18px">
+    <p class="eyebrow">USDM v4.1, public review from end of November 2026</p>
+    <h2 class="serif" style="color:#FAF8F3">Questions to ask of the alignment with ICH M11</h2>
+  </div>
+  <div class="idstrip" style="grid-template-columns:330px 1fr;gap:16px 28px">
+    <p class="r">Coverage</p><p>55 of the 270 elements have no mapping statement. Do they get a place in USDM?</p>
+    <p class="r">Document content</p><p>Can content point at an M11 section or element, rather than at a section number written as text?</p>
+    <p class="r">Model and mapping</p><p>160 rows in each mapping name <code>StudyProtocolDocumentVersion</code>, which USDM v4.0.0 does not have (it has StudyDefinitionDocumentVersion). Is the model changed, or the mapping?</p>
+    <p class="r">Step 4</p><p>The CDISC mapping is stated against the M11 Step 2 draft. For 39 of the 284 section and element-name pairs that both files have, the NCIt code differs.</p>
+    <p class="r rdf">Codes and names</p><p>Where m11-rdf finds a CNEW row by its name (HL7 128, CDISC 154), the element's code is published in the ICH M11 Terminology. Codes in the cells, and names as in the Specification, would make the mapping resolve by code.</p>
+  </div>
+  <p style="font-size:28px;line-height:1.4;color:#D3DAE8;width:1600px">When 4.1 is published, m11-rdf is rebuilt against it: the same element identifiers, new USDM and mapping inputs, and the difference per element.</p>
+</section>
+
+<script>
+document.fonts.ready.then(() => {
+  document.querySelectorAll('svg.arrow').forEach((svg, i) => {
+    const host = svg.parentElement.getBoundingClientRect();
+    const pt = (spec) => {
+      const [id, side] = spec.split(':');
+      const r = document.getElementById(id).getBoundingClientRect();
+      const x = { left: r.left, right: r.right, top: (r.left + r.right) / 2, bottom: (r.left + r.right) / 2 }[side] - host.left;
+      const y = { top: r.top, bottom: r.bottom, left: (r.top + r.bottom) / 2, right: (r.top + r.bottom) / 2 }[side] - host.top;
+      return [x, y];
+    };
+    const c = svg.dataset.color, id = 'h' + i;
+    const [x1, y1] = pt(svg.dataset.from), [x2, y2] = pt(svg.dataset.to);
+    svg.innerHTML = `<defs><marker id="${id}" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L6,3 L0,6 z" fill="${c}"/></marker></defs>` +
+      (svg.dataset.thin ? `<path d="M${x1} ${y1} C ${x1 + (x2 < x1 ? -50 : 50)} ${y1}, ${x2 + (x2 < x1 ? 70 : -70)} ${y2}, ${x2} ${y2}" fill="none" stroke="${c}" stroke-width="2.5" opacity="0.7"/><circle cx="${x2}" cy="${y2}" r="6" fill="${c}"/>` :
+      (svg.dataset.dash ? `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#FAF8F3" stroke-width="14"/>` : '') +
+      `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${c}" stroke-width="4" ${svg.dataset.dash ? 'stroke-dasharray="14 10"' : ''} marker-end="url(#${id})"/>`) +
+      (svg.dataset.label ? `<text x="${(x1 + x2) / 2 + Number(svg.dataset.labelDx || 0)}" y="${(y1 + y2) / 2 + Number(svg.dataset.labelDy || 0)}" fill="${c}" font-family="Nunito Sans, Verdana, sans-serif" font-size="24" font-weight="700">${svg.dataset.label}</text>` : '');
+  });
+  document.body.dataset.ready = '1';
+});
+</script>
+</body>
+</html>

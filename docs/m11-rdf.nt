@@ -15,8 +15,8 @@
 <https://w3id.org/m11-rdf/> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .
 <https://w3id.org/m11-rdf/> <http://www.w3.org/2000/01/rdf-schema#label> "m11-rdf"@en .
 <https://w3id.org/m11-rdf/> <http://www.w3.org/2000/01/rdf-schema#seeAlso> <https://github.com/kerfors/m11-rdf> .
-<https://w3id.org/m11-rdf/> <http://www.w3.org/2002/07/owl#versionIRI> <https://w3id.org/m11-rdf/0.3.0> .
-<https://w3id.org/m11-rdf/> <http://www.w3.org/2002/07/owl#versionInfo> "v0.3.0" .
+<https://w3id.org/m11-rdf/> <http://www.w3.org/2002/07/owl#versionIRI> <https://w3id.org/m11-rdf/0.3.1> .
+<https://w3id.org/m11-rdf/> <http://www.w3.org/2002/07/owl#versionInfo> "v0.3.1" .
 <https://w3id.org/m11-rdf/Basis> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Class> .
 <https://w3id.org/m11-rdf/Basis> <http://www.w3.org/2000/01/rdf-schema#comment> "Where a statement in this graph comes from."@en .
 <https://w3id.org/m11-rdf/Basis> <http://www.w3.org/2000/01/rdf-schema#label> "Basis"@en .
@@ -329,6 +329,8 @@
 <https://w3id.org/m11-rdf/C217272.C218528> <https://w3id.org/m11-rdf/hasTemplateField> _:field104 .
 <https://w3id.org/m11-rdf/C217272.C218528> <https://w3id.org/m11-rdf/hasTemplateField> _:field105 .
 <https://w3id.org/m11-rdf/C217272.C218528> <https://w3id.org/m11-rdf/hasTemplateField> _:field106 .
+<https://w3id.org/m11-rdf/C217272.C218528> <https://w3id.org/m11-rdf/headingElement> <https://w3id.org/m11-rdf/C217344.C85826> .
+<https://w3id.org/m11-rdf/C217272.C218528> <https://w3id.org/m11-rdf/placeScope> "section" .
 <https://w3id.org/m11-rdf/C217272.C218528> <https://w3id.org/m11-rdf/sectionNumber> "3.1.1" .
 <https://w3id.org/m11-rdf/C217272.C218528> <https://w3id.org/m11-rdf/templateConditional> "false"^^<http://www.w3.org/2001/XMLSchema#boolean> .
 <https://w3id.org/m11-rdf/C217272.C218528> <https://w3id.org/m11-rdf/templateHeading> "Primary Objective <#>" .
@@ -357,6 +359,8 @@
 <https://w3id.org/m11-rdf/C217272.C218530> <https://w3id.org/m11-rdf/concept> <http://purl.obolibrary.org/obo/NCIT_C218530> .
 <https://w3id.org/m11-rdf/C217272.C218530> <https://w3id.org/m11-rdf/hasTemplateField> _:field107 .
 <https://w3id.org/m11-rdf/C217272.C218530> <https://w3id.org/m11-rdf/hasTemplateField> _:field108 .
+<https://w3id.org/m11-rdf/C217272.C218530> <https://w3id.org/m11-rdf/headingElement> <https://w3id.org/m11-rdf/C217344.C85827> .
+<https://w3id.org/m11-rdf/C217272.C218530> <https://w3id.org/m11-rdf/placeScope> "section" .
 <https://w3id.org/m11-rdf/C217272.C218530> <https://w3id.org/m11-rdf/sectionNumber> "3.2.1" .
 <https://w3id.org/m11-rdf/C217272.C218530> <https://w3id.org/m11-rdf/templateConditional> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
 <https://w3id.org/m11-rdf/C217272.C218530> <https://w3id.org/m11-rdf/templateHeading> "{Secondary Objective <#>}" .
@@ -385,6 +389,8 @@
 <https://w3id.org/m11-rdf/C217272.C218532> <https://w3id.org/m11-rdf/concept> <http://purl.obolibrary.org/obo/NCIT_C218532> .
 <https://w3id.org/m11-rdf/C217272.C218532> <https://w3id.org/m11-rdf/hasTemplateField> _:field109 .
 <https://w3id.org/m11-rdf/C217272.C218532> <https://w3id.org/m11-rdf/hasTemplateField> _:field110 .
+<https://w3id.org/m11-rdf/C217272.C218532> <https://w3id.org/m11-rdf/headingElement> <https://w3id.org/m11-rdf/C217344.C163559> .
+<https://w3id.org/m11-rdf/C217272.C218532> <https://w3id.org/m11-rdf/placeScope> "section" .
 <https://w3id.org/m11-rdf/C217272.C218532> <https://w3id.org/m11-rdf/sectionNumber> "3.3.1" .
 <https://w3id.org/m11-rdf/C217272.C218532> <https://w3id.org/m11-rdf/templateConditional> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
 <https://w3id.org/m11-rdf/C217272.C218532> <https://w3id.org/m11-rdf/templateHeading> "{Exploratory Objective <#>}" .
@@ -6479,7 +6485,7 @@
 <https://w3id.org/m11-rdf/labelSource> <http://www.w3.org/2000/01/rdf-schema#range> <https://w3id.org/m11-rdf/Basis> .
 <https://w3id.org/m11-rdf/m11-usdm.sssom.tsv> <http://purl.org/dc/terms/title> "ICH M11 elements to USDM v4 (usdm-rdf), as stated in two published mappings" .
 <https://w3id.org/m11-rdf/m11-usdm.sssom.tsv> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/sssom/MappingSet> .
-<https://w3id.org/m11-rdf/m11-usdm.sssom.tsv> <http://www.w3.org/2002/07/owl#versionInfo> "0.3.0" .
+<https://w3id.org/m11-rdf/m11-usdm.sssom.tsv> <http://www.w3.org/2002/07/owl#versionInfo> "0.3.1" .
 <https://w3id.org/m11-rdf/m11-usdm.sssom.tsv> <https://w3id.org/sssom/mappings> <https://w3id.org/m11-rdf/mapping/cdisc/104> .
 <https://w3id.org/m11-rdf/m11-usdm.sssom.tsv> <https://w3id.org/sssom/mappings> <https://w3id.org/m11-rdf/mapping/cdisc/105> .
 <https://w3id.org/m11-rdf/m11-usdm.sssom.tsv> <https://w3id.org/sssom/mappings> <https://w3id.org/m11-rdf/mapping/cdisc/106> .

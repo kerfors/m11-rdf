@@ -6216,6 +6216,16 @@
         "@id": "_:field108"
       }
     ],
+    "https://w3id.org/m11-rdf/headingElement": [
+      {
+        "@id": "https://w3id.org/m11-rdf/C217344.C85827"
+      }
+    ],
+    "https://w3id.org/m11-rdf/placeScope": [
+      {
+        "@value": "section"
+      }
+    ],
     "https://w3id.org/m11-rdf/sectionNumber": [
       {
         "@value": "3.2.1"
@@ -25171,7 +25181,7 @@
     ],
     "http://www.w3.org/2002/07/owl#versionInfo": [
       {
-        "@value": "0.3.0"
+        "@value": "0.3.1"
       }
     ],
     "https://w3id.org/sssom/mappings": [
@@ -70763,6 +70773,16 @@
         "@id": "_:field106"
       }
     ],
+    "https://w3id.org/m11-rdf/headingElement": [
+      {
+        "@id": "https://w3id.org/m11-rdf/C217344.C85826"
+      }
+    ],
+    "https://w3id.org/m11-rdf/placeScope": [
+      {
+        "@value": "section"
+      }
+    ],
     "https://w3id.org/m11-rdf/sectionNumber": [
       {
         "@value": "3.1.1"
@@ -77119,12 +77139,12 @@
     ],
     "http://www.w3.org/2002/07/owl#versionIRI": [
       {
-        "@id": "https://w3id.org/m11-rdf/0.3.0"
+        "@id": "https://w3id.org/m11-rdf/0.3.1"
       }
     ],
     "http://www.w3.org/2002/07/owl#versionInfo": [
       {
-        "@value": "v0.3.0"
+        "@value": "v0.3.1"
       }
     ]
   },
@@ -124315,6 +124335,16 @@
       },
       {
         "@id": "_:field110"
+      }
+    ],
+    "https://w3id.org/m11-rdf/headingElement": [
+      {
+        "@id": "https://w3id.org/m11-rdf/C217344.C163559"
+      }
+    ],
+    "https://w3id.org/m11-rdf/placeScope": [
+      {
+        "@value": "section"
       }
     ],
     "https://w3id.org/m11-rdf/sectionNumber": [

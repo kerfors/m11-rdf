@@ -4,7 +4,7 @@
      copied into the site by scripts/build_site.py.
      Arrows: <svg class="arrow" data-from="id:side" data-to="id:side"> are drawn by the
      script at the end of this file between the named boxes (side = left|right|top|bottom).
-     Content: m11-rdf v0.3.0 and the published sources it renders (ICH M11 Technical
+     Content: m11-rdf v0.3.1 and the published sources it renders (ICH M11 Technical
      Specification and Template, Step 4, 2025-11-19; ICH M11 Terminology, NCI EVS 2025-12-19;
      HL7 FHIR Clinical Study Protocol IG ballot mapping, May 2026; CDISC DDF-RA v4.0.0
      m11_mapping.xlsx; usdm-rdf v0.7.0). Every number comes from the m11-rdf graph or its reports. -->
@@ -159,7 +159,7 @@ svg.arrow { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; 
       <p class="small muted" style="margin-top:auto">The sections themselves have codes: 160 terms in code list C217272.</p>
     </div>
   </div>
-  <p class="foot">Sources: ICH M11 Technical Specification and Template (Step 4, 2025-11-19), ICH M11 Terminology (NCI EVS, 2025-12-19), the HL7 and CDISC mappings; counts from the m11-rdf v0.3.0 build reports.</p>
+  <p class="foot">Sources: ICH M11 Technical Specification and Template (Step 4, 2025-11-19), ICH M11 Terminology (NCI EVS, 2025-12-19), the HL7 and CDISC mappings; counts from the m11-rdf v0.3.1 build reports.</p>
 </section>
 
 <!-- 4: one element, all its links -->
@@ -205,7 +205,7 @@ svg.arrow { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; 
     <svg class="arrow" data-from="el:right" data-to="evs:left" data-color="#2B67B0" data-thin="1"></svg>
     <svg class="arrow" data-from="el:right" data-to="map:left" data-color="#2B67B0" data-thin="1"></svg>
   </div>
-  <p class="foot">All links on this slide are in m11-rdf v0.3.0. The Template does not state which element a field is; m11-rdf links the field by the Specification term, and each mapping row by its code or name.</p>
+  <p class="foot">All links on this slide are in m11-rdf v0.3.1. The Template does not state which element a field is; m11-rdf links the field by the Specification term, and each mapping row by its code or name.</p>
 </section>
 
 <!-- 5: where they don't line up -->
@@ -230,7 +230,7 @@ svg.arrow { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; 
         <div style="display:flex;flex-direction:column;gap:10px"><span class="chip data big"><a class="u" href="https://w3id.org/cdisc/usdm/v4/NarrativeContentItem-text">NarrativeContentItem.text</a></span><span class="chip str">sectionNumber = &lt;desired section&gt;</span></div>
       </div>
       <p>277 mapping statements, for 140 elements, point at the same USDM attribute. Only the condition tells them apart, and a section number is a string in the study file.</p>
-      <p class="small muted">m11-rdf gives each of the 160 sections a global identifier; 108 Template headings are themselves an element.</p>
+      <p class="small muted">m11-rdf gives each of the 160 sections a global identifier; 111 Template headings are themselves an element.</p>
     </div>
   </div>
   <p style="font-size:26px;line-height:1.4">And for the field on slide 4: in <code>{ }</code> in the Template, Required in the Specification. 4 fields linked to an element are like this.</p>
@@ -272,7 +272,7 @@ svg.arrow { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; 
     <div class="box struct">
       <p class="cap">Settled in m11-rdf</p>
       <h3>Identity and place</h3>
-      <p>270 elements, each the pair the Specification states; 160 sections; Template headings on their sections, 108 of them an element.</p>
+      <p>270 elements, each the pair the Specification states; 160 sections; Template headings on their sections, 111 of them an element.</p>
       <p>271 of 281 Template fields linked to an element; 264 of 270 elements reached by a field or a heading.</p>
       <p>496 of 647 mapping rows are mapping statements.</p>
     </div>

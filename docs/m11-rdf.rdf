@@ -267,7 +267,7 @@
   <rdf:Description rdf:about="https://w3id.org/m11-rdf/m11-usdm.sssom.tsv">
     <dcterms:title>ICH M11 elements to USDM v4 (usdm-rdf), as stated in two published mappings</dcterms:title>
     <rdf:type rdf:resource="https://w3id.org/sssom/MappingSet"/>
-    <owl:versionInfo>0.3.0</owl:versionInfo>
+    <owl:versionInfo>0.3.1</owl:versionInfo>
     <ns1:mappings rdf:resource="https://w3id.org/m11-rdf/mapping/cdisc/104"/>
     <ns1:mappings rdf:resource="https://w3id.org/m11-rdf/mapping/cdisc/105"/>
     <ns1:mappings rdf:resource="https://w3id.org/m11-rdf/mapping/cdisc/106"/>
@@ -1239,6 +1239,8 @@
     <m11:hasTemplateField rdf:nodeID="field104"/>
     <m11:hasTemplateField rdf:nodeID="field105"/>
     <m11:hasTemplateField rdf:nodeID="field106"/>
+    <m11:headingElement rdf:resource="https://w3id.org/m11-rdf/C217344.C85826"/>
+    <m11:placeScope>section</m11:placeScope>
     <m11:sectionNumber>3.1.1</m11:sectionNumber>
     <m11:templateConditional rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</m11:templateConditional>
     <m11:templateHeading>Primary Objective &lt;#&gt;</m11:templateHeading>
@@ -7850,6 +7852,8 @@
     <m11:concept rdf:resource="http://purl.obolibrary.org/obo/NCIT_C218530"/>
     <m11:hasTemplateField rdf:nodeID="field107"/>
     <m11:hasTemplateField rdf:nodeID="field108"/>
+    <m11:headingElement rdf:resource="https://w3id.org/m11-rdf/C217344.C85827"/>
+    <m11:placeScope>section</m11:placeScope>
     <m11:sectionNumber>3.2.1</m11:sectionNumber>
     <m11:templateConditional rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</m11:templateConditional>
     <m11:templateHeading>{Secondary Objective &lt;#&gt;}</m11:templateHeading>
@@ -10708,8 +10712,8 @@
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
     <rdfs:label xml:lang="en">m11-rdf</rdfs:label>
     <rdfs:seeAlso rdf:resource="https://github.com/kerfors/m11-rdf"/>
-    <owl:versionIRI rdf:resource="https://w3id.org/m11-rdf/0.3.0"/>
-    <owl:versionInfo>v0.3.0</owl:versionInfo>
+    <owl:versionIRI rdf:resource="https://w3id.org/m11-rdf/0.3.1"/>
+    <owl:versionInfo>v0.3.1</owl:versionInfo>
   </rdf:Description>
   <rdf:Description rdf:about="https://w3id.org/m11-rdf/C217351.C218804">
     <rdf:type rdf:resource="https://w3id.org/m11-rdf/Element"/>
@@ -22883,6 +22887,25 @@
     <ns1:subject_match_field rdf:resource="https://w3id.org/m11-rdf/ichConceptCode"/>
     <ns1:subject_type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
   </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/m11-rdf/C217272.C218532">
+    <rdf:type rdf:resource="https://w3id.org/m11-rdf/Section"/>
+    <skos:broader rdf:resource="https://w3id.org/m11-rdf/C217272.C218531"/>
+    <skos:definition xml:lang="en">Section 3.3.1 of the ICH M11 Protocol standard, Exploratory Objective.</skos:definition>
+    <skos:exactMatch rdf:resource="http://rdf.ich.org/ich-terminology#C217272.C218532"/>
+    <skos:inScheme rdf:resource="https://w3id.org/m11-rdf/C217272"/>
+    <skos:prefLabel xml:lang="en">3.3.1 Exploratory Objective</skos:prefLabel>
+    <m11:concept rdf:resource="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C218532"/>
+    <m11:concept rdf:resource="http://purl.obolibrary.org/obo/NCIT_C218532"/>
+    <m11:hasTemplateField rdf:nodeID="field109"/>
+    <m11:hasTemplateField rdf:nodeID="field110"/>
+    <m11:headingElement rdf:resource="https://w3id.org/m11-rdf/C217344.C163559"/>
+    <m11:placeScope>section</m11:placeScope>
+    <m11:sectionNumber>3.3.1</m11:sectionNumber>
+    <m11:templateConditional rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</m11:templateConditional>
+    <m11:templateHeading>{Exploratory Objective &lt;#&gt;}</m11:templateHeading>
+    <m11:templateOptional rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</m11:templateOptional>
+    <m11:templatePage rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">29</m11:templatePage>
+  </rdf:Description>
   <rdf:Description rdf:nodeID="spec78">
     <rdf:type rdf:resource="https://w3id.org/m11-rdf/Specification"/>
     <m11:cardinality>One to one; One to Amendment Identifier; One to Sponsor Protocol Identifier</m11:cardinality>
@@ -24561,23 +24584,6 @@
     <m11:templateOrder rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">116</m11:templateOrder>
     <m11:templatePage rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">31</m11:templatePage>
     <m11:templateSectionNumber>4.1.1</m11:templateSectionNumber>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://w3id.org/m11-rdf/C217272.C218532">
-    <rdf:type rdf:resource="https://w3id.org/m11-rdf/Section"/>
-    <skos:broader rdf:resource="https://w3id.org/m11-rdf/C217272.C218531"/>
-    <skos:definition xml:lang="en">Section 3.3.1 of the ICH M11 Protocol standard, Exploratory Objective.</skos:definition>
-    <skos:exactMatch rdf:resource="http://rdf.ich.org/ich-terminology#C217272.C218532"/>
-    <skos:inScheme rdf:resource="https://w3id.org/m11-rdf/C217272"/>
-    <skos:prefLabel xml:lang="en">3.3.1 Exploratory Objective</skos:prefLabel>
-    <m11:concept rdf:resource="http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C218532"/>
-    <m11:concept rdf:resource="http://purl.obolibrary.org/obo/NCIT_C218532"/>
-    <m11:hasTemplateField rdf:nodeID="field109"/>
-    <m11:hasTemplateField rdf:nodeID="field110"/>
-    <m11:sectionNumber>3.3.1</m11:sectionNumber>
-    <m11:templateConditional rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</m11:templateConditional>
-    <m11:templateHeading>{Exploratory Objective &lt;#&gt;}</m11:templateHeading>
-    <m11:templateOptional rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</m11:templateOptional>
-    <m11:templatePage rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">29</m11:templatePage>
   </rdf:Description>
   <rdf:Description rdf:about="https://w3id.org/m11-rdf/C217350.C218788">
     <rdf:type rdf:resource="https://w3id.org/m11-rdf/Element"/>

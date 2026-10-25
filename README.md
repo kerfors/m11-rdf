@@ -53,7 +53,7 @@ the same element can be compared by a query.
 | D1 | Elements, sections and code lists. Element: label and ICH definition (EVS), namespace, the ICH pair (namespace OID + concept code), NCIt concept, and one specification per Technical Specification block (section, conformance, cardinality, data type, value code list, as printed). Section: C217272 term, number, hierarchy. Code list: ICH OID. A reconciliation table of the sources as build output. | Built (v0.1.0) |
 | D2 | Mapping statements M11 element → usdm-rdf attribute, from the HL7 Clinical Study Protocol IG ballot and CDISC DDF-RA v4.0.0, neither primary, as an SSSOM mapping set | Built (v0.2.0) |
 | D4 | How content (a USDM instance, a document section, a template field) points at the element it realises: [skeleton](notes/d4-skeleton.md) for discussion | Skeleton |
-| D5 | The ICH M11 Template: each heading on its section, each field (insertion point or controlled-terminology pick) on its section, linked to the element it realises, with the Template's optional and conditional flags | Built (v0.3.0) |
+| D5 | The ICH M11 Template: each heading on its section, each field (insertion point or controlled-terminology pick) on its section, linked to the element it realises, with the Template's optional and conditional flags | Built (v0.3.0; v0.3.1: repeating headings) |
 
 Conformance and cardinality belong to a Technical Specification block, not
 to the element: the same element can be specified in several blocks (for
@@ -111,10 +111,12 @@ Template PDF (Step 4, 19 November 2025):
 
 - each numbered heading on the C217272 section with that number
   (`m11:templateHeading`, page, optional, conditional), and Amendment
-  Details on its section. Where the heading is the Technical Specification
-  term of an element, `m11:headingElement` names it (narrative elements:
-  the text under the heading). The repeating heading 12.X has no section
-  term and is not rendered; its fields are on section 12.
+  Details on its section. Where the heading, without its repeat number
+  `<#>`, is the Technical Specification term of an element,
+  `m11:headingElement` names it (narrative elements: the text under the
+  heading; "Primary Objective <#>": the element each numbered repeat is
+  for, 3.1.X in the Technical Specification). The repeating heading 12.X
+  has no section term and is not rendered; its fields are on section 12.
 - each field, a text insertion point `<...>` or a controlled-terminology
   pick `[...]`, as a blank node on its section (`m11:TemplateField`): label
   as printed, kind, page, order, the section number as printed, and the

@@ -15,9 +15,9 @@ Template PDF: 67 pages, protocol content pages 9–67. Read with PyMuPDF 2.0 (Mu
 | repeating headings not rendered | 1 |
 | rendered headings optional (blue) | 17 |
 | rendered headings conditional | 30 |
-| headings that are an element, same section | 107 |
+| headings that are an element, same section | 110 |
 | headings that are an element, via namespace | 1 |
-| headings without an element | 51 |
+| headings without an element | 48 |
 
 ## Fields
 
@@ -45,7 +45,7 @@ Template PDF: 67 pages, protocol content pages 9–67. Read with PyMuPDF 2.0 (Mu
 | fields that realise an element | 271 |
 | fields without an element | 10 |
 | elements reached by fields | 262 |
-| elements reached by headings | 105 |
+| elements reached by headings | 108 |
 | elements reached | 264 |
 | D1 elements | 270 |
 | D1 elements not reached | 6 |

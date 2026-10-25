@@ -6,10 +6,10 @@ by build_d2.py (run build_d1.py and build_d2.py first).
 
 Headings: each numbered Template heading is recorded on the C217272 section
 with that number (m11:templateHeading, page, optional, conditional);
-Amendment Details on its section by name. A heading whose title equals the
-Technical Specification term of an element (normalised as in D2) gets
-m11:headingElement, looked for in the section, then in the namespace for the
-top-level section. The repeating heading 12.X has no C217272 term and is not
+Amendment Details on its section by name. A heading whose title, without the
+repeat number <#>, equals the Technical Specification term of an element
+(normalised as in D2) gets m11:headingElement, looked for in the section,
+then in the namespace for the top-level section. The repeating heading 12.X has no C217272 term and is not
 rendered (DECISIONS M7); its fields are on section 12.
 
 Fields: one blank node per field on its section, with label, kind, page,
@@ -242,7 +242,7 @@ def main():
             raise RuntimeError(f"Template heading {h['number']} has no C217272 section")
         hit, scope = None, ""
         for sc in ("section", "namespace"):
-            found = d1.find(norm(h["title"]), "ts-term", sc, h["number"])
+            found = d1.find(norm(h["title"].replace("<#>", "")), "ts-term", sc, h["number"])
             if len(found) > 1:
                 raise RuntimeError(f"Heading {h['number']} equals the TS term of several elements: {found}")
             if found:

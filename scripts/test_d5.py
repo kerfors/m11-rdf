@@ -68,7 +68,7 @@ def main():
     for s, e in g.subject_objects(M11.headingElement):
         scope = str(g.value(s, M11.placeScope))
         key = str(g.value(s, M11.sectionNumber) or g.value(s, SKOS.prefLabel))
-        ok = any(norm(t) == norm(str(g.value(s, M11.templateHeading))) and
+        ok = any(norm(t) == norm(str(g.value(s, M11.templateHeading)).replace("<#>", "")) and
                  (in_section(key, p) if scope == "section" else d1.namespace_top(e) == top(key))
                  for _, t, _, _, p in d1.specs[e])
         if not ok:

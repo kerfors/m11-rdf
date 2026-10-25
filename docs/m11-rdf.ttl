@@ -29,8 +29,8 @@ m11: a owl:Ontology ;
     vann:preferredNamespacePrefix "m11" ;
     vann:preferredNamespaceUri "https://w3id.org/m11-rdf/" ;
     rdfs:seeAlso <https://github.com/kerfors/m11-rdf> ;
-    owl:versionIRI m11:0.3.0 ;
-    owl:versionInfo "v0.3.0" .
+    owl:versionIRI m11:0.3.1 ;
+    owl:versionInfo "v0.3.1" .
 
 m11:C217272.C218528 a m11:Section ;
     skos:broader m11:C217272.C218527 ;
@@ -124,6 +124,8 @@ m11:C217272.C218528 a m11:Section ;
             m11:templateOrder 106 ;
             m11:templatePage 28 ;
             m11:templateSectionNumber "3.1.1" ] ;
+    m11:headingElement m11:C217344.C85826 ;
+    m11:placeScope "section" ;
     m11:sectionNumber "3.1.1" ;
     m11:templateConditional false ;
     m11:templateHeading "Primary Objective <#>" ;
@@ -158,6 +160,8 @@ m11:C217272.C218530 a m11:Section ;
             m11:templateOrder 108 ;
             m11:templatePage 29 ;
             m11:templateSectionNumber "3.2.1" ] ;
+    m11:headingElement m11:C217344.C85827 ;
+    m11:placeScope "section" ;
     m11:sectionNumber "3.2.1" ;
     m11:templateConditional true ;
     m11:templateHeading "{Secondary Objective <#>}" ;
@@ -192,6 +196,8 @@ m11:C217272.C218532 a m11:Section ;
             m11:templateOrder 110 ;
             m11:templatePage 29 ;
             m11:templateSectionNumber "3.3.1" ] ;
+    m11:headingElement m11:C217344.C163559 ;
+    m11:placeScope "section" ;
     m11:sectionNumber "3.3.1" ;
     m11:templateConditional true ;
     m11:templateHeading "{Exploratory Objective <#>}" ;
@@ -4455,7 +4461,7 @@ m11:DerivedFromSection a m11:Basis ;
 
 m11:m11-usdm.sssom.tsv a sssom:MappingSet ;
     dcterms:title "ICH M11 elements to USDM v4 (usdm-rdf), as stated in two published mappings" ;
-    owl:versionInfo "0.3.0" ;
+    owl:versionInfo "0.3.1" ;
     sssom:mappings <https://w3id.org/m11-rdf/mapping/cdisc/104>,
         <https://w3id.org/m11-rdf/mapping/cdisc/105>,
         <https://w3id.org/m11-rdf/mapping/cdisc/106>,
@@ -17754,56 +17760,6 @@ m11:C217343.C218723 a m11:Element ;
     m11:mappedTo usdm:NarrativeContentItem-text ;
     m11:pairBasis m11:StatedInTS .
 
-m11:C217344.C163559 a m11:Element ;
-    skos:definition "The exploratory reason for performing a study in terms of the scientific questions to be answered by the analysis of data collected during the study."@en ;
-    skos:exactMatch evs:C217344.C163559 ;
-    skos:inScheme m11:C217344 ;
-    skos:prefLabel "Exploratory Objective"@en ;
-    m11:concept ncit:C163559,
-        obo:NCIT_C163559 ;
-    m11:hasSpecification [ a m11:Specification ;
-            m11:cardinality "One to Table of Contents Number 3.3.X; One to Estimand Characteristic Table, Exploratory Objective <#>, Protocol Identifier" ;
-            m11:conformance "Conditional: if an Exploratory Objective is part of the trial" ;
-            m11:dataType "Text" ;
-            m11:dvh "D" ;
-            m11:hasConformanceCategory m11:Conditional ;
-            m11:inSection m11:C217272.C218531 ;
-            m11:repeatPattern "3.3.X where X is a unique number for each Exploratory Objective" ;
-            m11:repeatReuse "Yes, repeatable for each numbered Exploratory Objective." ;
-            m11:tocReference "3.3.X where X is a unique number for each Exploratory Objective" ;
-            m11:tsBlock 211 ;
-            m11:tsTerm "{<Exploratory Objective>}" ] ;
-    m11:ichConceptCode "C163559" ;
-    m11:ichNamespaceOid "2.16.840.1.113883.3.989.2.3.3.3"^^m11:ichOid ;
-    m11:labelSource m11:EVSTerminology ;
-    m11:mappedTo usdm:SyntaxTemplate-text ;
-    m11:pairBasis m11:StatedInTS .
-
-m11:C217344.C85827 a m11:Element ;
-    skos:definition "The secondary reason for performing a study in terms of the scientific questions to be answered by the analysis of data collected during the study."@en ;
-    skos:exactMatch evs:C217344.C85827 ;
-    skos:inScheme m11:C217344 ;
-    skos:prefLabel "Secondary Objective"@en ;
-    m11:concept ncit:C85827,
-        obo:NCIT_C85827 ;
-    m11:hasSpecification [ a m11:Specification ;
-            m11:cardinality "One to one; Table of Contents Number 3.2.X; One to Estimand Characteristic Table, Secondary Objective <#>, Protocol Identifier" ;
-            m11:conformance "Required" ;
-            m11:dataType "Text" ;
-            m11:dvh "D" ;
-            m11:hasConformanceCategory m11:Required ;
-            m11:inSection m11:C217272.C218529 ;
-            m11:repeatPattern "3.2.X where X is a unique number for each Secondary Objective" ;
-            m11:repeatReuse "Yes, repeatable for each numbered Secondary Objective." ;
-            m11:tocReference "3.2.X where X is a unique number for each Secondary Objective" ;
-            m11:tsBlock 193 ;
-            m11:tsTerm "{<Secondary Objective>}" ] ;
-    m11:ichConceptCode "C85827" ;
-    m11:ichNamespaceOid "2.16.840.1.113883.3.989.2.3.3.3"^^m11:ichOid ;
-    m11:labelSource m11:EVSTerminology ;
-    m11:mappedTo usdm:SyntaxTemplate-text ;
-    m11:pairBasis m11:StatedInTS .
-
 m11:C217345.C142705 a m11:Element ;
     skos:definition "An explanation as to the scientific reasons for the choice of the trial design."@en ;
     skos:exactMatch evs:C217345.C142705 ;
@@ -19895,6 +19851,56 @@ m11:C217343.C218725 a m11:Element ;
     m11:ichNamespaceOid "2.16.840.1.113883.3.989.2.3.3.2"^^m11:ichOid ;
     m11:labelSource m11:EVSTerminology ;
     m11:mappedTo usdm:NarrativeContentItem-text ;
+    m11:pairBasis m11:StatedInTS .
+
+m11:C217344.C163559 a m11:Element ;
+    skos:definition "The exploratory reason for performing a study in terms of the scientific questions to be answered by the analysis of data collected during the study."@en ;
+    skos:exactMatch evs:C217344.C163559 ;
+    skos:inScheme m11:C217344 ;
+    skos:prefLabel "Exploratory Objective"@en ;
+    m11:concept ncit:C163559,
+        obo:NCIT_C163559 ;
+    m11:hasSpecification [ a m11:Specification ;
+            m11:cardinality "One to Table of Contents Number 3.3.X; One to Estimand Characteristic Table, Exploratory Objective <#>, Protocol Identifier" ;
+            m11:conformance "Conditional: if an Exploratory Objective is part of the trial" ;
+            m11:dataType "Text" ;
+            m11:dvh "D" ;
+            m11:hasConformanceCategory m11:Conditional ;
+            m11:inSection m11:C217272.C218531 ;
+            m11:repeatPattern "3.3.X where X is a unique number for each Exploratory Objective" ;
+            m11:repeatReuse "Yes, repeatable for each numbered Exploratory Objective." ;
+            m11:tocReference "3.3.X where X is a unique number for each Exploratory Objective" ;
+            m11:tsBlock 211 ;
+            m11:tsTerm "{<Exploratory Objective>}" ] ;
+    m11:ichConceptCode "C163559" ;
+    m11:ichNamespaceOid "2.16.840.1.113883.3.989.2.3.3.3"^^m11:ichOid ;
+    m11:labelSource m11:EVSTerminology ;
+    m11:mappedTo usdm:SyntaxTemplate-text ;
+    m11:pairBasis m11:StatedInTS .
+
+m11:C217344.C85827 a m11:Element ;
+    skos:definition "The secondary reason for performing a study in terms of the scientific questions to be answered by the analysis of data collected during the study."@en ;
+    skos:exactMatch evs:C217344.C85827 ;
+    skos:inScheme m11:C217344 ;
+    skos:prefLabel "Secondary Objective"@en ;
+    m11:concept ncit:C85827,
+        obo:NCIT_C85827 ;
+    m11:hasSpecification [ a m11:Specification ;
+            m11:cardinality "One to one; Table of Contents Number 3.2.X; One to Estimand Characteristic Table, Secondary Objective <#>, Protocol Identifier" ;
+            m11:conformance "Required" ;
+            m11:dataType "Text" ;
+            m11:dvh "D" ;
+            m11:hasConformanceCategory m11:Required ;
+            m11:inSection m11:C217272.C218529 ;
+            m11:repeatPattern "3.2.X where X is a unique number for each Secondary Objective" ;
+            m11:repeatReuse "Yes, repeatable for each numbered Secondary Objective." ;
+            m11:tocReference "3.2.X where X is a unique number for each Secondary Objective" ;
+            m11:tsBlock 193 ;
+            m11:tsTerm "{<Secondary Objective>}" ] ;
+    m11:ichConceptCode "C85827" ;
+    m11:ichNamespaceOid "2.16.840.1.113883.3.989.2.3.3.3"^^m11:ichOid ;
+    m11:labelSource m11:EVSTerminology ;
+    m11:mappedTo usdm:SyntaxTemplate-text ;
     m11:pairBasis m11:StatedInTS .
 
 m11:C217345.C142698 a m11:Element ;
@@ -23255,32 +23261,6 @@ m11:C217344 a m11:Namespace ;
         obo:NCIT_C217344 ;
     m11:forSection m11:C217272.C218526 .
 
-m11:C217344.C85826 a m11:Element ;
-    skos:definition "The principle reason for performing a study in terms of the scientific questions to be answered by the analysis of data collected during the study."@en ;
-    skos:exactMatch evs:C217344.C85826 ;
-    skos:inScheme m11:C217344 ;
-    skos:prefLabel "Primary Objective"@en ;
-    m11:concept ncit:C85826,
-        obo:NCIT_C85826 ;
-    m11:hasSpecification [ a m11:Specification ;
-            m11:cardinality "One to one; One to Table of Contents Number 3.1.X; One to Estimand Characteristics Table, Primary Objective <#>, Protocol Identifier" ;
-            m11:conformance "Required" ;
-            m11:dataType "Text" ;
-            m11:dvh "D" ;
-            m11:hasConformanceCategory m11:Required ;
-            m11:inSection m11:C217272.C218527 ;
-            m11:repeatPattern "3.1.X where X is a unique number for each Primary Objective" ;
-            m11:repeatReuse "Yes, repeatable for each numbered Primary Objective. Yes, reuse to the table in Section 1.1.1.for each Primary Objective" ;
-            m11:tocReference "3.1.X where X is a unique number for each Primary Objective" ;
-            m11:tsBlock 176 ;
-            m11:tsTerm "<Primary Objective>" ] ;
-    m11:ichConceptCode "C85826" ;
-    m11:ichNamespaceOid "2.16.840.1.113883.3.989.2.3.3.3"^^m11:ichOid ;
-    m11:labelSource m11:EVSTerminology ;
-    m11:mappedTo usdm:SyntaxTemplate-label,
-        usdm:SyntaxTemplate-text ;
-    m11:pairBasis m11:StatedInTS .
-
 m11:C217342.C50400 a m11:Element ;
     skos:definition "Those units of time that are routinely used to express the age of a person."@en ;
     skos:exactMatch evs:C217342.C50400 ;
@@ -23318,6 +23298,32 @@ m11:C217342.C50400 a m11:Element ;
     m11:ichNamespaceOid "2.16.840.1.113883.3.989.2.3.3.1"^^m11:ichOid ;
     m11:labelSource m11:EVSTerminology ;
     m11:mappedTo usdm:PopulationDefinition-plannedAge ;
+    m11:pairBasis m11:StatedInTS .
+
+m11:C217344.C85826 a m11:Element ;
+    skos:definition "The principle reason for performing a study in terms of the scientific questions to be answered by the analysis of data collected during the study."@en ;
+    skos:exactMatch evs:C217344.C85826 ;
+    skos:inScheme m11:C217344 ;
+    skos:prefLabel "Primary Objective"@en ;
+    m11:concept ncit:C85826,
+        obo:NCIT_C85826 ;
+    m11:hasSpecification [ a m11:Specification ;
+            m11:cardinality "One to one; One to Table of Contents Number 3.1.X; One to Estimand Characteristics Table, Primary Objective <#>, Protocol Identifier" ;
+            m11:conformance "Required" ;
+            m11:dataType "Text" ;
+            m11:dvh "D" ;
+            m11:hasConformanceCategory m11:Required ;
+            m11:inSection m11:C217272.C218527 ;
+            m11:repeatPattern "3.1.X where X is a unique number for each Primary Objective" ;
+            m11:repeatReuse "Yes, repeatable for each numbered Primary Objective. Yes, reuse to the table in Section 1.1.1.for each Primary Objective" ;
+            m11:tocReference "3.1.X where X is a unique number for each Primary Objective" ;
+            m11:tsBlock 176 ;
+            m11:tsTerm "<Primary Objective>" ] ;
+    m11:ichConceptCode "C85826" ;
+    m11:ichNamespaceOid "2.16.840.1.113883.3.989.2.3.3.3"^^m11:ichOid ;
+    m11:labelSource m11:EVSTerminology ;
+    m11:mappedTo usdm:SyntaxTemplate-label,
+        usdm:SyntaxTemplate-text ;
     m11:pairBasis m11:StatedInTS .
 
 m11:C217356.C222495 a m11:Element ;

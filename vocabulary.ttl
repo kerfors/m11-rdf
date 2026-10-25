@@ -14,17 +14,16 @@
     a owl:Ontology ;
     rdfs:label "m11-rdf"@en ;
     dcterms:title "ICH M11 protocol elements and sections as linked data"@en ;
-    dcterms:description "A derived rendering of the ICH M11 Technical Specification (Step 4, 2025-11-19), the ICH M11 code lists and OID Listing, and the ICH M11 Terminology published by NCI EVS (release 2025-12-19): one IRI per protocol element, section and code list; the headings and fields of the ICH M11 Template (Step 4, 2025-11-19), each linked to its section and to the element it realises; and mapping statements from the elements to USDM v4 attributes (usdm-rdf), as stated in the HL7 FHIR Clinical Study Protocol IG ballot mapping (May 2026) and the CDISC DDF-RA v4.0.0 M11 mapping. Draft, not normative. Not an ICH, CDISC or HL7 artifact, and not endorsed or sponsored by ICH."@en ;
-    dcterms:rights "Contains information derived from the ICH M11 Technical Specification, the ICH M11 Template and the ICH M11 code lists and OID Listing, copyright ICH, used under the ICH Legal Mentions (https://www.ich.org/page/legal-mentions); changes made: rendered as RDF and joined with the EVS terminology; of the Template, headings and fields rendered as RDF and linked to the elements, instructional and universal text not carried. Contains terms and definitions from the ICH M11 Terminology, NCI Enterprise Vocabulary Services, CC BY 4.0. Mapping statements contain content based on DDF-RA (https://github.com/cdisc-org/DDF-RA), used under CC BY 4.0, as published in CDISC DDF-RA v4.0.0 and in the HL7 FHIR Clinical Study Protocol IG ballot (May 2026, CC0); changes made: the M11 side identified against m11-rdf, the USDM side resolved against usdm-rdf."@en ;
+    dcterms:description "A derived rendering of the ICH M11 Technical Specification (Step 4, 2025-11-19), the ICH M11 code lists and OID Listing, and the ICH M11 Terminology published by NCI EVS (release 2025-12-19): one IRI per protocol element, section and code list; the headings and fields of the ICH M11 Template (Step 4, 2025-11-19), each linked to its section and to the element it realises. Mapping statements from the elements to USDM v4 attributes (usdm-rdf), as stated in the HL7 FHIR Clinical Study Protocol IG ballot mapping (May 2026) and the CDISC DDF-RA v4.0.0 M11 mapping, are published separately as an SSSOM mapping set (rdfs:seeAlso) that points at these identifiers. Draft, not normative. Not an ICH, CDISC or HL7 artifact, and not endorsed or sponsored by ICH."@en ;
+    dcterms:rights "Contains information derived from the ICH M11 Technical Specification, the ICH M11 Template and the ICH M11 code lists and OID Listing, copyright ICH, used under the ICH Legal Mentions (https://www.ich.org/page/legal-mentions); changes made: rendered as RDF and joined with the EVS terminology; of the Template, headings and fields rendered as RDF and linked to the elements, instructional and universal text not carried. Contains terms and definitions from the ICH M11 Terminology, NCI Enterprise Vocabulary Services, CC BY 4.0."@en ;
     dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
     dcterms:creator "Kerstin Forsberg" ;
     dcterms:source <https://database.ich.org/sites/default/files/ICH_Step4_M11_Final_TechnicalSpecification_2025_1119.pdf> ,
         <https://database.ich.org/sites/default/files/ICH_Step4_M11_Final_Template_2025_1119.pdf> ,
         <https://admin.ich.org/sites/default/files/inline-files/3.M11_code_lists_1.zip> ,
-        <https://evs.nci.nih.gov/ftp1/ICH/M11/Archive/ICH%20M11%20Terminology%202025-12-19.txt> ,
-        <https://hl7.org/fhir/uv/clinical-study-protocol/2026May/en/Mappings/M11%20to%20FHIR%20Mapping%2002.xlsx> ,
-        <https://raw.githubusercontent.com/cdisc-org/DDF-RA/v4.0.0/Documents/Mappings/m11_mapping.xlsx> ;
-    rdfs:seeAlso <https://github.com/kerfors/m11-rdf> ;
+        <https://evs.nci.nih.gov/ftp1/ICH/M11/Archive/ICH%20M11%20Terminology%202025-12-19.txt> ;
+    rdfs:seeAlso <https://github.com/kerfors/m11-rdf> ,
+        <https://w3id.org/m11-rdf/m11-usdm.sssom.tsv> ;
     vann:preferredNamespacePrefix "m11" ;
     vann:preferredNamespaceUri "https://w3id.org/m11-rdf/" .
 

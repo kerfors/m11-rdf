@@ -1,4 +1,4 @@
-"""Tests for D2 (m11-usdm.sssom.tsv, m11-usdm.sssom.ttl, the mapping records in m11-rdf.ttl).
+"""Tests for D2 (m11-usdm.sssom.tsv, m11-usdm.sssom.ttl; m11-rdf.ttl holds no mapping statements).
 
 Checks the mapping set against the pinned SSSOM schema, the D1 graph,
 usdm-rdf v0.7.0, the two pinned mapping spreadsheets and
@@ -12,10 +12,10 @@ from collections import Counter, defaultdict
 import openpyxl
 import yaml
 from rdflib import Graph, URIRef
-from rdflib.namespace import OWL, RDF, RDFS, SKOS
+from rdflib.namespace import DCTERMS, OWL, RDF, RDFS, SKOS
 
 from common import M11, REPORTS, ROOT, checked
-from build_d2 import (COLUMNS, MAP, PREDICATE, SCHEMA, SET_FILE, SET_ID, SOURCES,
+from build_d2 import (COLUMNS, MAP, PREDICATE, SCHEMA, SET_FILE, SET_ID, SOURCES, SSSOM, URL,
                       USDM, USDM_TTL, norm, one_line, schema_slot_uris)
 
 results = []
@@ -178,11 +178,11 @@ def main():
     check("every object is a usdm-rdf property of the stated type, declared on the stated class or a superclass, "
           "named by the stated attribute or its usdm:modelName", True)
 
-    # SSSOM/RDF and the whole graph agree with the TSV.
+    # SSSOM/RDF agrees with the TSV.
     slot = schema_slot_uris()
     s = Graph().parse(ROOT / "m11-usdm.sssom.ttl")
     ext_prop = {e["slot_name"]: expand(e["property"], cm) for e in meta["extension_definitions"]}
-    for graph, name in [(s, "m11-usdm.sssom.ttl"), (g, "m11-rdf.ttl")]:
+    for graph, name in [(s, "m11-usdm.sssom.ttl")]:
         recs = set(graph.objects(URIRef(SET_ID), slot["mappings"]))
         check(f"{name}: the records = the TSV records", recs == {expand(r["record_id"], cm) for r in rows})
         for r in rows:
@@ -199,7 +199,20 @@ def main():
                 raise AssertionError(f"FAILED: {name} {i} is not an owl:Axiom")
         check(f"{name}: every record has the TSV subject, predicate, object, justification and extension values", True)
     pairs = {(expand(r["subject_id"], cm), expand(r["object_id"], cm)) for r in rows}
-    check("m11-rdf.ttl: direct m11:mappedTo triples = the distinct record pairs", set(g.subject_objects(PREDICATE)) == pairs)
+    check("m11-usdm.sssom.ttl: direct m11:mappedTo triples = the distinct record pairs",
+          set(s.subject_objects(PREDICATE)) == pairs)
+    check("m11-usdm.sssom.ttl: m11:mappedTo declared owl:AnnotationProperty, as in m11-rdf.ttl",
+          (PREDICATE, RDF.type, OWL.AnnotationProperty) in s and (PREDICATE, RDF.type, OWL.AnnotationProperty) in g)
+
+    # The M11 graph holds no mapping statements; it points at the set without naming a version.
+    onto = URIRef(str(M11))
+    check("m11-rdf.ttl: no owl:Axiom, no m11:mappedTo, no sssom:MappingSet, no dcterms:hasPart",
+          (None, RDF.type, OWL.Axiom) not in g and (None, PREDICATE, None) not in g
+          and (None, RDF.type, SSSOM.MappingSet) not in g and (None, DCTERMS.hasPart, None) not in g)
+    check("m11-rdf.ttl: rdfs:seeAlso the unversioned mapping_set_id", (onto, RDFS.seeAlso, URIRef(SET_ID)) in g)
+    sheets = {URIRef(URL[x["file"]]) for x in SOURCES}
+    check("the mapping spreadsheets are see_also of the set, not dcterms:source of m11-rdf.ttl",
+          sheets <= set(s.objects(URIRef(SET_ID), RDFS.seeAlso)) and not sheets & set(g.objects(onto, DCTERMS.source)))
     check("record IRIs are <namespace>mapping/<source>/<row>",
           all(str(expand(r["record_id"], cm)) == f"{MAP}{r['record_id'].split(':', 1)[1]}" and
               re.fullmatch(r"(hl7|cdisc)/\d+", r["record_id"].split(":", 1)[1]) for r in rows))

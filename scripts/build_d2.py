@@ -21,22 +21,21 @@ target resolves (M17, M19):
 Rows without a statement, and statements with a flag, are written to
 reports/d2-residue.csv for usdm-overlay layer 4.
 
-Outputs: m11-usdm.sssom.tsv, m11-usdm.sssom.ttl, m11-rdf.ttl (D1 plus the
-mapping records and one m11:mappedTo triple per distinct pair),
-reports/d2-identification.md, reports/d2-identification.csv,
-reports/d2-residue.csv.
+Outputs: m11-usdm.sssom.tsv, m11-usdm.sssom.ttl (the records plus one
+m11:mappedTo direct triple per distinct pair), reports/d2-identification.md,
+reports/d2-identification.csv, reports/d2-residue.csv.
 """
 import csv
 import json
 import re
-from collections import Counter, defaultdict
+from collections import defaultdict
 
 import openpyxl
 import yaml
 from rdflib import BNode, Graph, Literal, Namespace, URIRef
 from rdflib.namespace import DCTERMS, OWL, RDF, RDFS, SKOS, XSD
 
-from common import BUILD, DOWNLOADS, M11, REPORTS, ROOT, checked
+from common import BUILD, M11, REPORTS, ROOT, checked
 from fetch_inputs import INPUTS
 
 USDM = Namespace("https://w3id.org/cdisc/usdm/v4/")
@@ -44,7 +43,7 @@ SSSOM = Namespace("https://w3id.org/sssom/")
 SEMAPV = Namespace("https://w3id.org/semapv/vocab/")
 MAP = Namespace(str(M11) + "mapping/")
 
-VERSION = "0.3.1"
+VERSION = "0.4.0"
 SET_FILE = "m11-usdm.sssom.tsv"
 SET_ID = str(M11) + SET_FILE
 SCHEMA = "sssom/sssom_schema.yaml"
@@ -274,8 +273,6 @@ def schema_slot_uris():
 
 def main():
     g = Graph().parse(ROOT / "m11-rdf.ttl")
-    if (None, PREDICATE, None) in g or (None, RDF.type, OWL.Axiom) in g:
-        raise RuntimeError("m11-rdf.ttl already holds mapping statements; run build_d1.py first")
     elements, by_code, tocs, names = d1_index(g)
     other_blocks = other_block_names()
     usdm = Usdm()
@@ -338,8 +335,11 @@ def set_metadata():
             "element, or the row's section decides between namespaces), or by the row's element name when its "
             "normalised form (case, punctuation, brackets, white space) equals the term of exactly one Technical "
             "Specification element block. Target and condition paths as given, line breaks replaced by a space. "
-            "Rows without a record are listed in reports/d2-residue.csv. Draft, not normative; not an ICH, CDISC or "
-            "HL7 artifact."),
+            "Rows without a record are listed in reports/d2-residue.csv. Mapping statements contain content based on "
+            "DDF-RA (https://github.com/cdisc-org/DDF-RA), used under CC BY 4.0, as published in CDISC DDF-RA v4.0.0 "
+            "and in the HL7 FHIR Clinical Study Protocol IG ballot (May 2026, CC0); changes made: the M11 side "
+            "identified against m11-rdf, the USDM side resolved against usdm-rdf. Draft, not normative; not an ICH, "
+            "CDISC or HL7 artifact."),
         "license": "https://creativecommons.org/licenses/by/4.0/",
         "sssom_version": "1.1",
         "creator_label": "Kerstin Forsberg",
@@ -347,7 +347,7 @@ def set_metadata():
         "subject_source_version": str(M11[VERSION]),
         "object_source": str(USDM),
         "object_source_version": str(usdm_version),
-        "see_also": "https://github.com/kerfors/m11-rdf",
+        "see_also": ["https://github.com/kerfors/m11-rdf"] + [URL[s["file"]] for s in SOURCES],
     }
 
 
@@ -409,7 +409,8 @@ def write_set(g, statements, usdm, slot):
         if k == "sssom_version":
             s.add((ms, slot[k], SSSOM["version" + v]))
         else:
-            s.add((ms, slot[k], URIRef(v) if uri_valued else Literal(v)))
+            for w in (v if isinstance(v, list) else [v]):
+                s.add((ms, slot[k], URIRef(w) if uri_valued else Literal(w)))
     for i, (name, prop, hint) in enumerate(EXTENSIONS):
         d = BNode(f"ext{i}")
         s.add((ms, slot["extension_definitions"], d))
@@ -441,35 +442,12 @@ def write_set(g, statements, usdm, slot):
             records.add((r, prop, v if isinstance(v, URIRef) else Literal(v, datatype=hint if hint != XSD.string else None)))
     for t in records:
         s.add(t)
-    s.serialize(ROOT / "m11-usdm.sssom.ttl", format="turtle")
-
-    # Whole graph: D1 plus the records (without extension definitions) and the direct triples.
-    out = relabel_specs(g)
-    for p, ns in [("usdm", USDM), ("m11map", MAP), ("sssom", SSSOM), ("semapv", SEMAPV)]:
-        out.bind(p, ns)
-    onto = URIRef(str(M11))
-    for t in records:
-        out.add(t)
-    out.add((ms, RDF.type, SSSOM.MappingSet))
-    out.add((ms, slot["mapping_set_title"], Literal(meta["mapping_set_title"])))
-    out.add((ms, slot["mapping_set_version"], Literal(VERSION)))
-    out.add((onto, DCTERMS.hasPart, ms))
+    # Direct triples (spec-formats-rdf, "Representation of mappings as direct triples"): one per distinct pair,
+    # with the predicate declared as in vocabulary.ttl so that the set read alone is valid OWL.
+    s.add((PREDICATE, RDF.type, OWL.AnnotationProperty))
     for x in statements:
-        out.add((x["elements"][0], PREDICATE, USDM[x["object"]]))
-    out.serialize(ROOT / "m11-rdf.ttl", format="turtle")
-
-
-def relabel_specs(g):
-    """Copy of g with each specification's blank node labelled spec<TS block>, as build_d1 writes them."""
-    label = {s: BNode(f"spec{g.value(s, M11.tsBlock)}") for s in g.subjects(RDF.type, M11.Specification)}
-    if any(isinstance(x, BNode) and x not in label for t in g for x in t):
-        raise RuntimeError("Blank nodes other than one per specification in m11-rdf.ttl")
-    out = Graph()
-    for prefix, ns in g.namespaces():
-        out.bind(prefix, ns)
-    for s, p, o in g:
-        out.add((label.get(s, s), p, label.get(o, o)))
-    return out
+        s.add((x["elements"][0], PREDICATE, USDM[x["object"]]))
+    s.serialize(ROOT / "m11-usdm.sssom.ttl", format="turtle")
 
 
 def write_reports(records, statements, elements, usdm):

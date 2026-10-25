@@ -11,11 +11,13 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 m11:m11-usdm.sssom.tsv a sssom:MappingSet ;
-    dcterms:description "One record per row of the HL7 FHIR Clinical Study Protocol IG ballot mapping (May 2026) and of the CDISC DDF-RA v4.0.0 M11 mapping whose M11 side is identified against m11-rdf and whose USDM target resolves in usdm-rdf (USDM v4.0.0). Neither mapping is primary. The link from element to USDM target is the publisher's; m11-rdf adds only the identification of the M11 side: by code (the row's NCIt Code is the concept of one element, or the row's section decides between namespaces), or by the row's element name when its normalised form (case, punctuation, brackets, white space) equals the term of exactly one Technical Specification element block. Target and condition paths as given, line breaks replaced by a space. Rows without a record are listed in reports/d2-residue.csv. Draft, not normative; not an ICH, CDISC or HL7 artifact." ;
+    dcterms:description "One record per row of the HL7 FHIR Clinical Study Protocol IG ballot mapping (May 2026) and of the CDISC DDF-RA v4.0.0 M11 mapping whose M11 side is identified against m11-rdf and whose USDM target resolves in usdm-rdf (USDM v4.0.0). Neither mapping is primary. The link from element to USDM target is the publisher's; m11-rdf adds only the identification of the M11 side: by code (the row's NCIt Code is the concept of one element, or the row's section decides between namespaces), or by the row's element name when its normalised form (case, punctuation, brackets, white space) equals the term of exactly one Technical Specification element block. Target and condition paths as given, line breaks replaced by a space. Rows without a record are listed in reports/d2-residue.csv. Mapping statements contain content based on DDF-RA (https://github.com/cdisc-org/DDF-RA), used under CC BY 4.0, as published in CDISC DDF-RA v4.0.0 and in the HL7 FHIR Clinical Study Protocol IG ballot (May 2026, CC0); changes made: the M11 side identified against m11-rdf, the USDM side resolved against usdm-rdf. Draft, not normative; not an ICH, CDISC or HL7 artifact." ;
     dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
     dcterms:title "ICH M11 elements to USDM v4 (usdm-rdf), as stated in two published mappings" ;
-    rdfs:seeAlso <https://github.com/kerfors/m11-rdf> ;
-    owl:versionInfo "0.3.1" ;
+    rdfs:seeAlso <https://github.com/kerfors/m11-rdf>,
+        hl7csp:M11%20to%20FHIR%20Mapping%2002.xlsx,
+        ddfra:m11_mapping.xlsx ;
+    owl:versionInfo "0.4.0" ;
     sssom:creator_label "Kerstin Forsberg" ;
     sssom:extension_definitions [ a sssom:ExtensionDefinition ;
             sssom:property m11:sourceRow ;
@@ -549,7 +551,25 @@ m11:m11-usdm.sssom.tsv a sssom:MappingSet ;
     sssom:object_source_version usdm:0.7.0 ;
     sssom:sssom_version sssom:version1.1 ;
     sssom:subject_source m11: ;
-    sssom:subject_source_version m11:0.3.1 .
+    sssom:subject_source_version m11:0.4.0 .
+
+m11:C217356.C132352 m11:mappedTo usdm:GovernanceDate-dateValue .
+
+m11:C217356.C20108 m11:mappedTo usdm:GeographicScope-code .
+
+m11:C217356.C218477 m11:mappedTo usdm:StudyAmendment-number .
+
+m11:C217356.C218484 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217356.C218674 m11:mappedTo usdm:GeographicScope-code .
+
+m11:C217356.C218683 m11:mappedTo usdm:Address-text .
+
+m11:C217356.C222014 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217356.C222064 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217356.C83081 m11:mappedTo usdm:StudySite-label .
 
 <https://w3id.org/m11-rdf/mapping/cdisc/104> a owl:Axiom ;
     owl:annotatedProperty m11:mappedTo ;
@@ -11958,4 +11978,427 @@ m11:m11-usdm.sssom.tsv a sssom:MappingSet ;
     sssom:subject_label "Additional Description of Duration" ;
     sssom:subject_match_field m11:tsTerm ;
     sssom:subject_type skos:Concept .
+
+m11:C217342.C112038 m11:mappedTo usdm:Indication-label .
+
+m11:C217342.C218475 m11:mappedTo usdm:StudyDesign-characteristics .
+
+m11:C217342.C218704 m11:mappedTo usdm:StudyDesign-characteristics .
+
+m11:C217342.C218705 m11:mappedTo usdm:StudyDesign-characteristics .
+
+m11:C217342.C218706 m11:mappedTo usdm:StudyDesign-characteristics .
+
+m11:C217342.C218708 m11:mappedTo usdm:MedicalDevice-embeddedProductId .
+
+m11:C217342.C218709 m11:mappedTo usdm:StudyRole-code .
+
+m11:C217342.C218710 m11:mappedTo usdm:PopulationDefinition-plannedEnrollmentNumber .
+
+m11:C217342.C218711 m11:mappedTo usdm:StudyDesign-characteristics .
+
+m11:C217342.C218718 m11:mappedTo usdm:StudyRole-label .
+
+m11:C217342.C218719 m11:mappedTo usdm:StudyRole-label .
+
+m11:C217342.C218720 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217342.C218838 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217342.C218839 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217342.C49647 m11:mappedTo usdm:StudyArm-type .
+
+m11:C217342.C93682 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217342.C97054 m11:mappedTo usdm:Substance-label .
+
+m11:C217342.C98771 m11:mappedTo usdm:StudyDesign-arms .
+
+m11:C217343.C146997 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217343.C218721 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217343.C218722 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217343.C218723 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217343.C218724 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217343.C218725 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217344.C163559 m11:mappedTo usdm:SyntaxTemplate-text .
+
+m11:C217344.C85827 m11:mappedTo usdm:SyntaxTemplate-text .
+
+m11:C217345.C142698 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217345.C142705 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217345.C147139 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217345.C215629 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217345.C218726 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217345.C218727 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217345.C218728 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217345.C218729 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217345.C218730 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217345.C218731 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217345.C218733 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217345.C218734 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217345.C218735 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217345.C218736 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217345.C218737 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217345.C218738 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217346.C179373 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217346.C218739 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217346.C218740 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217346.C218741 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217346.C218742 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217346.C218743 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217346.C218744 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217346.C218745 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217346.C218746 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217346.C25370 m11:mappedTo usdm:SyntaxTemplate-text .
+
+m11:C217346.C25532 m11:mappedTo usdm:SyntaxTemplate-text .
+
+m11:C217346.C49628 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217347.C115525 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217347.C142517 m11:mappedTo usdm:Substance-strengths .
+
+m11:C217347.C15697 m11:mappedTo usdm:Administration-frequency .
+
+m11:C217347.C172457 m11:mappedTo usdm:StudyArm-type .
+
+m11:C217347.C176267 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217347.C176274 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217347.C177930 m11:mappedTo usdm:StudyIntervention-label .
+
+m11:C217347.C189349 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217347.C218751 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217347.C218752 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217347.C218753 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217347.C218754 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217347.C218755 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217347.C218756 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217347.C218757 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217347.C218758 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217347.C218759 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217347.C218761 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217347.C218762 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217347.C218763 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217347.C222330 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217347.C25196 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217347.C38114 m11:mappedTo usdm:Administration-route .
+
+m11:C217347.C53630 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217347.C93729 m11:mappedTo usdm:StudyArm-label .
+
+m11:C217347.C94394 m11:mappedTo usdm:Administration-dose .
+
+m11:C217347.C98747 m11:mappedTo usdm:StudyIntervention-type .
+
+m11:C217348.C218764 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217348.C218765 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217348.C218766 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217348.C218767 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217348.C218768 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217349.C154628 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217349.C168186 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217349.C176849 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217349.C20989 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217349.C218769 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217349.C218770 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217349.C218771 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217349.C218772 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217349.C218773 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217349.C218774 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217349.C218775 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217349.C218776 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217349.C218778 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217349.C218779 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217349.C218780 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217349.C92949 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217350.C218476 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217350.C218781 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217350.C218782 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217350.C218784 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217350.C218785 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217350.C218786 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217350.C218787 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217350.C218788 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217350.C218789 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217350.C218791 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217350.C218792 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217350.C218793 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217350.C218794 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217350.C218795 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217350.C218796 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217350.C218797 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217350.C218798 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217350.C218799 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217350.C218800 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217350.C25676 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217350.C82552 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217351.C115467 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217351.C142582 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217351.C164387 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217351.C218801 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217351.C218802 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217351.C218803 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217351.C218804 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217351.C218805 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217351.C218806 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217351.C218807 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217351.C218808 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217351.C218809 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217351.C218810 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217352.C184390 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217352.C218811 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217352.C218812 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217352.C218813 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217352.C218814 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217352.C218815 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217352.C218816 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217352.C218817 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217352.C218818 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217352.C218819 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217352.C218820 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217352.C218821 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217352.C218822 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217352.C218823 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217352.C218827 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217352.C218828 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217352.C218829 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217352.C218830 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217352.C218831 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217353.C218832 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217353.C218833 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217353.C218834 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217353.C218836 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217353.C25294 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217354.C218837 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217355.C184397 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217356.C132346 m11:mappedTo usdm:StudyTitle-text .
+
+m11:C217356.C132351 m11:mappedTo usdm:Identifier-text .
+
+m11:C217356.C172240 m11:mappedTo usdm:Identifier-text .
+
+m11:C217356.C181232 m11:mappedTo usdm:StudyDefinitionDocumentVersion-version .
+
+m11:C217356.C181236 m11:mappedTo usdm:NarrativeContentItem-text .
+
+m11:C217356.C218672 m11:mappedTo usdm:StudyVersion-amendments .
+
+m11:C217356.C218673 m11:mappedTo usdm:GeographicScope-type .
+
+m11:C217356.C218675 m11:mappedTo usdm:Identifier-text .
+
+m11:C217356.C218681 m11:mappedTo usdm:Address-text .
+
+m11:C217356.C218682 m11:mappedTo usdm:Organization-label .
+
+m11:C217356.C218684 m11:mappedTo usdm:Identifier-text .
+
+m11:C217356.C218685 m11:mappedTo usdm:Identifier-text .
+
+m11:C217356.C218686 m11:mappedTo usdm:Identifier-text .
+
+m11:C217356.C218687 m11:mappedTo usdm:Identifier-text .
+
+m11:C217356.C218688 m11:mappedTo usdm:Identifier-text .
+
+m11:C217356.C218689 m11:mappedTo usdm:Identifier-text .
+
+m11:C217356.C218690 m11:mappedTo usdm:Identifier-text .
+
+m11:C217356.C48281 m11:mappedTo usdm:StudyDesign-studyPhase .
+
+m11:C217356.C71898 m11:mappedTo usdm:AdministrableProduct-label .
+
+m11:C217356.C93813 m11:mappedTo usdm:GovernanceDate-dateValue .
+
+m11:C217356.C94105 m11:mappedTo usdm:StudyTitle-text .
+
+m11:C217356.C94108 m11:mappedTo usdm:StudyTitle-text .
+
+m11:C217356.C97054 m11:mappedTo usdm:Substance-label .
+
+m11:C217357.C17649 m11:mappedTo usdm:StudyAmendmentReason-otherReason .
+
+m11:C217357.C218696 m11:mappedTo usdm:StudyAmendmentReason-code .
+
+m11:C217357.C218697 m11:mappedTo usdm:StudyAmendmentReason-code .
+
+m11:C217357.C42581 m11:mappedTo usdm:StudyAmendment-summary .
+
+m11:C217357.C218694 m11:mappedTo usdm:StudyAmendment-previousId,
+        usdm:StudyVersion-amendments .
+
+m11:C217342.C218703 m11:mappedTo usdm:PopulationDefinition-includesHealthySubjects .
+
+m11:C217342.C49692 m11:mappedTo usdm:PopulationDefinition-plannedEnrollmentNumber .
+
+m11:C217342.C49693 m11:mappedTo usdm:Quantity-value .
+
+m11:C217342.C49694 m11:mappedTo usdm:Quantity-value .
+
+m11:C217356.C218678 m11:mappedTo usdm:AssignedPerson-label,
+        usdm:Organization-label .
+
+m11:C217356.C218679 m11:mappedTo usdm:Address-text .
+
+m11:C217356.C218680 m11:mappedTo usdm:AssignedPerson-label,
+        usdm:Organization-label .
+
+m11:C217344.C188853 m11:mappedTo usdm:Estimand-populationSummary .
+
+m11:C217344.C188856 m11:mappedTo usdm:SyntaxTemplate-text .
+
+m11:C217344.C188857 m11:mappedTo usdm:IntercurrentEvent-strategy .
+
+m11:C217344.C25212 m11:mappedTo usdm:SyntaxTemplate-text .
+
+m11:C217344.C70833 m11:mappedTo usdm:AnalysisPopulation-text .
+
+m11:C217342.C50400 m11:mappedTo usdm:PopulationDefinition-plannedAge .
+
+m11:C217344.C85826 m11:mappedTo usdm:SyntaxTemplate-label,
+        usdm:SyntaxTemplate-text .
+
+m11:C217356.C222495 m11:mappedTo usdm:Address-text,
+        usdm:AssignedPerson-label,
+        usdm:Organization-label .
+
+m11:C217344.C49236 m11:mappedTo usdm:AdministrableProduct-label,
+        usdm:Administration-frequency,
+        usdm:Administration-route,
+        usdm:StudyIntervention-label .
+
+m11:mappedTo a owl:AnnotationProperty .
 

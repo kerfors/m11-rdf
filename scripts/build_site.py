@@ -28,7 +28,7 @@ import shutil
 import subprocess
 import sys
 from collections import defaultdict
-from urllib.parse import quote
+from urllib.parse import quote, unquote
 
 import markdown
 
@@ -141,7 +141,7 @@ def page(title, body, depth=1, iri=None, kind=None, alternate="m11-rdf.ttl", css
 </head>
 <body>
 <main>
-<nav><a href="{up}">m11-rdf</a> · <a href="{up}vocabulary/">vocabulary</a> · <a href="{up}elements/">elements</a> · <a href="{up}sections/">sections</a> · <a href="{up}code-lists/">code lists</a> · <a href="{up}template/">template</a> · <a href="{up}{MAPPING_PAGE}/">mapping set</a> · <a href="{up}slides/">slides</a> · <a href="{REPO}">source</a></nav>
+<nav><a href="{up}">m11-rdf</a> · <a href="{up}vocabulary/">vocabulary</a> · <a href="{up}elements/">elements</a> · <a href="{up}sections/">sections</a> · <a href="{up}code-lists/">code lists</a> · <a href="{up}template/">template</a> · <a href="{up}{MAPPING_PAGE}/">mapping set</a> · <a href="{up}slides/">slides</a> · <a href="{REPO}">GitHub repository</a></nav>
 <h1>{esc(title)}</h1>
 {head_iri}
 {body}
@@ -642,6 +642,7 @@ def main():
 <dt>Code lists</dt><dd><a href="code-lists/">{len(namespaces) + len(value_lists)}</a> · {len(namespaces)} namespaces, {len(value_lists)} value code lists, with ICH OIDs</dd>
 <dt>ICH M11 Template</dt><dd><a href="template/">{sum(1 for s in sections if g.value(s, M11.templateHeading) is not None)} headings and {len(fields)} fields</a> on their sections, {sum(1 for n in fields if g.value(n, M11.realises) is not None)} fields linked to the element they realise · <a href="{REPO}/blob/main/reports/d5-template.md">D5 report</a></dd>
 <dt>Files</dt><dd>m11-rdf.ttl: <a href="m11-rdf.ttl">Turtle</a> · <a href="m11-rdf.nt">N-Triples</a> · <a href="m11-rdf.rdf">RDF/XML</a> · <a href="m11-rdf.jsonld">JSON-LD</a></dd>
+{dt("Sources", [DCTERMS.source], 0)}<dd>{" · ".join(f'<a href="{esc(x)}">{esc(unquote(str(x).rsplit("/", 1)[1]))}</a>' for x in sorted(g.objects(onto, DCTERMS.source), key=str))}</dd>
 </dl>
 <h3>Namespaces</h3>
 <div class="table-wrap"><table><tr><th>Namespace</th><th>Section</th><th>Elements</th></tr>

@@ -122,8 +122,8 @@ def value_html(v):
     return esc(s)
 
 
-def render(path, files):
-    """Title and body HTML for the set in path; files = [(label, href)] for the download line."""
+def render(path, files, notes=""):
+    """Title and body HTML for the set in path; files = [(label, href)] for the download line; notes = HTML after it."""
     meta, columns, rows = read_sssom_tsv(path)
     curie_map = meta["curie_map"]
     ids = [anchor(r["record_id"]) for r in rows] if "record_id" in columns else []
@@ -148,6 +148,7 @@ def render(path, files):
     body = f"""
 <p>A mapping set in <a href="https://mapping-commons.github.io/sssom/">SSSOM</a> format: {len(rows)} records. This page shows the file as it is: the set metadata from its header, then one table row per record, columns in file order. Links are added to <code>record_id</code>, <code>subject_id</code> and <code>object_id</code>, expanded with the set's own prefixes.</p>
 <p>Files: {downloads}</p>
+{notes}
 <h2>Mapping set</h2>
 <dl>{scalars}</dl>
 <h2>Prefixes (curie_map)</h2>

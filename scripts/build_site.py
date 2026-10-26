@@ -13,12 +13,15 @@ code-lists/, template/ (the ICH M11 Template, D5, in Template order).
 
 The mapping set m11-usdm.sssom.tsv as one table page (mappings/m11-usdm/,
 scripts/mapping_view.py); each mapping record IRI (mapping/<source>/<row>)
-as a forward to its row there. The M11 graph as Turtle, N-Triples, RDF/XML
+as a forward to its row there. The rows of the two source mappings that did
+not become a record, and the flagged records, from reports/d2-residue.csv
+as one table page (mappings/m11-usdm/residue/). The M11 graph as Turtle, N-Triples, RDF/XML
 and JSON-LD; the mapping set as SSSOM/TSV and SSSOM/RDF. The slides PDF
 (rendered from site/slides/ by scripts/render_slides.py) in slides/, where
 the folder URL forwards to it. docs/ is generated; do not edit by hand.
 Fails if two page paths differ only by case.
 """
+import csv
 import html
 import os
 import shutil
@@ -40,6 +43,8 @@ SOURCE_LABEL = {"hl7": "HL7 CSP IG ballot", "cdisc": "CDISC DDF-RA v4.0.0"}
 SOURCE_SHORT = {"hl7": "HL7", "cdisc": "CDISC"}
 MAPPING_FILES = ["m11-usdm.sssom.tsv", "m11-usdm.sssom.ttl"]
 MAPPING_PAGE = "mappings/m11-usdm"
+RESIDUE_PAGE = "mappings/m11-usdm/residue"
+RESIDUE_WRAP = {"category", "element_name", "note", "flags", "elements", "section"}
 PREFIXES = [("m11", M11), ("skos", SKOS), ("rdfs", RDFS), ("rdf", RDF), ("owl", OWL), ("dcterms", DCTERMS)]
 CLASS_INDEX = {"Element": "elements", "Section": "sections", "CodeList": "code-lists", "Namespace": "code-lists",
                "ValueCodeList": "code-lists", "TemplateField": "template"}
@@ -388,9 +393,52 @@ def main():
 """)
 
     # The mapping set: one table page.
-    set_title, set_body = mapping_view.render(ROOT / "m11-usdm.sssom.tsv", [(f, f"../../{f}") for f in MAPPING_FILES])
+    residue = list(csv.DictReader(open(ROOT / "reports" / "d2-residue.csv", encoding="utf-8")))
+    no_record = [r for r in residue if r["status"] == "residue"]
+    flagged = [r for r in residue if r["status"] == "statement"]
+    if len(no_record) + len(flagged) != len(residue):
+        raise RuntimeError("d2-residue.csv: a status other than residue or statement")
+    if {(r["source"], r["row"]) for r in flagged} - {(x[1], x[2]) for x in records}:
+        raise RuntimeError("d2-residue.csv: a flagged statement without its record")
+    set_title, set_body = mapping_view.render(
+        ROOT / "m11-usdm.sssom.tsv", [(f, f"../../{f}") for f in MAPPING_FILES],
+        notes=f'<p>Rows of the two source mappings that did not become a record ({len(no_record)}), and {len(flagged)} flagged records: <a href="residue/">rows without a record</a>.</p>')
     write(f"{MAPPING_PAGE}/index.html", page(set_title, set_body, depth=2, iri=set_meta["mapping_set_id"],
                                              alternate="m11-usdm.sssom.ttl", css=mapping_view.CSS))
+
+    # Rows without a record, and flagged records: one table page from reports/d2-residue.csv.
+    res_cols = list(residue[0])
+    by_cat = defaultdict(lambda: defaultdict(int))
+    for r in residue:
+        by_cat[r["category"]][r["source"]] += 1
+    cat_rows = "".join(f"<tr><td>{esc(c)}</td>" + "".join(f"<td>{by_cat[c][k]}</td>" for k in SOURCE_LABEL) + "</tr>"
+                       for c in sorted(by_cat))
+    cat_rows += "<tr><th>Total</th>" + "".join(f"<th>{sum(1 for r in residue if r['source'] == k)}</th>" for k in SOURCE_LABEL) + "</tr>"
+
+    def res_cell(c, r):
+        cls = ' class="wrap"' if c in RESIDUE_WRAP else ""
+        v = r[c]
+        if c == "row" and r["status"] == "statement":
+            return f'<td{cls}><a href="../#{esc(r["source"])}-{esc(v)}">{esc(v)}</a></td>'
+        if c == "elements" and v:
+            return f"<td{cls}>" + "; ".join(f'<a href="../../../{esc(x)}/">{esc(x)}</a>' for x in v.split(";")) + "</td>"
+        return f"<td{cls}>{esc(v)}</td>"
+    res_body = "".join("<tr>" + "".join(res_cell(c, r) for c in res_cols) + "</tr>\n" for r in residue)
+    write(f"{RESIDUE_PAGE}/index.html", page("m11-usdm: rows without a record, and flagged records", f"""
+<p>Rows of the two source mappings ({", ".join(esc(v) for v in SOURCE_LABEL.values())}) that did not become a record in the <a href="../">mapping set m11-usdm.sssom.tsv</a>: {len(no_record)} rows (HL7 {sum(1 for r in no_record if r["source"] == "hl7")}, CDISC {sum(1 for r in no_record if r["source"] == "cdisc")}). Either the row could not be tied to one ICH M11 element by its NCIt Code or its element name, or its USDM class and attribute do not resolve in usdm-rdf. Also listed: {len(flagged)} rows that did become records but are flagged; their row number links to the record.</p>
+<p>As reported by <code>scripts/build_d2.py</code> in <a href="{REPO}/blob/main/reports/d2-residue.csv">reports/d2-residue.csv</a>, cells as given in the source row. Nothing is repaired here. <code>elements</code> lists the candidate elements where there were several, or the one identified.</p>
+<h2>By category</h2>
+<div class="table-wrap"><table><tr><th>category</th>{"".join(f"<th>{esc(SOURCE_SHORT[k])}</th>" for k in SOURCE_LABEL)}</tr>{cat_rows}</table></div>
+<h2>Rows</h2>
+<p class="muted">Click a column name to sort. Typing filters on any cell.</p>
+<p id="exact"></p>
+<p class="filter"><label>Filter <input id="filter" type="search"></label> <span id="count" class="muted">{len(residue)} rows</span></p>
+<div class="table-wrap"><table id="records">
+<thead><tr>{"".join(f'<th data-col="{esc(c)}">{esc(c)}</th>' for c in res_cols)}</tr></thead>
+<tbody>
+{res_body}</tbody>
+</table></div>
+{mapping_view.SCRIPT}""", depth=3, css=mapping_view.CSS))
 
     # Sections.
     for s in sections:
@@ -602,7 +650,7 @@ def main():
 <h2>3 Mapping sets that point at these identifiers</h2>
 <p>Separate files, with their own sources, licences and versions. m11-rdf.ttl names none of them except through <code>rdfs:seeAlso</code>.</p>
 <dl>
-<dt>m11-usdm</dt><dd><a href="{MAPPING_PAGE}/">{esc(set_meta["mapping_set_title"])}</a> · version {esc(set_meta["mapping_set_version"])} · {len(records)} records ({", ".join(f"{SOURCE_SHORT[k]} {sum(1 for x in records if x[1] == k)}" for k in SOURCE_LABEL)}) on {len(records_by_element)} elements, to {len({r["object_id"] for r in set_rows})} USDM attributes · points at <span class="iri">{esc(set_meta["subject_source_version"])}</span> · <a href="m11-usdm.sssom.tsv">SSSOM/TSV</a> · <a href="m11-usdm.sssom.ttl">SSSOM/RDF</a> · <a href="{REPO}/blob/main/reports/d2-identification.md">identification report</a></dd>
+<dt>m11-usdm</dt><dd><a href="{MAPPING_PAGE}/">{esc(set_meta["mapping_set_title"])}</a> · version {esc(set_meta["mapping_set_version"])} · {len(records)} records ({", ".join(f"{SOURCE_SHORT[k]} {sum(1 for x in records if x[1] == k)}" for k in SOURCE_LABEL)}) on {len(records_by_element)} elements, to {len({r["object_id"] for r in set_rows})} USDM attributes · points at <span class="iri">{esc(set_meta["subject_source_version"])}</span> · <a href="m11-usdm.sssom.tsv">SSSOM/TSV</a> · <a href="m11-usdm.sssom.ttl">SSSOM/RDF</a> · <a href="{RESIDUE_PAGE}/">rows without a record</a> · <a href="{REPO}/blob/main/reports/d2-identification.md">identification report</a></dd>
 </dl>
 <h2>More</h2>
 <dl>

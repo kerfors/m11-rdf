@@ -214,7 +214,7 @@ Inputs are pinned by URL and SHA-256 in `downloads/MANIFEST.md`.
 | `site/slides/m11-elements-slides.html` | Slides source. Hand-maintained; rendered by `scripts/render_slides.py` to `site/ich-m11-elements-mapping-target.pdf`, which `build_site.py` copies to `docs/slides/`. |
 | `downloads/MANIFEST.md` | Pinned inputs: file, source, terms, URL, SHA-256. Written by `scripts/fetch_inputs.py`. |
 | `scripts/` | `fetch_inputs.py`, `parse_ts.py` (Technical Specification Appendix 1), `parse_template.py` (Template headings and fields), `build_d1.py`, `build_d2.py`, `build_d5.py`, `test_d1.py`, `test_d2.py`, `test_d5.py`, `build_site.py`, `mapping_view.py` (one HTML table page for an SSSOM/TSV mapping set; used by `build_site.py`, also standalone), `render_slides.py` (slides to PDF; not part of the rebuild), `common.py`. |
-| `docs/` | GitHub Pages site for the namespace: the vocabulary first, then the instances, one page per IRI; the mapping set as one table page, whose rows the mapping record IRIs forward to; the M11 graph in four serializations, the mapping set as SSSOM/TSV and SSSOM/RDF. Generated; do not edit by hand. |
+| `docs/` | GitHub Pages site for the namespace: the vocabulary first, then the instances, one page per IRI; the mapping set as one table page, whose rows the mapping record IRIs forward to, with a page of the rows that did not become records; the M11 graph in four serializations, the mapping set as SSSOM/TSV and SSSOM/RDF. Generated; do not edit by hand. |
 | `w3id/` | Copy of the w3id.org entry (`ids/m11-rdf/`): `.htaccess` and `README.md`. |
 
 ## Rebuild

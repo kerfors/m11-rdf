@@ -30,31 +30,36 @@ ul.tree { list-style: none; padding-left: 1.2rem; }
 ul.tree > li { margin: 0.15rem 0; }
 @media (max-width: 600px) { dl { grid-template-columns: 1fr; gap: 0.1rem; } dt { margin-top: 0.6rem; } }
 .draft { border-left: 3px solid var(--muted); padding: 0.3rem 0.8rem; color: var(--muted); font-size: 0.9rem; }
+.curie { display: block; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; font-weight: normal; color: var(--muted); }
+.curie a { color: var(--muted); }
+td.nw code { white-space: nowrap; overflow-wrap: normal; }
 </style>
 </head>
 <body>
 <main>
-<nav><a href="../">m11-rdf</a> · <a href="../sections/">sections</a> · <a href="../code-lists/">code lists</a> · <a href="../template/">template</a> · <a href="../vocabulary/">vocabulary</a> · <a href="../slides/">slides</a> · <a href="https://github.com/kerfors/m11-rdf">source</a></nav>
+<nav><a href="../">m11-rdf</a> · <a href="../vocabulary/">vocabulary</a> · <a href="../elements/">elements</a> · <a href="../sections/">sections</a> · <a href="../code-lists/">code lists</a> · <a href="../template/">template</a> · <a href="../mappings/m11-usdm/">mapping set</a> · <a href="../slides/">slides</a> · <a href="https://github.com/kerfors/m11-rdf">source</a></nav>
 <h1>Other Event Type</h1>
-<p><span class="iri">https://w3id.org/m11-rdf/C217350.C222263</span></p>
+<p><span class="iri">https://w3id.org/m11-rdf/C217350.C222263</span> <span class="muted">a</span> <a href="../Element/">m11:Element</a></p>
 
 <dl>
-<dt>Definition</dt><dd>An event type that is different than the one(s) previously specified or mentioned.</dd>
+<dt>Definition<span class="curie">skos:definition</span></dt><dd>An event type that is different than the one(s) previously specified or mentioned.</dd>
 
-<dt>Namespace</dt><dd><a href="../C217350/">ICH M11 Section 9 Terminology</a></dd>
-<dt>ICH pair</dt><dd><code>2.16.840.1.113883.3.989.2.3.3.9</code> + <code>C222263</code> <span class="muted">(stated in the Technical Specification)</span></dd>
-<dt>NCIt concept</dt><dd><span class="iri">http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C222263</span> (EVS identifier)<br><a href="http://purl.obolibrary.org/obo/NCIT_C222263">NCIT_C222263</a> (OBO PURL)</dd>
-<dt>EVS term</dt><dd><span class="iri">http://rdf.ich.org/ich-terminology#C217350.C222263</span> <span class="muted">(EVS term IRI; does not resolve)</span></dd>
-<dt>Label from</dt><dd>ICH M11 Terminology, NCI EVS, release 2025-12-19</dd>
+<dt>Namespace<span class="curie">skos:inScheme</span></dt><dd><a href="../C217350/">ICH M11 Section 9 Terminology</a></dd>
+<dt>ICH pair<span class="curie"><a href="../ichNamespaceOid/">m11:ichNamespaceOid</a> <a href="../ichConceptCode/">m11:ichConceptCode</a> <a href="../pairBasis/">m11:pairBasis</a></span></dt><dd><code>2.16.840.1.113883.3.989.2.3.3.9</code> + <code>C222263</code> <span class="muted">(stated in the Technical Specification)</span></dd>
+<dt>NCIt concept<span class="curie"><a href="../concept/">m11:concept</a></span></dt><dd><span class="iri">http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C222263</span> (EVS identifier)<br><a href="http://purl.obolibrary.org/obo/NCIT_C222263">NCIT_C222263</a> (OBO PURL)</dd>
+<dt>EVS term<span class="curie">skos:exactMatch</span></dt><dd><span class="iri">http://rdf.ich.org/ich-terminology#C217350.C222263</span> <span class="muted">(EVS term IRI; does not resolve)</span></dd>
+<dt>Label from<span class="curie"><a href="../labelSource/">m11:labelSource</a></span></dt><dd>ICH M11 Terminology, NCI EVS, release 2025-12-19</dd>
 </dl>
 <h2>Specifications in the Technical Specification</h2>
-<p class="muted">One row per component block of Appendix 1 that names this element. Text as printed.</p>
+<p class="muted">One row per component block of Appendix 1 that names this element (<a href="../Specification/">m11:Specification</a>, via <a href="../hasSpecification/">m11:hasSpecification</a>). Text as printed.</p>
 <div class="table-wrap"><table>
-<tr><th>Block</th><th>Term</th><th>Section</th><th>Conformance</th><th>Cardinality</th><th>Data type</th><th>Value code list</th><th>Repeating / reuse</th></tr>
+<tr><th>Block<span class="curie"><a href="../tsBlock/">m11:tsBlock</a></span></th><th>Term<span class="curie"><a href="../tsTerm/">m11:tsTerm</a></span></th><th>Section<span class="curie"><a href="../inSection/">m11:inSection</a></span></th><th>Conformance<span class="curie"><a href="../conformance/">m11:conformance</a></span></th><th>Cardinality<span class="curie"><a href="../cardinality/">m11:cardinality</a></span></th><th>Data type<span class="curie"><a href="../dataType/">m11:dataType</a> <a href="../dvh/">m11:dvh</a></span></th><th>Value code list<span class="curie"><a href="../hasValueCodeList/">m11:hasValueCodeList</a></span></th><th>Repeating / reuse<span class="curie"><a href="../repeatReuse/">m11:repeatReuse</a></span></th></tr>
 <tr><td>418</td><td>&lt;Other Event Type&gt;</td><td><a href="../C217272.C218614/">9.2 Timing and Procedures for Collection and Reporting</a></td><td>Optional if table used</td><td>One to one</td><td>Text <span class="muted">(D)</span></td><td></td><td>No</td></tr>
 </table></div>
 <h2>In the ICH M11 Template</h2><p class="muted">No Template heading or field is linked to this element.</p>
-<h2>Mapping statements to USDM v4</h2><p class="muted">None: no row of the two pinned mappings is identified with this element and resolves in USDM v4.0.0.</p>
+<h2>Pointed at by other files</h2>
+<p class="muted">Statements in separate files that use this element's IRI.</p>
+<p><code>m11-usdm.sssom.tsv</code>: no records</p>
 
 <p class="draft">Draft, not normative. A derived rendering of the ICH M11 Technical Specification, Template, code lists and OID Listing (© ICH, used under the ICH Legal Mentions) and of the ICH M11 Terminology published by NCI EVS (CC BY 4.0). Not an ICH, CDISC or HL7 artifact, and not endorsed or sponsored by ICH.</p>
 </main>

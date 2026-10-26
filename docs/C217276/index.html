@@ -30,23 +30,26 @@ ul.tree { list-style: none; padding-left: 1.2rem; }
 ul.tree > li { margin: 0.15rem 0; }
 @media (max-width: 600px) { dl { grid-template-columns: 1fr; gap: 0.1rem; } dt { margin-top: 0.6rem; } }
 .draft { border-left: 3px solid var(--muted); padding: 0.3rem 0.8rem; color: var(--muted); font-size: 0.9rem; }
+.curie { display: block; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; font-weight: normal; color: var(--muted); }
+.curie a { color: var(--muted); }
+td.nw code { white-space: nowrap; overflow-wrap: normal; }
 </style>
 </head>
 <body>
 <main>
-<nav><a href="../">m11-rdf</a> · <a href="../sections/">sections</a> · <a href="../code-lists/">code lists</a> · <a href="../template/">template</a> · <a href="../vocabulary/">vocabulary</a> · <a href="../slides/">slides</a> · <a href="https://github.com/kerfors/m11-rdf">source</a></nav>
+<nav><a href="../">m11-rdf</a> · <a href="../vocabulary/">vocabulary</a> · <a href="../elements/">elements</a> · <a href="../sections/">sections</a> · <a href="../code-lists/">code lists</a> · <a href="../template/">template</a> · <a href="../mappings/m11-usdm/">mapping set</a> · <a href="../slides/">slides</a> · <a href="https://github.com/kerfors/m11-rdf">source</a></nav>
 <h1>Reason for Amendment Response Terminology</h1>
-<p><span class="iri">https://w3id.org/m11-rdf/C217276</span></p>
+<p><span class="iri">https://w3id.org/m11-rdf/C217276</span> <span class="muted">a</span> <a href="../ValueCodeList/">m11:ValueCodeList</a></p>
 
 <dl>
-<dt>Kind</dt><dd>Value code list</dd>
-<dt>ICH OID</dt><dd><code>2.16.840.1.113883.3.989.2.3.1.14</code> <span class="muted">(OID Listing, 2025-10-16)</span></dd>
-<dt>Definition</dt><dd>A valid value set relevant to the reason for amendment responses within the ICH M11 protocol template.</dd>
+<dt>Kind<span class="curie">rdf:type</span></dt><dd>Value code list</dd>
+<dt>ICH OID<span class="curie">skos:notation</span></dt><dd><code>2.16.840.1.113883.3.989.2.3.1.14</code> <span class="muted">(OID Listing, 2025-10-16)</span></dd>
+<dt>Definition<span class="curie">skos:definition</span></dt><dd>A valid value set relevant to the reason for amendment responses within the ICH M11 protocol template.</dd>
 
-<dt>NCIt concept</dt><dd><span class="iri">http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C217276</span> (EVS identifier)<br><a href="http://purl.obolibrary.org/obo/NCIT_C217276">NCIT_C217276</a> (OBO PURL)</dd>
-<dt>EVS code list</dt><dd><span class="iri">http://rdf.ich.org/ich-terminology#C217276</span> <span class="muted">(EVS term IRI; does not resolve)</span></dd>
+<dt>NCIt concept<span class="curie"><a href="../concept/">m11:concept</a></span></dt><dd><span class="iri">http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C217276</span> (EVS identifier)<br><a href="http://purl.obolibrary.org/obo/NCIT_C217276">NCIT_C217276</a> (OBO PURL)</dd>
+<dt>EVS code list<span class="curie">skos:exactMatch</span></dt><dd><span class="iri">http://rdf.ich.org/ich-terminology#C217276</span> <span class="muted">(EVS term IRI; does not resolve)</span></dd>
 </dl>
-<h2>Used by</h2><div class="table-wrap"><table><tr><th>Element</th><th>TS block</th></tr><tr><td><a href="../C217357.C218696/">Primary Reason for Amendment</a></td><td>65</td></tr><tr><td><a href="../C217357.C218697/">Secondary Reason for Amendment</a></td><td>69</td></tr></table></div><p class="muted">The values of this code list are not rendered in this release.</p>
+<h2>Used by</h2><p class="muted">Element specifications whose <a href="../hasValueCodeList/">m11:hasValueCodeList</a> is this code list.</p><div class="table-wrap"><table><tr><th>Element</th><th>TS block</th></tr><tr><td><a href="../C217357.C218696/">Primary Reason for Amendment</a></td><td>65</td></tr><tr><td><a href="../C217357.C218697/">Secondary Reason for Amendment</a></td><td>69</td></tr></table></div><p class="muted">The values of this code list are not rendered in this release.</p>
 
 <p class="draft">Draft, not normative. A derived rendering of the ICH M11 Technical Specification, Template, code lists and OID Listing (© ICH, used under the ICH Legal Mentions) and of the ICH M11 Terminology published by NCI EVS (CC BY 4.0). Not an ICH, CDISC or HL7 artifact, and not endorsed or sponsored by ICH.</p>
 </main>

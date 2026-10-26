@@ -30,23 +30,26 @@ ul.tree { list-style: none; padding-left: 1.2rem; }
 ul.tree > li { margin: 0.15rem 0; }
 @media (max-width: 600px) { dl { grid-template-columns: 1fr; gap: 0.1rem; } dt { margin-top: 0.6rem; } }
 .draft { border-left: 3px solid var(--muted); padding: 0.3rem 0.8rem; color: var(--muted); font-size: 0.9rem; }
+.curie { display: block; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; font-weight: normal; color: var(--muted); }
+.curie a { color: var(--muted); }
+td.nw code { white-space: nowrap; overflow-wrap: normal; }
 </style>
 </head>
 <body>
 <main>
-<nav><a href="../">m11-rdf</a> · <a href="../sections/">sections</a> · <a href="../code-lists/">code lists</a> · <a href="../template/">template</a> · <a href="../vocabulary/">vocabulary</a> · <a href="../slides/">slides</a> · <a href="https://github.com/kerfors/m11-rdf">source</a></nav>
+<nav><a href="../">m11-rdf</a> · <a href="../vocabulary/">vocabulary</a> · <a href="../elements/">elements</a> · <a href="../sections/">sections</a> · <a href="../code-lists/">code lists</a> · <a href="../template/">template</a> · <a href="../mappings/m11-usdm/">mapping set</a> · <a href="../slides/">slides</a> · <a href="https://github.com/kerfors/m11-rdf">source</a></nav>
 <h1>ICH M11 Section 14 Terminology</h1>
-<p><span class="iri">https://w3id.org/m11-rdf/C217355</span></p>
+<p><span class="iri">https://w3id.org/m11-rdf/C217355</span> <span class="muted">a</span> <a href="../Namespace/">m11:Namespace</a></p>
 
 <dl>
-<dt>Kind</dt><dd>Namespace (section code list)</dd>
-<dt>ICH OID</dt><dd><code>2.16.840.1.113883.3.989.2.3.3.14</code> <span class="muted">(OID Listing, 2025-10-16)</span></dd>
-<dt>Definition</dt><dd>Terminology relevant to the data elements in section 14 of the ICH M11 protocol template.</dd>
-<dt>Section</dt><dd><a href="../C217272.C218671/">14 APPENDIX: REFERENCES</a></dd>
-<dt>NCIt concept</dt><dd><span class="iri">http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C217355</span> (EVS identifier)<br><a href="http://purl.obolibrary.org/obo/NCIT_C217355">NCIT_C217355</a> (OBO PURL)</dd>
-<dt>EVS code list</dt><dd><span class="iri">http://rdf.ich.org/ich-terminology#C217355</span> <span class="muted">(EVS term IRI; does not resolve)</span></dd>
+<dt>Kind<span class="curie">rdf:type</span></dt><dd>Namespace (section code list)</dd>
+<dt>ICH OID<span class="curie">skos:notation</span></dt><dd><code>2.16.840.1.113883.3.989.2.3.3.14</code> <span class="muted">(OID Listing, 2025-10-16)</span></dd>
+<dt>Definition<span class="curie">skos:definition</span></dt><dd>Terminology relevant to the data elements in section 14 of the ICH M11 protocol template.</dd>
+<dt>Section<span class="curie"><a href="../forSection/">m11:forSection</a></span></dt><dd><a href="../C217272.C218671/">14 APPENDIX: REFERENCES</a></dd>
+<dt>NCIt concept<span class="curie"><a href="../concept/">m11:concept</a></span></dt><dd><span class="iri">http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C217355</span> (EVS identifier)<br><a href="http://purl.obolibrary.org/obo/NCIT_C217355">NCIT_C217355</a> (OBO PURL)</dd>
+<dt>EVS code list<span class="curie">skos:exactMatch</span></dt><dd><span class="iri">http://rdf.ich.org/ich-terminology#C217355</span> <span class="muted">(EVS term IRI; does not resolve)</span></dd>
 </dl>
-<h2>Elements (1)</h2><div class="table-wrap"><table><tr><th>Element</th><th>IRI</th></tr><tr><td><a href="../C217355.C184397/">References</a></td><td><code>C217355.C184397</code></td></tr></table></div>
+<h2>Elements (1)</h2><p class="muted">Elements whose skos:inScheme is this namespace.</p><div class="table-wrap"><table><tr><th>Element</th><th>IRI</th></tr><tr><td><a href="../C217355.C184397/">References</a></td><td><code>C217355.C184397</code></td></tr></table></div>
 
 <p class="draft">Draft, not normative. A derived rendering of the ICH M11 Technical Specification, Template, code lists and OID Listing (© ICH, used under the ICH Legal Mentions) and of the ICH M11 Terminology published by NCI EVS (CC BY 4.0). Not an ICH, CDISC or HL7 artifact, and not endorsed or sponsored by ICH.</p>
 </main>

@@ -30,21 +30,27 @@ ul.tree { list-style: none; padding-left: 1.2rem; }
 ul.tree > li { margin: 0.15rem 0; }
 @media (max-width: 600px) { dl { grid-template-columns: 1fr; gap: 0.1rem; } dt { margin-top: 0.6rem; } }
 .draft { border-left: 3px solid var(--muted); padding: 0.3rem 0.8rem; color: var(--muted); font-size: 0.9rem; }
+.curie { display: block; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; font-weight: normal; color: var(--muted); }
+.curie a { color: var(--muted); }
+td.nw code { white-space: nowrap; overflow-wrap: normal; }
 </style>
 </head>
 <body>
 <main>
-<nav><a href="../">m11-rdf</a> · <a href="../sections/">sections</a> · <a href="../code-lists/">code lists</a> · <a href="../template/">template</a> · <a href="../vocabulary/">vocabulary</a> · <a href="../slides/">slides</a> · <a href="https://github.com/kerfors/m11-rdf">source</a></nav>
+<nav><a href="../">m11-rdf</a> · <a href="../vocabulary/">vocabulary</a> · <a href="../elements/">elements</a> · <a href="../sections/">sections</a> · <a href="../code-lists/">code lists</a> · <a href="../template/">template</a> · <a href="../mappings/m11-usdm/">mapping set</a> · <a href="../slides/">slides</a> · <a href="https://github.com/kerfors/m11-rdf">source</a></nav>
 <h1>code list OID as stated</h1>
 <p><span class="iri">https://w3id.org/m11-rdf/statedCodeListOid</span></p>
 
 <dl>
-<dt>Type</dt><dd>DatatypeProperty</dd>
-<dt>Description</dt><dd>The OID the Value field gives for the code list, verbatim. Where it differs from the OID Listing, both are kept; the reconciliation report lists the difference.</dd>
+<dt>Type<span class="curie">rdf:type</span></dt><dd>owl:DatatypeProperty</dd>
+<dt>Description<span class="curie">rdfs:comment</span></dt><dd>The OID the Value field gives for the code list, verbatim. Where it differs from the OID Listing, both are kept; the reconciliation report lists the difference.</dd>
 
-<dt>Domain</dt><dd><a href="../Specification/">Specification</a></dd>
-<dt>Range</dt><dd><a href="../ichOid/">ICH OID</a></dd>
+
+<dt>Domain<span class="curie">rdfs:domain</span></dt><dd><a href="../Specification/">Specification</a></dd>
+<dt>Range<span class="curie">rdfs:range</span></dt><dd><a href="../ichOid/">ICH OID</a></dd>
+
 </dl>
+
 
 <p class="draft">Draft, not normative. A derived rendering of the ICH M11 Technical Specification, Template, code lists and OID Listing (© ICH, used under the ICH Legal Mentions) and of the ICH M11 Terminology published by NCI EVS (CC BY 4.0). Not an ICH, CDISC or HL7 artifact, and not endorsed or sponsored by ICH.</p>
 </main>

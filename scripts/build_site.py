@@ -1,12 +1,20 @@
-"""Build the GitHub Pages site in docs/ from m11-rdf.ttl and m11-usdm.sssom.ttl.
+"""Build the GitHub Pages site in docs/ from m11-rdf.ttl, vocabulary.ttl and m11-usdm.sssom.tsv.
 
-One page per minted IRI at its own path (<local name>/index.html): elements,
-sections, code lists and vocabulary terms; each mapping record
-(mapping/<source>/<row>) as a forward to its row on the element page. The
-ICH M11 Template (D5) on the section and element pages and as one page in
-Template order (template/), from m11-rdf.ttl; the mapping records from
-m11-usdm.sssom.ttl. The M11 graph as Turtle, N-Triples, RDF/XML and
-JSON-LD; the mapping set as SSSOM/TSV and SSSOM/RDF. The slides PDF
+The site follows the file split: the vocabulary first, then the instances
+(elements, sections, code lists, Template) from m11-rdf.ttl, then the
+mapping sets that point at these identifiers, each on a page of its own.
+
+One page per minted IRI at its own path (<local name>/index.html): vocabulary
+terms, elements, sections and code lists. Each page shows one IRI: its types,
+what m11-rdf.ttl states about it (labels with the predicate's CURIE), and,
+for elements, how many records of the mapping set point at it, with a link
+to those rows. Indexes: vocabulary/ (terms by type), elements/, sections/,
+code-lists/, template/ (the ICH M11 Template, D5, in Template order).
+
+The mapping set m11-usdm.sssom.tsv as one table page (mappings/m11-usdm/,
+scripts/mapping_view.py); each mapping record IRI (mapping/<source>/<row>)
+as a forward to its row there. The M11 graph as Turtle, N-Triples, RDF/XML
+and JSON-LD; the mapping set as SSSOM/TSV and SSSOM/RDF. The slides PDF
 (rendered from site/slides/ by scripts/render_slides.py) in slides/, where
 the folder URL forwards to it. docs/ is generated; do not edit by hand.
 Fails if two page paths differ only by case.
@@ -17,17 +25,26 @@ import shutil
 import subprocess
 import sys
 from collections import defaultdict
+from urllib.parse import quote
 
 import markdown
 
 from rdflib import BNode, Graph, URIRef
-from rdflib.namespace import OWL, RDF, RDFS, SKOS
+from rdflib.namespace import DCTERMS, OWL, RDF, RDFS, SKOS
 
+import mapping_view
 from common import M11, NCIT, OBO, ROOT
 
 USDM = "https://w3id.org/cdisc/usdm/v4/"
 SOURCE_LABEL = {"hl7": "HL7 CSP IG ballot", "cdisc": "CDISC DDF-RA v4.0.0"}
+SOURCE_SHORT = {"hl7": "HL7", "cdisc": "CDISC"}
 MAPPING_FILES = ["m11-usdm.sssom.tsv", "m11-usdm.sssom.ttl"]
+MAPPING_PAGE = "mappings/m11-usdm"
+PREFIXES = [("m11", M11), ("skos", SKOS), ("rdfs", RDFS), ("rdf", RDF), ("owl", OWL), ("dcterms", DCTERMS)]
+CLASS_INDEX = {"Element": "elements", "Section": "sections", "CodeList": "code-lists", "Namespace": "code-lists",
+               "ValueCodeList": "code-lists", "TemplateField": "template"}
+BNODE_SHOWN = {"Specification": 'on the element pages (table "Specifications in the Technical Specification")',
+               "TemplateField": 'on the section pages and the <a href="../template/">Template</a> page'}
 
 DOCS = ROOT / "docs"
 REPO = "https://github.com/kerfors/m11-rdf"
@@ -60,6 +77,9 @@ ul.tree { list-style: none; padding-left: 1.2rem; }
 ul.tree > li { margin: 0.15rem 0; }
 @media (max-width: 600px) { dl { grid-template-columns: 1fr; gap: 0.1rem; } dt { margin-top: 0.6rem; } }
 .draft { border-left: 3px solid var(--muted); padding: 0.3rem 0.8rem; color: var(--muted); font-size: 0.9rem; }
+.curie { display: block; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; font-weight: normal; color: var(--muted); }
+.curie a { color: var(--muted); }
+td.nw code { white-space: nowrap; overflow-wrap: normal; }
 """
 
 
@@ -77,10 +97,34 @@ def link(iri, g, depth=1):
     return f'<a href="{"../" * depth}{esc(local(iri))}/">{esc(label)}</a>'
 
 
-def page(title, body, depth=1, iri=None):
+def curie(iri, depth=1):
+    """The IRI as a CURIE; m11 terms linked to their page."""
+    for prefix, ns in PREFIXES:
+        if str(iri).startswith(str(ns)) and str(iri) != str(ns):
+            name = str(iri)[len(str(ns)):]
+            if prefix == "m11":
+                return f'<a href="{"../" * depth}{esc(name)}/">m11:{esc(name)}</a>'
+            return f"{prefix}:{esc(name)}"
+    return esc(iri)
+
+
+def dt(label, preds, depth=1):
+    """A field label with the CURIE(s) of the predicate(s) it shows."""
+    return f'<dt>{label}<span class="curie">{" ".join(curie(p, depth) for p in preds)}</span></dt>'
+
+
+def th(label, preds, depth=1):
+    return f'<th>{label}<span class="curie">{" ".join(curie(p, depth) for p in preds)}</span></th>'
+
+
+def types_html(g, s, depth=1):
+    return " ".join(curie(t, depth) for t in sorted(g.objects(s, RDF.type), key=str))
+
+
+def page(title, body, depth=1, iri=None, kind=None, alternate="m11-rdf.ttl", css=""):
     up = "../" * depth
-    head_iri = f'<p><span class="iri">{esc(iri)}</span></p>' if iri else ""
-    alt = f'<link rel="alternate" type="text/turtle" href="{up}m11-rdf.ttl">'
+    head_iri = (f'<p><span class="iri">{esc(iri)}</span>' + (f' <span class="muted">a</span> {kind}' if kind else "") + "</p>") if iri else ""
+    alt = f'<link rel="alternate" type="text/turtle" href="{up}{alternate}">'
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -88,11 +132,11 @@ def page(title, body, depth=1, iri=None):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(title)} · m11-rdf</title>
 {alt}
-<style>{CSS}</style>
+<style>{CSS}{css}</style>
 </head>
 <body>
 <main>
-<nav><a href="{up}">m11-rdf</a> · <a href="{up}sections/">sections</a> · <a href="{up}code-lists/">code lists</a> · <a href="{up}template/">template</a> · <a href="{up}vocabulary/">vocabulary</a> · <a href="{up}slides/">slides</a> · <a href="{REPO}">source</a></nav>
+<nav><a href="{up}">m11-rdf</a> · <a href="{up}vocabulary/">vocabulary</a> · <a href="{up}elements/">elements</a> · <a href="{up}sections/">sections</a> · <a href="{up}code-lists/">code lists</a> · <a href="{up}template/">template</a> · <a href="{up}{MAPPING_PAGE}/">mapping set</a> · <a href="{up}slides/">slides</a> · <a href="{REPO}">source</a></nav>
 <h1>{esc(title)}</h1>
 {head_iri}
 {body}
@@ -141,7 +185,7 @@ def write(rel, text):
 
 def main():
     g = Graph().parse(ROOT / "m11-rdf.ttl")
-    m = Graph().parse(ROOT / "m11-usdm.sssom.ttl")
+    set_meta, _, set_rows = mapping_view.read_sssom_tsv(ROOT / "m11-usdm.sssom.tsv")
     elements = sorted(g.subjects(RDF.type, M11.Element), key=str)
     sections = sorted(g.subjects(RDF.type, M11.Section), key=str)
     namespaces = sorted(g.subjects(RDF.type, M11.Namespace), key=lambda n: int(str(g.value(n, SKOS.notation)).rsplit(".", 1)[1]))
@@ -149,14 +193,22 @@ def main():
     vocab = Graph().parse(ROOT / "vocabulary.ttl")
     terms = sorted({s for s in vocab.subjects() if isinstance(s, URIRef) and str(s).startswith(str(M11)) and local(s)}, key=str)
 
-    records = sorted(m.subjects(RDF.type, OWL.Axiom),
-                     key=lambda r: (list(SOURCE_LABEL).index(local(r).split("/")[1]), int(local(r).split("/")[2])))
+    # Mapping records from the TSV: (record IRI, source, row, element).
+    curie_map = set_meta["curie_map"]
+    records = []
+    for r in set_rows:
+        iri = URIRef(mapping_view.expand(r["record_id"], curie_map))
+        _, src, row = local(iri).split("/")
+        records.append((iri, src, row, URIRef(mapping_view.expand(r["subject_id"], curie_map))))
+    records.sort(key=lambda x: (list(SOURCE_LABEL).index(x[1]), int(x[2])))
     records_by_element = defaultdict(list)
-    for r in records:
-        records_by_element[m.value(r, OWL.annotatedSource)].append(r)
+    for x in records:
+        records_by_element[x[3]].append(x)
+    if not set(records_by_element) <= set(elements):
+        raise RuntimeError("Mapping records whose subject_id is not an element of m11-rdf.ttl")
 
-    paths = [local(x) for x in elements + sections + namespaces + value_lists + terms + records]
-    paths += ["sections", "code-lists", "vocabulary"] + sorted(READING_PAGES)
+    paths = [local(x) for x in elements + sections + namespaces + value_lists + terms] + [local(x[0]) for x in records]
+    paths += ["elements", "sections", "code-lists", "vocabulary", "mappings"] + sorted(READING_PAGES)
     seen = defaultdict(list)
     for p in paths:
         seen[p.lower()].append(p)
@@ -233,7 +285,8 @@ def main():
             link(g.value(n, M11.realises), g, depth) if g.value(n, M11.realises) is not None else '<span class="muted">none</span>',
             f'<span class="muted">{basis(n)}</span>' if g.value(n, M11.realises) is not None else "",
         ]) + "</tr>" for n in ns)
-        return f'<div class="table-wrap"><table><tr><th>Field</th><th>Template</th><th>Page</th><th>Realises</th><th>Linked by</th></tr>{rows}</table></div>'
+        return (f'<div class="table-wrap"><table><tr>{th("Field", [M11.fieldLabel, M11.fieldKind])}{th("Template", [M11.templateOptional, M11.templateConditional])}'
+                f'{th("Page", [M11.templatePage])}{th("Realises", [M11.realises])}{th("Linked by", [M11.nameSource, M11.nameMatch, M11.placeScope])}</tr>{rows}</table></div>')
 
     def template_part(s, depth=1):
         heading = g.value(s, M11.templateHeading)
@@ -241,9 +294,9 @@ def main():
         if heading is not None:
             el = g.value(s, M11.headingElement)
             out += f"""<dl>
-<dt>Heading</dt><dd>{esc(heading)} <span class="muted">{esc(flags(s))}</span></dd>
-<dt>Page</dt><dd>{pdf_page(s)}</dd>
-{f'<dt>Heading is</dt><dd>{link(el, g, depth)} <span class="muted">(TS term, {esc(g.value(s, M11.placeScope))})</span></dd>' if el is not None else ''}
+{dt("Heading", [M11.templateHeading], depth)}<dd>{esc(heading)} <span class="muted">{esc(flags(s))}</span></dd>
+{dt("Page", [M11.templatePage], depth)}<dd>{pdf_page(s)}</dd>
+{f'{dt("Heading is", [M11.headingElement, M11.placeScope], depth)}<dd>{link(el, g, depth)} <span class="muted">(TS term, {esc(g.value(s, M11.placeScope))})</span></dd>' if el is not None else ''}
 </dl>"""
         elif fields_by_section.get(s):
             out += '<p class="muted">No heading of its own in the Template.</p>'
@@ -260,7 +313,7 @@ def main():
             return '<h2>In the ICH M11 Template</h2><p class="muted">No Template heading or field is linked to this element.</p>'
         out = "<h2>In the ICH M11 Template</h2>"
         if hs:
-            out += "<p>The Template heading of " + ", ".join(link(x, g) for x in hs) + " is this element.</p>"
+            out += "<p>The Template heading of " + ", ".join(link(x, g) for x in hs) + f' is this element <span class="muted">({curie(M11.headingElement)})</span>.</p>'
         if fs:
             rows = "".join("<tr>" + "".join(f"<td>{c}</td>" for c in [
                 link(g.value(predicate=M11.hasTemplateField, object=n), g) + f' <span class="muted">{esc(g.value(n, M11.templateSectionNumber))}</span>',
@@ -269,7 +322,9 @@ def main():
                 pdf_page(n),
                 f'<span class="muted">{basis(n)}</span>',
             ]) + "</tr>" for n in fs)
-            out += f'<div class="table-wrap"><table><tr><th>Section</th><th>Field</th><th>Template</th><th>Page</th><th>Linked by</th></tr>{rows}</table></div>'
+            out += (f'<div class="table-wrap"><table><tr>{th("Section", [M11.hasTemplateField, M11.templateSectionNumber])}{th("Field", [M11.fieldLabel, M11.fieldKind])}'
+                    f'{th("Template", [M11.templateOptional, M11.templateConditional])}{th("Page", [M11.templatePage])}'
+                    f'{th("Linked by", [M11.nameSource, M11.nameMatch, M11.placeScope])}</tr>{rows}</table></div>')
         return out
 
     # Elements.
@@ -289,57 +344,53 @@ def main():
                 cls + (f'<br><span class="muted">OID as stated in the TS: {stated}</span>' if stated else ""),
                 esc(g.value(s, M11.repeatReuse)),
             ]) + "</tr>")
-        map_rows = []
-        for r in records_by_element.get(e, []):
-            _, src, row = local(r).split("/")
-            target = m.value(r, OWL.annotatedTarget)
-            map_rows.append(f'<tr id="mapping-{src}-{row}">' + "".join(f"<td>{c}</td>" for c in [
-                f'{esc(SOURCE_LABEL[src])}<br><a href="../mapping/{src}/{row}/">row {esc(row)}</a>',
-                f'<a href="{esc(target)}">{esc(str(target)[len(USDM):])}</a><br><span class="muted">stated: {esc(m.value(r, M11.statedClass))}.{esc(m.value(r, M11.statedAttribute))} ({esc(m.value(r, M11.objectResolution))})</span>',
-                esc(m.value(r, M11.subjectIdentification)),
-                f'<code>{esc(m.value(r, M11.targetPath))}</code>',
-                f'<code>{esc(m.value(r, M11.conditionPath))}</code>' if str(m.value(r, M11.conditionPath)) else "",
-            ]) + "</tr>")
-        mappings = (f"""<h2>Mapping statements to USDM v4</h2>
-<p class="muted">One row per published mapping row that names this element (SSSOM record). The link to the USDM attribute is the mapping publisher's; how the row was tied to this element is in the third column. Paths as given.</p>
-<div class="table-wrap"><table>
-<tr><th>Source</th><th>USDM attribute (usdm-rdf)</th><th>Identified</th><th>Target path</th><th>Condition</th></tr>
-{''.join(map_rows)}
-</table></div>""" if map_rows else '<h2>Mapping statements to USDM v4</h2><p class="muted">None: no row of the two pinned mappings is identified with this element and resolves in USDM v4.0.0.</p>')
+        mine = records_by_element.get(e, [])
+        if mine:
+            per_source = ", ".join(f"{SOURCE_SHORT[k]} {sum(1 for x in mine if x[1] == k)}" for k in SOURCE_LABEL if any(x[1] == k for x in mine))
+            pointed = (f'<code>m11-usdm.sssom.tsv</code>: {len(mine)} mapping record{"s" if len(mine) > 1 else ""} ({per_source}) · '
+                       f'<a href="../{MAPPING_PAGE}/?subject_id={quote("m11:" + local(e), safe=":")}">see the rows</a>')
+        else:
+            pointed = '<code>m11-usdm.sssom.tsv</code>: no records'
+        mappings = f"""<h2>Pointed at by other files</h2>
+<p class="muted">Statements in separate files that use this element's IRI.</p>
+<p>{pointed}</p>"""
         alts = ", ".join(esc(a) for a in g.objects(e, SKOS.altLabel))
         definition = g.value(e, SKOS.definition)
         body = f"""
 <dl>
-<dt>Definition</dt><dd>{esc(definition) if definition else '<span class="muted">none (no EVS term for this pair)</span>'}</dd>
-{f'<dt>Synonyms</dt><dd>{alts}</dd>' if alts else ''}
-<dt>Namespace</dt><dd>{link(g.value(e, SKOS.inScheme), g)}</dd>
-<dt>ICH pair</dt><dd><code>{esc(g.value(e, M11.ichNamespaceOid))}</code> + <code>{esc(g.value(e, M11.ichConceptCode))}</code> <span class="muted">({esc(g.value(g.value(e, M11.pairBasis), RDFS.label))})</span></dd>
-<dt>NCIt concept</dt><dd>{ncit_links(g, e)}</dd>
-<dt>EVS term</dt><dd>{evs_twin(g, e)}</dd>
-<dt>Label from</dt><dd>{esc(g.value(g.value(e, M11.labelSource), RDFS.label))}</dd>
+{dt("Definition", [SKOS.definition])}<dd>{esc(definition) if definition else '<span class="muted">none (no EVS term for this pair)</span>'}</dd>
+{f'{dt("Synonyms", [SKOS.altLabel])}<dd>{alts}</dd>' if alts else ''}
+{dt("Namespace", [SKOS.inScheme])}<dd>{link(g.value(e, SKOS.inScheme), g)}</dd>
+{dt("ICH pair", [M11.ichNamespaceOid, M11.ichConceptCode, M11.pairBasis])}<dd><code>{esc(g.value(e, M11.ichNamespaceOid))}</code> + <code>{esc(g.value(e, M11.ichConceptCode))}</code> <span class="muted">({esc(g.value(g.value(e, M11.pairBasis), RDFS.label))})</span></dd>
+{dt("NCIt concept", [M11.concept])}<dd>{ncit_links(g, e)}</dd>
+{dt("EVS term", [SKOS.exactMatch])}<dd>{evs_twin(g, e)}</dd>
+{dt("Label from", [M11.labelSource])}<dd>{esc(g.value(g.value(e, M11.labelSource), RDFS.label))}</dd>
 </dl>
 <h2>Specifications in the Technical Specification</h2>
-<p class="muted">One row per component block of Appendix 1 that names this element. Text as printed.</p>
+<p class="muted">One row per component block of Appendix 1 that names this element (<a href="../Specification/">m11:Specification</a>, via {curie(M11.hasSpecification)}). Text as printed.</p>
 <div class="table-wrap"><table>
-<tr><th>Block</th><th>Term</th><th>Section</th><th>Conformance</th><th>Cardinality</th><th>Data type</th><th>Value code list</th><th>Repeating / reuse</th></tr>
+<tr>{th("Block", [M11.tsBlock])}{th("Term", [M11.tsTerm])}{th("Section", [M11.inSection])}{th("Conformance", [M11.conformance])}{th("Cardinality", [M11.cardinality])}{th("Data type", [M11.dataType, M11.dvh])}{th("Value code list", [M11.hasValueCodeList])}{th("Repeating / reuse", [M11.repeatReuse])}</tr>
 {''.join(rows)}
 </table></div>
 {element_template(e)}
 {mappings}
 """
-        write(f"{local(e)}/index.html", page(str(g.value(e, SKOS.prefLabel)), body, iri=e))
+        write(f"{local(e)}/index.html", page(str(g.value(e, SKOS.prefLabel)), body, iri=e, kind=types_html(g, e)))
 
-    # Mapping records: a forward to the row on the element page.
-    for r in records:
-        _, src, row = local(r).split("/")
-        e = m.value(r, OWL.annotatedSource)
-        to = f"../../../{local(e)}/#mapping-{src}-{row}"
+    # Mapping records: a forward to the row in the mapping set table.
+    for r, src, row, e in records:
+        to = f"../../../{MAPPING_PAGE}/#{src}-{row}"
         write(f"{local(r)}/index.html", f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0; url={esc(to)}">
 <link rel="alternate" type="text/turtle" href="../../../m11-usdm.sssom.ttl">
 <title>Mapping record {esc(src)} row {esc(row)} · m11-rdf</title></head>
-<body><p>Mapping record <span class="iri">{esc(r)}</span>: {esc(SOURCE_LABEL[src])}, row {esc(row)}, on <a href="{esc(to)}">{esc(g.value(e, SKOS.prefLabel))}</a>.</p></body></html>
+<body><p>Mapping record <span class="iri">{esc(r)}</span>: {esc(SOURCE_LABEL[src])}, row {esc(row)}, <a href="{esc(to)}">in the mapping set m11-usdm.sssom.tsv</a>. Subject: <a href="../../../{esc(local(e))}/">{esc(g.value(e, SKOS.prefLabel))}</a>.</p></body></html>
 """)
+
+    # The mapping set: one table page.
+    set_title, set_body = mapping_view.render(ROOT / "m11-usdm.sssom.tsv", [(f, f"../../{f}") for f in MAPPING_FILES])
+    write(f"{MAPPING_PAGE}/index.html", page(set_title, set_body, depth=2, iri=set_meta["mapping_set_id"],
+                                             alternate="m11-usdm.sssom.ttl", css=mapping_view.CSS))
 
     # Sections.
     for s in sections:
@@ -347,23 +398,25 @@ def main():
         here = sorted(specs_by_section.get(s, []), key=lambda es: int(g.value(es[1], M11.tsBlock)))
         el_rows = "".join(f"<tr><td>{link(e, g)}</td><td><code>{esc(local(e))}</code></td><td>{esc(g.value(sp, M11.conformance))}</td><td>{esc(g.value(sp, M11.tsBlock))}</td></tr>"
                           for e, sp in here)
+        el_head = f'<tr><th>Element</th><th>IRI</th>{th("Conformance", [M11.conformance])}{th("TS block", [M11.tsBlock])}</tr>'
+
         kids = "".join(f"<li>{link(k, g)}</li>" for k in sorted(narrower.get(s, []), key=section_sort))
         ns = [n for n in namespaces if g.value(n, M11.forSection) == s]
         body = f"""
 <dl>
-<dt>Definition</dt><dd>{esc(g.value(s, SKOS.definition))}</dd>
-<dt>Section number</dt><dd>{esc(num) if num else '<span class="muted">none</span>'}</dd>
-<dt>Broader</dt><dd>{link(g.value(s, SKOS.broader), g) if g.value(s, SKOS.broader) else '<span class="muted">top level</span>'}</dd>
-{f'<dt>Namespace</dt><dd>{link(ns[0], g)}</dd>' if ns else ''}
-<dt>NCIt concept</dt><dd>{ncit_links(g, s)}</dd>
-<dt>EVS term</dt><dd>{evs_twin(g, s)}</dd>
+{dt("Definition", [SKOS.definition])}<dd>{esc(g.value(s, SKOS.definition))}</dd>
+{dt("Section number", [M11.sectionNumber])}<dd>{esc(num) if num else '<span class="muted">none</span>'}</dd>
+{dt("Broader", [SKOS.broader])}<dd>{link(g.value(s, SKOS.broader), g) if g.value(s, SKOS.broader) else '<span class="muted">top level</span>'}</dd>
+{f'{dt("Namespace", [M11.forSection])}<dd>{link(ns[0], g)} <span class="muted">(the namespace states it is for this section)</span></dd>' if ns else ''}
+{dt("NCIt concept", [M11.concept])}<dd>{ncit_links(g, s)}</dd>
+{dt("EVS term", [SKOS.exactMatch])}<dd>{evs_twin(g, s)}</dd>
 </dl>
-{f'<h2>Subsections</h2><ul class="tree">{kids}</ul>' if kids else ''}
+{f'<h2>Subsections</h2><p class="muted">Sections whose {curie(SKOS.broader)} is this one.</p><ul class="tree">{kids}</ul>' if kids else ''}
 <h2>Elements specified in this section</h2>
-{f'<div class="table-wrap"><table><tr><th>Element</th><th>IRI</th><th>Conformance</th><th>TS block</th></tr>{el_rows}</table></div>' if el_rows else '<p class="muted">None.</p>'}
+{f'<p class="muted">Element specifications whose {curie(M11.inSection)} is this section.</p><div class="table-wrap"><table>{el_head}{el_rows}</table></div>' if el_rows else '<p class="muted">None.</p>'}
 {template_part(s)}
 """
-        write(f"{local(s)}/index.html", page(str(g.value(s, SKOS.prefLabel)), body, iri=s))
+        write(f"{local(s)}/index.html", page(str(g.value(s, SKOS.prefLabel)), body, iri=s, kind=types_html(g, s)))
 
     # Code lists.
     for c in namespaces + value_lists:
@@ -371,32 +424,48 @@ def main():
         if is_ns:
             members = sorted(g.subjects(SKOS.inScheme, c), key=str)
             listing = "".join(f"<tr><td>{link(e, g)}</td><td><code>{esc(local(e))}</code></td></tr>" for e in members)
-            extra = f'<h2>Elements ({len(members)})</h2><div class="table-wrap"><table><tr><th>Element</th><th>IRI</th></tr>{listing}</table></div>'
+            extra = f'<h2>Elements ({len(members)})</h2><p class="muted">Elements whose {curie(SKOS.inScheme)} is this namespace.</p><div class="table-wrap"><table><tr><th>Element</th><th>IRI</th></tr>{listing}</table></div>'
         else:
             users = specs_by_codelist.get(c, [])
             listing = "".join(f"<tr><td>{link(e, g)}</td><td>{esc(g.value(sp, M11.tsBlock))}</td></tr>" for e, sp in users)
-            extra = (f'<h2>Used by</h2><div class="table-wrap"><table><tr><th>Element</th><th>TS block</th></tr>{listing}</table></div>'
+            extra = (f'<h2>Used by</h2><p class="muted">Element specifications whose {curie(M11.hasValueCodeList)} is this code list.</p><div class="table-wrap"><table><tr><th>Element</th><th>TS block</th></tr>{listing}</table></div>'
                      if listing else '<h2>Used by</h2><p class="muted">No element block names this code list.</p>')
             extra += '<p class="muted">The values of this code list are not rendered in this release.</p>'
         body = f"""
 <dl>
-<dt>Kind</dt><dd>{'Namespace (section code list)' if is_ns else 'Value code list'}</dd>
-<dt>ICH OID</dt><dd><code>{esc(g.value(c, SKOS.notation))}</code> <span class="muted">(OID Listing, 2025-10-16)</span></dd>
-<dt>Definition</dt><dd>{esc(g.value(c, SKOS.definition) or '')}</dd>
-{f'<dt>Section</dt><dd>{link(g.value(c, M11.forSection), g)}</dd>' if is_ns else ''}
-<dt>NCIt concept</dt><dd>{ncit_links(g, c)}</dd>
-<dt>EVS code list</dt><dd>{evs_twin(g, c)}</dd>
+{dt("Kind", [RDF.type])}<dd>{'Namespace (section code list)' if is_ns else 'Value code list'}</dd>
+{dt("ICH OID", [SKOS.notation])}<dd><code>{esc(g.value(c, SKOS.notation))}</code> <span class="muted">(OID Listing, 2025-10-16)</span></dd>
+{dt("Definition", [SKOS.definition])}<dd>{esc(g.value(c, SKOS.definition) or '')}</dd>
+{f'{dt("Section", [M11.forSection])}<dd>{link(g.value(c, M11.forSection), g)}</dd>' if is_ns else ''}
+{dt("NCIt concept", [M11.concept])}<dd>{ncit_links(g, c)}</dd>
+{dt("EVS code list", [SKOS.exactMatch])}<dd>{evs_twin(g, c)}</dd>
 </dl>
 {extra}
 """
-        write(f"{local(c)}/index.html", page(str(g.value(c, SKOS.prefLabel)), body, iri=c))
+        write(f"{local(c)}/index.html", page(str(g.value(c, SKOS.prefLabel)), body, iri=c, kind=types_html(g, c)))
 
     # Vocabulary terms.
-    vocab_rows = []
+    groups = [("Classes", OWL.Class), ("Object properties", OWL.ObjectProperty), ("Datatype properties", OWL.DatatypeProperty),
+              ("Annotation properties", OWL.AnnotationProperty), ("Datatypes", RDFS.Datatype), ("Values", None)]
+    group_of = {}
     for t in terms:
-        kinds = ", ".join(sorted(local(k) if str(k).startswith(str(M11)) else str(k).split("#")[-1] for k in vocab.objects(t, RDF.type)))
+        hit = [name for name, k in groups if k is not None and (t, RDF.type, k) in vocab]
+        if not hit and all(str(k).startswith(str(M11)) for k in vocab.objects(t, RDF.type)) and any(vocab.objects(t, RDF.type)):
+            hit = ["Values"]
+        if len(hit) != 1:
+            raise RuntimeError(f"Vocabulary term {t} is in {len(hit)} groups")
+        group_of[t] = hit[0]
+    annotation = [t for t in terms if group_of[t] == "Annotation properties"]
+    in_set = {URIRef(mapping_view.expand(r["predicate_id"], curie_map)) for r in set_rows}
+    in_set |= {URIRef(mapping_view.expand(d["property"], curie_map)) for d in set_meta["extension_definitions"]}
+    if any((None, t, None) in g for t in annotation) or not set(annotation) <= in_set:
+        raise RuntimeError("An annotation property is used in m11-rdf.ttl, or not used by the mapping set")
+
+    vocab_rows = defaultdict(list)
+    for t in terms:
         dom, rng = vocab.value(t, RDFS.domain), vocab.value(t, RDFS.range)
         sup = vocab.value(t, RDFS.subClassOf)
+        subs = sorted(vocab.subjects(RDFS.subClassOf, t), key=str)
 
         def ref(x):
             if x is None:
@@ -404,18 +473,55 @@ def main():
             if str(x).startswith(str(M11)):
                 return link(x, vocab)
             return f'<span class="iri">{esc(x)}</span>'
+        instances = ""
+        if group_of[t] == "Classes":
+            members = sorted(g.subjects(RDF.type, t), key=str)
+            if not members:
+                shown = '<span class="muted">none directly; see the subclasses</span>' if subs else '<span class="muted">none</span>'
+            elif all(isinstance(x, BNode) for x in members):
+                shown = f"{len(members)} blank nodes, no page of their own; shown {BNODE_SHOWN[local(t)]}"
+            elif local(t) in CLASS_INDEX:
+                shown = f'<a href="../{CLASS_INDEX[local(t)]}/">{len(members)}</a>'
+            else:
+                shown = ", ".join(link(x, g) for x in members)
+            instances = f"{dt('Instances', [RDF.type])}<dd>{shown}</dd>"
         body = f"""
 <dl>
-<dt>Type</dt><dd>{esc(kinds)}</dd>
-<dt>Description</dt><dd>{esc(vocab.value(t, RDFS.comment) or '')}</dd>
-{f'<dt>Subclass of</dt><dd>{ref(sup)}</dd>' if sup else ''}
-{f'<dt>Domain</dt><dd>{ref(dom)}</dd>' if dom else ''}
-{f'<dt>Range</dt><dd>{ref(rng)}</dd>' if rng else ''}
+{dt("Type", [RDF.type])}<dd>{types_html(vocab, t)}</dd>
+{dt("Description", [RDFS.comment])}<dd>{esc(vocab.value(t, RDFS.comment) or '')}</dd>
+{f'{dt("Subclass of", [RDFS.subClassOf])}<dd>{ref(sup)}</dd>' if sup else ''}
+{f'{dt("Subclasses", [RDFS.subClassOf])}<dd>{", ".join(ref(x) for x in subs)}</dd>' if subs else ''}
+{f'{dt("Domain", [RDFS.domain])}<dd>{ref(dom)}</dd>' if dom else ''}
+{f'{dt("Range", [RDFS.range])}<dd>{ref(rng)}</dd>' if rng else ''}
+{instances}
 </dl>
+{'<p class="muted">Used by the mapping set <a href="../' + MAPPING_PAGE + '/">m11-usdm.sssom.tsv</a> (predicate or extension slot); not used by any statement in m11-rdf.ttl.</p>' if t in annotation else ''}
 """
         write(f"{local(t)}/index.html", page(str(vocab.value(t, RDFS.label)), body, iri=t))
-        vocab_rows.append(f"<tr><td>{link(t, vocab)}</td><td><code>m11:{esc(local(t))}</code></td><td>{esc(kinds)}</td></tr>")
-    write("vocabulary/index.html", page("Vocabulary", f'<div class="table-wrap"><table><tr><th>Term</th><th>Name</th><th>Type</th></tr>{"".join(vocab_rows)}</table></div>'))
+        vocab_rows[group_of[t]].append(f"<tr><td>{link(t, vocab)}</td><td class=\"nw\"><code>m11:{esc(local(t))}</code></td><td>{esc(vocab.value(t, RDFS.comment) or '')}</td></tr>")
+    group_note = {
+        "Classes": "Kinds of things. Each class page links to its instances.",
+        "Values": "Fixed values, each an instance of one of the classes above.",
+        "Annotation properties": f'Used by the mapping set <a href="../{MAPPING_PAGE}/">m11-usdm.sssom.tsv</a> (its predicate and extension slots); no statement in m11-rdf.ttl uses them.',
+    }
+    vocab_body = (f'<p>The terms m11-rdf defines, from <a href="{REPO}/blob/main/vocabulary.ttl">vocabulary.ttl</a> (also merged into m11-rdf.ttl). '
+                  'Other terms on these pages come from SKOS, RDFS, RDF, OWL and Dublin Core. Grouped by type (<code>rdf:type</code>).</p>')
+    for name, _ in groups:
+        vocab_body += (f'<h2>{name} ({len(vocab_rows[name])})</h2>' + (f'<p class="muted">{group_note[name]}</p>' if name in group_note else "")
+                       + f'<div class="table-wrap"><table><tr><th>Term</th><th>Name</th><th>Description</th></tr>{"".join(vocab_rows[name])}</table></div>')
+    write("vocabulary/index.html", page("Vocabulary", vocab_body))
+
+    # Element index.
+    ns_order = {n: i for i, n in enumerate(namespaces)}
+    el_index = sorted(elements, key=lambda e: (ns_order[g.value(e, SKOS.inScheme)], str(e)))
+    el_rows = "".join(
+        f'<tr><td>{link(e, g)}</td><td class="nw"><code>{esc(local(e))}</code></td><td>{link(g.value(e, SKOS.inScheme), g)}</td><td>'
+        + ", ".join(link(x, g) for x in sorted({g.value(sp, M11.inSection) for sp in g.objects(e, M11.hasSpecification)}, key=section_sort))
+        + "</td></tr>" for e in el_index)
+    write("elements/index.html", page("Elements", f"""
+<p>The {len(elements)} ICH M11 protocol elements (<a href="../Element/">m11:Element</a>), by namespace. An element is a concept within a namespace, as the Technical Specification states it; its IRI is <code>&lt;namespace code list&gt;.&lt;concept code&gt;</code>.</p>
+<div class="table-wrap"><table><tr><th>Element</th><th>IRI</th>{th("Namespace", [SKOS.inScheme])}{th("Specified in section", [M11.hasSpecification, M11.inSection])}</tr>{el_rows}</table></div>
+"""))
 
     # Section tree and code list index.
     def tree(nodes):
@@ -472,24 +578,38 @@ def main():
 
     onto = URIRef(str(M11))
     version = g.value(onto, OWL.versionInfo)
+    vocab_counts = " · ".join(f"{name.lower()} {len(vocab_rows[name])}" for name, _ in groups)
     body = f"""
-<p>{esc(g.value(onto, URIRef("http://purl.org/dc/terms/description")))}</p>
+<p>Identifiers for ICH M11 protocol elements and sections, in one file. Statements that map them to USDM are in a separate file that points at these identifiers. Each page shows one identifier: what the files say about it, and what points to it.</p>
 <dl>
 <dt>Release</dt><dd>{esc(version)} · version IRI <span class="iri">{esc(g.value(onto, OWL.versionIRI))}</span></dd>
-<dt>Elements</dt><dd>{len(elements)} · one IRI each, <code>&lt;namespace code list&gt;.&lt;concept code&gt;</code>, e.g. {link(M11['C217356.C132352'], g, 0)} <code>C217356.C132352</code></dd>
+{dt("Description", [DCTERMS.description], 0)}<dd>{esc(g.value(onto, DCTERMS.description))}</dd>
+</dl>
+<h2>1 Vocabulary</h2>
+<p>The terms used to describe the instances: <a href="vocabulary/">{len(terms)} terms</a> ({vocab_counts}).</p>
+<h2>2 Instances</h2>
+<dl>
+<dt>Elements</dt><dd><a href="elements/">{len(elements)}</a> · one IRI each, <code>&lt;namespace code list&gt;.&lt;concept code&gt;</code>, e.g. {link(M11['C217356.C132352'], g, 0)} <code>C217356.C132352</code></dd>
 <dt>Sections</dt><dd><a href="sections/">{len(sections)}</a> · identified by their C217272 term</dd>
 <dt>Code lists</dt><dd><a href="code-lists/">{len(namespaces) + len(value_lists)}</a> · {len(namespaces)} namespaces, {len(value_lists)} value code lists, with ICH OIDs</dd>
-<dt>Mapping statements</dt><dd>{len(records)} SSSOM records ({", ".join(f"{sum(1 for r in records if local(r).split('/')[1] == k)} {esc(v)}" for k, v in SOURCE_LABEL.items())}) to {len(set(m.objects(None, M11.mappedTo)))} USDM attributes, on {len(records_by_element)} elements · <a href="m11-usdm.sssom.tsv">SSSOM/TSV</a> · <a href="m11-usdm.sssom.ttl">SSSOM/RDF</a> · <a href="{REPO}/blob/main/reports/d2-identification.md">identification report</a></dd>
 <dt>ICH M11 Template</dt><dd><a href="template/">{sum(1 for s in sections if g.value(s, M11.templateHeading) is not None)} headings and {len(fields)} fields</a> on their sections, {sum(1 for n in fields if g.value(n, M11.realises) is not None)} fields linked to the element they realise · <a href="{REPO}/blob/main/reports/d5-template.md">D5 report</a></dd>
-<dt>M11 graph</dt><dd><a href="m11-rdf.ttl">Turtle</a> · <a href="m11-rdf.nt">N-Triples</a> · <a href="m11-rdf.rdf">RDF/XML</a> · <a href="m11-rdf.jsonld">JSON-LD</a></dd>
+<dt>Files</dt><dd>m11-rdf.ttl: <a href="m11-rdf.ttl">Turtle</a> · <a href="m11-rdf.nt">N-Triples</a> · <a href="m11-rdf.rdf">RDF/XML</a> · <a href="m11-rdf.jsonld">JSON-LD</a></dd>
+</dl>
+<h3>Namespaces</h3>
+<div class="table-wrap"><table><tr><th>Namespace</th><th>Section</th><th>Elements</th></tr>
+{''.join(f"<tr><td>{link(n, g, 0)}</td><td>{link(g.value(n, M11.forSection), g, 0)}</td><td>{len(set(g.subjects(SKOS.inScheme, n)))}</td></tr>" for n in namespaces)}
+</table></div>
+<h2>3 Mapping sets that point at these identifiers</h2>
+<p>Separate files, with their own sources, licences and versions. m11-rdf.ttl names none of them except through <code>rdfs:seeAlso</code>.</p>
+<dl>
+<dt>m11-usdm</dt><dd><a href="{MAPPING_PAGE}/">{esc(set_meta["mapping_set_title"])}</a> · version {esc(set_meta["mapping_set_version"])} · {len(records)} records ({", ".join(f"{SOURCE_SHORT[k]} {sum(1 for x in records if x[1] == k)}" for k in SOURCE_LABEL)}) on {len(records_by_element)} elements, to {len({r["object_id"] for r in set_rows})} USDM attributes · points at <span class="iri">{esc(set_meta["subject_source_version"])}</span> · <a href="m11-usdm.sssom.tsv">SSSOM/TSV</a> · <a href="m11-usdm.sssom.ttl">SSSOM/RDF</a> · <a href="{REPO}/blob/main/reports/d2-identification.md">identification report</a></dd>
+</dl>
+<h2>More</h2>
+<dl>
 <dt>Reports</dt><dd><a href="{REPO}/blob/main/reports/reconciliation.md">reconciliation of the sources</a> · <a href="{REPO}/blob/main/reports/tests.md">tests</a> · <a href="{REPO}/blob/main/reports/d2-identification.md">D2 identification</a> · <a href="{REPO}/blob/main/reports/tests-d2.md">D2 tests</a> · <a href="{REPO}/blob/main/reports/d5-template.md">D5 Template</a> · <a href="{REPO}/blob/main/reports/tests-d5.md">D5 tests</a></dd>
 <dt>Slides</dt><dd><a href="slides/">ICH M11 elements: a target to map to</a> · what m11-rdf gives when mapping protocol content to ICH M11 and USDM v4, what is left, and questions for USDM 4.1 (PDF, eight slides)</dd>
 <dt>Design note</dt><dd><a href="d4-skeleton/">D4 skeleton</a>: how a study, a document section or a template field points at the element it realises</dd>
 </dl>
-<h2>Namespaces</h2>
-<div class="table-wrap"><table><tr><th>Namespace</th><th>Section</th><th>Elements</th></tr>
-{''.join(f"<tr><td>{link(n, g, 0)}</td><td>{link(g.value(n, M11.forSection), g, 0)}</td><td>{len(set(g.subjects(SKOS.inScheme, n)))}</td></tr>" for n in namespaces)}
-</table></div>
 """
     write("index.html", page("ICH M11 protocol elements and sections as linked data", body, depth=0, iri=str(M11)))
     print("pages:", sum(1 for _ in DOCS.rglob("index.html")))

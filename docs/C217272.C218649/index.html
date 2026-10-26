@@ -30,28 +30,31 @@ ul.tree { list-style: none; padding-left: 1.2rem; }
 ul.tree > li { margin: 0.15rem 0; }
 @media (max-width: 600px) { dl { grid-template-columns: 1fr; gap: 0.1rem; } dt { margin-top: 0.6rem; } }
 .draft { border-left: 3px solid var(--muted); padding: 0.3rem 0.8rem; color: var(--muted); font-size: 0.9rem; }
+.curie { display: block; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; font-weight: normal; color: var(--muted); }
+.curie a { color: var(--muted); }
+td.nw code { white-space: nowrap; overflow-wrap: normal; }
 </style>
 </head>
 <body>
 <main>
-<nav><a href="../">m11-rdf</a> · <a href="../sections/">sections</a> · <a href="../code-lists/">code lists</a> · <a href="../template/">template</a> · <a href="../vocabulary/">vocabulary</a> · <a href="../slides/">slides</a> · <a href="https://github.com/kerfors/m11-rdf">source</a></nav>
+<nav><a href="../">m11-rdf</a> · <a href="../vocabulary/">vocabulary</a> · <a href="../elements/">elements</a> · <a href="../sections/">sections</a> · <a href="../code-lists/">code lists</a> · <a href="../template/">template</a> · <a href="../mappings/m11-usdm/">mapping set</a> · <a href="../slides/">slides</a> · <a href="https://github.com/kerfors/m11-rdf">source</a></nav>
 <h1>11 TRIAL OVERSIGHT AND OTHER GENERAL CONSIDERATIONS</h1>
-<p><span class="iri">https://w3id.org/m11-rdf/C217272.C218649</span></p>
+<p><span class="iri">https://w3id.org/m11-rdf/C217272.C218649</span> <span class="muted">a</span> <a href="../Section/">m11:Section</a></p>
 
 <dl>
-<dt>Definition</dt><dd>Section 11 of the ICH M11 Protocol standard, TRIAL OVERSIGHT AND OTHER GENERAL CONSIDERATIONS.</dd>
-<dt>Section number</dt><dd>11</dd>
-<dt>Broader</dt><dd><span class="muted">top level</span></dd>
-<dt>Namespace</dt><dd><a href="../C217352/">ICH M11 Section 11 Terminology</a></dd>
-<dt>NCIt concept</dt><dd><span class="iri">http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C218649</span> (EVS identifier)<br><a href="http://purl.obolibrary.org/obo/NCIT_C218649">NCIT_C218649</a> (OBO PURL)</dd>
-<dt>EVS term</dt><dd><span class="iri">http://rdf.ich.org/ich-terminology#C217272.C218649</span> <span class="muted">(EVS term IRI; does not resolve)</span></dd>
+<dt>Definition<span class="curie">skos:definition</span></dt><dd>Section 11 of the ICH M11 Protocol standard, TRIAL OVERSIGHT AND OTHER GENERAL CONSIDERATIONS.</dd>
+<dt>Section number<span class="curie"><a href="../sectionNumber/">m11:sectionNumber</a></span></dt><dd>11</dd>
+<dt>Broader<span class="curie">skos:broader</span></dt><dd><span class="muted">top level</span></dd>
+<dt>Namespace<span class="curie"><a href="../forSection/">m11:forSection</a></span></dt><dd><a href="../C217352/">ICH M11 Section 11 Terminology</a> <span class="muted">(the namespace states it is for this section)</span></dd>
+<dt>NCIt concept<span class="curie"><a href="../concept/">m11:concept</a></span></dt><dd><span class="iri">http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C218649</span> (EVS identifier)<br><a href="http://purl.obolibrary.org/obo/NCIT_C218649">NCIT_C218649</a> (OBO PURL)</dd>
+<dt>EVS term<span class="curie">skos:exactMatch</span></dt><dd><span class="iri">http://rdf.ich.org/ich-terminology#C217272.C218649</span> <span class="muted">(EVS term IRI; does not resolve)</span></dd>
 </dl>
-<h2>Subsections</h2><ul class="tree"><li><a href="../C217272.C218650/">11.1 Regulatory and Ethical Considerations</a></li><li><a href="../C217272.C218651/">11.2 Trial Oversight</a></li><li><a href="../C217272.C218654/">11.3 Informed Consent Process</a></li><li><a href="../C217272.C218657/">11.4 Committees</a></li><li><a href="../C217272.C218658/">11.5 Insurance and Indemnity</a></li><li><a href="../C217272.C218659/">11.6 Risk-Based Quality Management</a></li><li><a href="../C217272.C218660/">11.7 Data Governance</a></li><li><a href="../C217272.C218661/">11.8 Data Protection</a></li><li><a href="../C217272.C218662/">11.9 Source Records</a></li><li><a href="../C217272.C218663/">11.10 Protocol Deviations</a></li><li><a href="../C217272.C218664/">11.11 Early Site Closure</a></li><li><a href="../C217272.C218665/">11.12 Data Dissemination</a></li></ul>
+<h2>Subsections</h2><p class="muted">Sections whose skos:broader is this one.</p><ul class="tree"><li><a href="../C217272.C218650/">11.1 Regulatory and Ethical Considerations</a></li><li><a href="../C217272.C218651/">11.2 Trial Oversight</a></li><li><a href="../C217272.C218654/">11.3 Informed Consent Process</a></li><li><a href="../C217272.C218657/">11.4 Committees</a></li><li><a href="../C217272.C218658/">11.5 Insurance and Indemnity</a></li><li><a href="../C217272.C218659/">11.6 Risk-Based Quality Management</a></li><li><a href="../C217272.C218660/">11.7 Data Governance</a></li><li><a href="../C217272.C218661/">11.8 Data Protection</a></li><li><a href="../C217272.C218662/">11.9 Source Records</a></li><li><a href="../C217272.C218663/">11.10 Protocol Deviations</a></li><li><a href="../C217272.C218664/">11.11 Early Site Closure</a></li><li><a href="../C217272.C218665/">11.12 Data Dissemination</a></li></ul>
 <h2>Elements specified in this section</h2>
 <p class="muted">None.</p>
 <h2>In the ICH M11 Template</h2><dl>
-<dt>Heading</dt><dd>TRIAL OVERSIGHT AND OTHER GENERAL CONSIDERATIONS <span class="muted"></span></dd>
-<dt>Page</dt><dd><a href="https://database.ich.org/sites/default/files/ICH_Step4_M11_Final_Template_2025_1119.pdf#page=59">p. 59</a></dd>
+<dt>Heading<span class="curie"><a href="../templateHeading/">m11:templateHeading</a></span></dt><dd>TRIAL OVERSIGHT AND OTHER GENERAL CONSIDERATIONS <span class="muted"></span></dd>
+<dt>Page<span class="curie"><a href="../templatePage/">m11:templatePage</a></span></dt><dd><a href="https://database.ich.org/sites/default/files/ICH_Step4_M11_Final_Template_2025_1119.pdf#page=59">p. 59</a></dd>
 
 </dl>
 

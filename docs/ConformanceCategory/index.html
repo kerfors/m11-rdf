@@ -30,21 +30,27 @@ ul.tree { list-style: none; padding-left: 1.2rem; }
 ul.tree > li { margin: 0.15rem 0; }
 @media (max-width: 600px) { dl { grid-template-columns: 1fr; gap: 0.1rem; } dt { margin-top: 0.6rem; } }
 .draft { border-left: 3px solid var(--muted); padding: 0.3rem 0.8rem; color: var(--muted); font-size: 0.9rem; }
+.curie { display: block; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; font-weight: normal; color: var(--muted); }
+.curie a { color: var(--muted); }
+td.nw code { white-space: nowrap; overflow-wrap: normal; }
 </style>
 </head>
 <body>
 <main>
-<nav><a href="../">m11-rdf</a> · <a href="../sections/">sections</a> · <a href="../code-lists/">code lists</a> · <a href="../template/">template</a> · <a href="../vocabulary/">vocabulary</a> · <a href="../slides/">slides</a> · <a href="https://github.com/kerfors/m11-rdf">source</a></nav>
+<nav><a href="../">m11-rdf</a> · <a href="../vocabulary/">vocabulary</a> · <a href="../elements/">elements</a> · <a href="../sections/">sections</a> · <a href="../code-lists/">code lists</a> · <a href="../template/">template</a> · <a href="../mappings/m11-usdm/">mapping set</a> · <a href="../slides/">slides</a> · <a href="https://github.com/kerfors/m11-rdf">source</a></nav>
 <h1>Conformance category</h1>
 <p><span class="iri">https://w3id.org/m11-rdf/ConformanceCategory</span></p>
 
 <dl>
-<dt>Type</dt><dd>Class</dd>
-<dt>Description</dt><dd>Required, Optional or Conditional: the first word of the Technical Specification conformance statement. The statement itself is kept verbatim in m11:conformance.</dd>
+<dt>Type<span class="curie">rdf:type</span></dt><dd>owl:Class</dd>
+<dt>Description<span class="curie">rdfs:comment</span></dt><dd>Required, Optional or Conditional: the first word of the Technical Specification conformance statement. The statement itself is kept verbatim in m11:conformance.</dd>
 
 
 
+
+<dt>Instances<span class="curie">rdf:type</span></dt><dd><a href="../Conditional/">Conditional</a>, <a href="../Optional/">Optional</a>, <a href="../Required/">Required</a></dd>
 </dl>
+
 
 <p class="draft">Draft, not normative. A derived rendering of the ICH M11 Technical Specification, Template, code lists and OID Listing (© ICH, used under the ICH Legal Mentions) and of the ICH M11 Terminology published by NCI EVS (CC BY 4.0). Not an ICH, CDISC or HL7 artifact, and not endorsed or sponsored by ICH.</p>
 </main>

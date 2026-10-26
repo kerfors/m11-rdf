@@ -30,30 +30,33 @@ ul.tree { list-style: none; padding-left: 1.2rem; }
 ul.tree > li { margin: 0.15rem 0; }
 @media (max-width: 600px) { dl { grid-template-columns: 1fr; gap: 0.1rem; } dt { margin-top: 0.6rem; } }
 .draft { border-left: 3px solid var(--muted); padding: 0.3rem 0.8rem; color: var(--muted); font-size: 0.9rem; }
+.curie { display: block; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; font-weight: normal; color: var(--muted); }
+.curie a { color: var(--muted); }
+td.nw code { white-space: nowrap; overflow-wrap: normal; }
 </style>
 </head>
 <body>
 <main>
-<nav><a href="../">m11-rdf</a> · <a href="../sections/">sections</a> · <a href="../code-lists/">code lists</a> · <a href="../template/">template</a> · <a href="../vocabulary/">vocabulary</a> · <a href="../slides/">slides</a> · <a href="https://github.com/kerfors/m11-rdf">source</a></nav>
+<nav><a href="../">m11-rdf</a> · <a href="../vocabulary/">vocabulary</a> · <a href="../elements/">elements</a> · <a href="../sections/">sections</a> · <a href="../code-lists/">code lists</a> · <a href="../template/">template</a> · <a href="../mappings/m11-usdm/">mapping set</a> · <a href="../slides/">slides</a> · <a href="https://github.com/kerfors/m11-rdf">source</a></nav>
 <h1>4.5 Access to Trial Intervention After End of Trial</h1>
-<p><span class="iri">https://w3id.org/m11-rdf/C217272.C218546</span></p>
+<p><span class="iri">https://w3id.org/m11-rdf/C217272.C218546</span> <span class="muted">a</span> <a href="../Section/">m11:Section</a></p>
 
 <dl>
-<dt>Definition</dt><dd>Section 4.5 of the ICH M11 Protocol standard, Access to Trial Intervention After End of Trial.</dd>
-<dt>Section number</dt><dd>4.5</dd>
-<dt>Broader</dt><dd><a href="../C217272.C218533/">4 TRIAL DESIGN</a></dd>
+<dt>Definition<span class="curie">skos:definition</span></dt><dd>Section 4.5 of the ICH M11 Protocol standard, Access to Trial Intervention After End of Trial.</dd>
+<dt>Section number<span class="curie"><a href="../sectionNumber/">m11:sectionNumber</a></span></dt><dd>4.5</dd>
+<dt>Broader<span class="curie">skos:broader</span></dt><dd><a href="../C217272.C218533/">4 TRIAL DESIGN</a></dd>
 
-<dt>NCIt concept</dt><dd><span class="iri">http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C218546</span> (EVS identifier)<br><a href="http://purl.obolibrary.org/obo/NCIT_C218546">NCIT_C218546</a> (OBO PURL)</dd>
-<dt>EVS term</dt><dd><span class="iri">http://rdf.ich.org/ich-terminology#C217272.C218546</span> <span class="muted">(EVS term IRI; does not resolve)</span></dd>
+<dt>NCIt concept<span class="curie"><a href="../concept/">m11:concept</a></span></dt><dd><span class="iri">http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C218546</span> (EVS identifier)<br><a href="http://purl.obolibrary.org/obo/NCIT_C218546">NCIT_C218546</a> (OBO PURL)</dd>
+<dt>EVS term<span class="curie">skos:exactMatch</span></dt><dd><span class="iri">http://rdf.ich.org/ich-terminology#C217272.C218546</span> <span class="muted">(EVS term IRI; does not resolve)</span></dd>
 </dl>
 
 <h2>Elements specified in this section</h2>
-<div class="table-wrap"><table><tr><th>Element</th><th>IRI</th><th>Conformance</th><th>TS block</th></tr><tr><td><a href="../C217345.C218738/">Access to Trial Intervention After End of Trial</a></td><td><code>C217345.C218738</code></td><td>Required</td><td>258</td></tr></table></div>
+<p class="muted">Element specifications whose <a href="../inSection/">m11:inSection</a> is this section.</p><div class="table-wrap"><table><tr><th>Element</th><th>IRI</th><th>Conformance<span class="curie"><a href="../conformance/">m11:conformance</a></span></th><th>TS block<span class="curie"><a href="../tsBlock/">m11:tsBlock</a></span></th></tr><tr><td><a href="../C217345.C218738/">Access to Trial Intervention After End of Trial</a></td><td><code>C217345.C218738</code></td><td>Required</td><td>258</td></tr></table></div>
 <h2>In the ICH M11 Template</h2><dl>
-<dt>Heading</dt><dd>Access to Trial Intervention After End of Trial <span class="muted"></span></dd>
-<dt>Page</dt><dd><a href="https://database.ich.org/sites/default/files/ICH_Step4_M11_Final_Template_2025_1119.pdf#page=33">p. 33</a></dd>
-<dt>Heading is</dt><dd><a href="../C217345.C218738/">Access to Trial Intervention After End of Trial</a> <span class="muted">(TS term, section)</span></dd>
-</dl><div class="table-wrap"><table><tr><th>Field</th><th>Template</th><th>Page</th><th>Realises</th><th>Linked by</th></tr><tr><td><code>&lt;Enter Access to Trial Intervention After End of Trial&gt;</code></td><td></td><td><a href="https://database.ich.org/sites/default/files/ICH_Step4_M11_Final_Template_2025_1119.pdf#page=33">p. 33</a></td><td><a href="../C217345.C218738/">Access to Trial Intervention After End of Trial</a></td><td><span class="muted">ts-term / verb-dropped / section</span></td></tr></table></div>
+<dt>Heading<span class="curie"><a href="../templateHeading/">m11:templateHeading</a></span></dt><dd>Access to Trial Intervention After End of Trial <span class="muted"></span></dd>
+<dt>Page<span class="curie"><a href="../templatePage/">m11:templatePage</a></span></dt><dd><a href="https://database.ich.org/sites/default/files/ICH_Step4_M11_Final_Template_2025_1119.pdf#page=33">p. 33</a></dd>
+<dt>Heading is<span class="curie"><a href="../headingElement/">m11:headingElement</a> <a href="../placeScope/">m11:placeScope</a></span></dt><dd><a href="../C217345.C218738/">Access to Trial Intervention After End of Trial</a> <span class="muted">(TS term, section)</span></dd>
+</dl><div class="table-wrap"><table><tr><th>Field<span class="curie"><a href="../fieldLabel/">m11:fieldLabel</a> <a href="../fieldKind/">m11:fieldKind</a></span></th><th>Template<span class="curie"><a href="../templateOptional/">m11:templateOptional</a> <a href="../templateConditional/">m11:templateConditional</a></span></th><th>Page<span class="curie"><a href="../templatePage/">m11:templatePage</a></span></th><th>Realises<span class="curie"><a href="../realises/">m11:realises</a></span></th><th>Linked by<span class="curie"><a href="../nameSource/">m11:nameSource</a> <a href="../nameMatch/">m11:nameMatch</a> <a href="../placeScope/">m11:placeScope</a></span></th></tr><tr><td><code>&lt;Enter Access to Trial Intervention After End of Trial&gt;</code></td><td></td><td><a href="https://database.ich.org/sites/default/files/ICH_Step4_M11_Final_Template_2025_1119.pdf#page=33">p. 33</a></td><td><a href="../C217345.C218738/">Access to Trial Intervention After End of Trial</a></td><td><span class="muted">ts-term / verb-dropped / section</span></td></tr></table></div>
 
 <p class="draft">Draft, not normative. A derived rendering of the ICH M11 Technical Specification, Template, code lists and OID Listing (© ICH, used under the ICH Legal Mentions) and of the ICH M11 Terminology published by NCI EVS (CC BY 4.0). Not an ICH, CDISC or HL7 artifact, and not endorsed or sponsored by ICH.</p>
 </main>

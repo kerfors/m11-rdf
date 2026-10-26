@@ -650,7 +650,9 @@ def main():
 <h2>3 Mapping sets that point at these identifiers</h2>
 <p>Separate files, with their own sources, licences and versions. m11-rdf.ttl names none of them except through <code>rdfs:seeAlso</code>.</p>
 <dl>
-<dt>m11-usdm</dt><dd><a href="{MAPPING_PAGE}/">{esc(set_meta["mapping_set_title"])}</a> · version {esc(set_meta["mapping_set_version"])} · {len(records)} records ({", ".join(f"{SOURCE_SHORT[k]} {sum(1 for x in records if x[1] == k)}" for k in SOURCE_LABEL)}) on {len(records_by_element)} elements, to {len({r["object_id"] for r in set_rows})} USDM attributes · points at <span class="iri">{esc(set_meta["subject_source_version"])}</span> · <a href="m11-usdm.sssom.tsv">SSSOM/TSV</a> · <a href="m11-usdm.sssom.ttl">SSSOM/RDF</a> · <a href="{RESIDUE_PAGE}/">rows without a record</a> · <a href="{REPO}/blob/main/reports/d2-identification.md">identification report</a></dd>
+<dt>m11-usdm</dt><dd>{esc(set_meta["mapping_set_title"])} · version {esc(set_meta["mapping_set_version"])} · points at <span class="iri">{esc(set_meta["subject_source_version"])}</span></dd>
+<dt>Records</dt><dd><a href="{MAPPING_PAGE}/">{len(records)} records</a> ({", ".join(f"{SOURCE_SHORT[k]} {sum(1 for x in records if x[1] == k)}" for k in SOURCE_LABEL)}) on {len(records_by_element)} elements, to {len({r["object_id"] for r in set_rows})} USDM attributes · <a href="m11-usdm.sssom.tsv">SSSOM/TSV</a> · <a href="m11-usdm.sssom.ttl">SSSOM/RDF</a></dd>
+<dt>Not records</dt><dd><a href="{RESIDUE_PAGE}/">{len(no_record)} rows of the source mappings without a record</a>, and {len(flagged)} flagged records · <a href="{REPO}/blob/main/reports/d2-identification.md">identification report</a></dd>
 </dl>
 <h2>More</h2>
 <dl>

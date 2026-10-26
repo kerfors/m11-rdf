@@ -632,9 +632,11 @@ def main():
 <dl>
 <dt>Release</dt><dd>{esc(version)} · version IRI <span class="iri">{esc(g.value(onto, OWL.versionIRI))}</span></dd>
 {dt("Description", [DCTERMS.description], 0)}<dd>{esc(g.value(onto, DCTERMS.description))}</dd>
+{dt("Sources", [DCTERMS.source], 0)}<dd>{" · ".join(f'<a href="{esc(x)}">{esc(unquote(str(x).rsplit("/", 1)[1]))}</a>' for x in sorted(g.objects(onto, DCTERMS.source), key=str))}</dd>
 </dl>
 <h2>1 Vocabulary</h2>
 <p>The terms used to describe the instances: <a href="vocabulary/">{len(terms)} terms</a> ({vocab_counts}).</p>
+<p>Defined by m11-rdf in <a href="{REPO}/blob/main/vocabulary.ttl">vocabulary.ttl</a> (hand-maintained in the GitHub repository) and merged into m11-rdf.ttl; not taken from a published source. Other terms used come from SKOS, RDFS, RDF, OWL and Dublin Core.</p>
 <h2>2 Instances</h2>
 <dl>
 <dt>Elements</dt><dd><a href="elements/">{len(elements)}</a> · one IRI each, <code>&lt;namespace code list&gt;.&lt;concept code&gt;</code>, e.g. {link(M11['C217356.C132352'], g, 0)} <code>C217356.C132352</code></dd>
@@ -642,7 +644,6 @@ def main():
 <dt>Code lists</dt><dd><a href="code-lists/">{len(namespaces) + len(value_lists)}</a> · {len(namespaces)} namespaces, {len(value_lists)} value code lists, with ICH OIDs</dd>
 <dt>ICH M11 Template</dt><dd><a href="template/">{sum(1 for s in sections if g.value(s, M11.templateHeading) is not None)} headings and {len(fields)} fields</a> on their sections, {sum(1 for n in fields if g.value(n, M11.realises) is not None)} fields linked to the element they realise · <a href="{REPO}/blob/main/reports/d5-template.md">D5 report</a></dd>
 <dt>Files</dt><dd>m11-rdf.ttl: <a href="m11-rdf.ttl">Turtle</a> · <a href="m11-rdf.nt">N-Triples</a> · <a href="m11-rdf.rdf">RDF/XML</a> · <a href="m11-rdf.jsonld">JSON-LD</a></dd>
-{dt("Sources", [DCTERMS.source], 0)}<dd>{" · ".join(f'<a href="{esc(x)}">{esc(unquote(str(x).rsplit("/", 1)[1]))}</a>' for x in sorted(g.objects(onto, DCTERMS.source), key=str))}</dd>
 </dl>
 <h3>Namespaces</h3>
 <div class="table-wrap"><table><tr><th>Namespace</th><th>Section</th><th>Elements</th></tr>

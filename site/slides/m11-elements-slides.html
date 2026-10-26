@@ -67,7 +67,7 @@ svg.arrow { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; 
   <p class="eyebrow">Protocol content, ICH M11 and USDM v4</p>
   <div style="display:flex;flex-direction:column;gap:40px">
     <h1 class="serif" style="font-size:104px;line-height:1.1">ICH M11 elements:<br>a target to map to</h1>
-    <p style="font-size:44px;line-height:1.3;color:#D3DAE8;width:1560px">One global identifier per protocol element, linked to its place in the Template, its specification, its term and its USDM attributes</p>
+    <p style="font-size:44px;line-height:1.3;color:#D3DAE8;width:1560px">One global identifier per protocol element, linked to its place in the Template, its specification and its term; mapping sets add its USDM attributes</p>
     <div class="chips" style="gap:16px">
       <span class="chip data big">Data</span><span class="chip str big">Data in a string</span><span class="chip words big">Words</span>
     </div>
@@ -189,7 +189,7 @@ svg.arrow { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; 
     <a class="hub" id="el" href="https://w3id.org/m11-rdf/C217344.C85827" style="left:666px;top:300px;width:332px">Secondary Objective<span>C217344.C85827</span></a>
     <div class="col" style="left:1064px;width:600px">
       <div class="box struct" id="evs">
-        <h3><a class="u" href="https://w3id.org/m11-rdf/C217344">Terminology · code C85827</a></h3>
+        <h3><a class="u" href="https://evsexplore.semantics.cancer.gov/evsexplore/concept/ncit/C85827">Terminology · code C85827</a></h3>
         <div class="chips"><span class="chip words" style="white-space:normal">“The secondary reason for performing a study in terms of the scientific questions to be answered by the analysis of data collected during the study.”</span></div>
         <div class="chips"><span class="chip data">code list C217344, Section 3</span><span class="chip data">ICH OID …2.3.3.3</span></div>
       </div>
@@ -205,7 +205,7 @@ svg.arrow { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; 
     <svg class="arrow" data-from="el:right" data-to="evs:left" data-color="#2B67B0" data-thin="1"></svg>
     <svg class="arrow" data-from="el:right" data-to="map:left" data-color="#2B67B0" data-thin="1"></svg>
   </div>
-  <p class="foot">All links on this slide are in m11-rdf v0.4.0. The Template does not state which element a field is; m11-rdf links the field by the Specification term, and each mapping row by its code or name.</p>
+  <p class="foot">Template, Specification and Terminology are in m11-rdf.ttl. The USDM link is a statement by HL7 and CDISC, published in a separate mapping set that points at this identifier. The Template does not state which element a field is; m11-rdf links the field by the Specification term, and each mapping row by its code or name.</p>
 </section>
 
 <!-- 5: where they don't line up -->
@@ -234,7 +234,7 @@ svg.arrow { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; 
     </div>
   </div>
   <p style="font-size:26px;line-height:1.4">And for the field on slide 4: in <code>{ }</code> in the Template, Required in the Specification. 4 fields linked to an element are like this.</p>
-  <p class="foot">m11-rdf keeps each statement as published, flags it, and lists the rest in its build reports (<code>d2-residue.csv</code>, <code>d5-residue.csv</code>). It does not repair them, and it does not judge which source is right.</p>
+  <p class="foot">m11-rdf keeps each statement as published, flags it, and lists the rest (<a class="u" href="https://w3id.org/m11-rdf/mappings/m11-usdm/residue/">mapping rows without a record</a>; Template residue in <code>d5-residue.csv</code>). It does not repair them, and it does not judge which source is right.</p>
 </section>
 
 <!-- 6: what it gives -->
@@ -248,7 +248,7 @@ svg.arrow { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; 
     <p class="r">its place</p><p>the Template section, heading and field, with page</p>
     <p class="r">its specification</p><p>term, data type, conformance, cardinality, place in the table of contents</p>
     <p class="r">its term</p><p>the NCI EVS code and definition, the ICH OID of its code list</p>
-    <p class="r rdf">its USDM attributes</p><p>as the HL7 and the CDISC mapping state them, side by side, as usdm-rdf global identifiers</p>
+    <p class="r rdf">its USDM attributes</p><p>as the HL7 and the CDISC mapping state them, side by side, as usdm-rdf global identifiers; any other mapping set can point at the same identifiers</p>
   </div>
   <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:28px;font-size:26px;line-height:1.35">
     <div><p class="serif" style="font-size:56px;color:#9CC0EE">270</p><p>elements, from 284 specification blocks, in 16 section code lists</p></div>
@@ -282,7 +282,7 @@ svg.arrow { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; 
       <p>98 with a name that is not a Specification term and no usable code. Rows still marked CNEW: HL7 163, CDISC 212.</p>
       <p>34 where the name or code fits more than one element, or code and name disagree.</p>
       <p>19 where the element is found but the stated USDM class and attribute are not.</p>
-      <p class="small muted" style="margin-top:auto">Each listed in <code>d2-residue.csv</code>; Template residue in <code>d5-residue.csv</code>.</p>
+      <p class="small muted" style="margin-top:auto">Each listed on the <a class="u" href="https://w3id.org/m11-rdf/mappings/m11-usdm/residue/">residue page</a>; Template residue in <code>d5-residue.csv</code>.</p>
     </div>
     <div class="box doc">
       <p class="cap">Needs a convention</p>

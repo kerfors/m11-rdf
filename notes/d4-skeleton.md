@@ -16,7 +16,15 @@ One property, from the content to the element:
 | a document section | realises | `m11:C217272.C218527` (section 3.1) |
 | a template field | realises | an element IRI |
 
-The property is not defined yet. Open: an m11-rdf property, or an existing one (for example `dcterms:conformsTo`); and whether one property serves both elements and sections.
+`m11:realises` exists since v0.3.0 (D5), used from M11 Template fields; range `m11:Element`, no domain. Sections use `m11:headingElement` (section → element). Open: whether USDM instances and sponsor-template fields use `m11:realises`, and whether field → element statements by others are published as an SSSOM mapping set.
+
+## Template fields
+
+A field is a place in one version of one template. It is not the element and not the content filled into it. ICH identifies elements and sections, not fields.
+
+- A field gets an IRI only when something outside its graph needs to point at it. The IRI is the template publisher's, resolves, and is scoped to one template version: template, stated version, file pinned by checksum, position. It does not carry over to the next version; fields are related across versions through the element they realise.
+- The ICH M11 Template's fields are blank nodes in D5; m11-rdf applies the rule above when a consumer needs to point at one.
+- A sponsor's statements that its fields realise M11 elements are the sponsor's claims, published separately and pointing at the m11-rdf identifiers.
 
 ## Element is not instance
 
